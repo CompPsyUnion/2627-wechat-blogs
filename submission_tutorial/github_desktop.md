@@ -101,7 +101,7 @@ Push 完成后，在 GitHub Desktop 点击 **Preview Pull Request** 或 **Create
 
 更多投稿流程、文章要求、分支及 commit 命名规则，请参阅 [CONTRIBUTING.md](../CONTRIBUTING.md)。
 
-<hr>
+---
 
 ## English
 
