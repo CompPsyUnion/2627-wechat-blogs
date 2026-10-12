@@ -104,7 +104,41 @@
 
 **提交步骤：**
 
-从初稿开始，请使用 Pull Request 提交。下面是具体操作流程。如果不熟悉命令行操作（CLI），也可以使用 GitHub Desktop 完成投稿流程，详见[GitHub Desktop 投稿教程](submission_tutorial/github_desktop.md)：
+从初稿开始，请使用 Pull Request 提交。下面分别介绍 GitHub Desktop 图形界面和命令行（CLI）投稿流程。
+
+##### 使用 GitHub Desktop 投稿
+
+GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库、分支、commit 和 push。请搜索“GitHub Desktop”，从 GitHub 官方网站下载并安装。
+
+1. **Fork 并克隆仓库：** 打开[仓库主页](https://github.com/CompPsyUnion/2627-wechat-blogs)，点击 **Fork** 将仓库 fork 到自己的 GitHub 账号。打开 GitHub Desktop 并登录，选择 **File → Clone repository…**，选中自己账号下的 `2627-wechat-blogs` fork（确认 owner 是自己的用户名，而非 `CompPsyUnion`），选择本地保存位置并点击 **Clone**。
+
+   ![在 GitHub Desktop 中打开克隆仓库窗口](docs/images/clone_repo.png)
+
+   ![从列表中选择自己的 fork](docs/images/clone_repo_step2.png)
+
+   ![选择本地路径并克隆仓库](docs/images/clone_repo_setp3.png)
+
+2. **切换到最新 main 并创建分支：** 在 GitHub Desktop 选择仓库 `2627-wechat-blogs`，先切换到 `main`。如显示 **Fetch origin**，点击检查远端更新；若随后显示 **Pull origin**，点击拉取更新。然后点击 **Current Branch → New Branch**，输入符合[分支命名规范](#分支命名规范)的名称并点击 **Create Branch**。确认当前分支已切换为新分支，切勿直接在 `main` 上编辑或提交。
+
+   ![打开 Current Branch 分支菜单](docs/images/switch.png)
+
+   ![选择 New Branch 并输入分支名称](docs/images/switch_step2.png)
+
+   ![创建并切换到新分支](docs/images/switch_step3.png)
+
+3. **创建并编辑文章文件夹：** 在文件资源管理器中打开本地仓库，根据文章类别创建目录 `blog/software/<article_folder>/`、`blog/hardware/<article_folder>/`、`blog/algorithm/<article_folder>/` 或 `blog/story/<article_folder>/`。文件夹名使用小写 snake_case。文件夹中应有中文稿 `README.md`、英文稿 `README_EN.md` 和图片目录 `img/`。英文稿需由投稿者翻译并通读确认；图片放入 `img/`，正文使用相对路径引用。格式、翻译及内容要求详见下方“Markdown 文章内容要求”部分。
+
+4. **检查并 Commit：** 保存后返回 GitHub Desktop，在 **Changes** 中检查文件清单和 diff，确认只包含本次稿件及相关图片。填写 **Summary**（例如 `docs(blog): add article on cognitive biases`），可选填写 **Description**；遵守[提交信息规范](#提交信息规范)，不要添加 AI 署名 footer。确认当前分支不是 `main`，点击 **Commit to current branch**。
+
+5. **Push 分支：** 点击 GitHub Desktop 顶部的 **Push origin**（首次可能显示 **Publish branch**），将分支推送到自己的 fork。
+
+   ![在 GitHub Desktop 中提交并推送分支](docs/images/commit_and_push.png)
+
+6. **创建 PR：** Push 完成后，点击 **Preview Pull Request** 或 **Create Pull Request**。在打开的 GitHub 页面确认 base repository 为 `CompPsyUnion/2627-wechat-blogs`、base branch 为 `main`、head repository 为自己的 fork、compare branch 为刚推送的工作分支。填写 PR 标题和描述，关联 Issue（如 `Closes #123` 或 `Refs #123`），说明稿件内容及检查结果，然后创建 PR。
+
+7. **处理 review：** 如需修改，在同一分支本地编辑，在 GitHub Desktop 检查 diff、commit 并再次 **Push origin**；已有 PR 会自动更新。
+
+##### 使用命令行（CLI）投稿
 
 1. **Fork 仓库：** 打开 [仓库主页](https://github.com/CompPsyUnion/2627-wechat-blogs)，点击 **Fork**，将仓库复制到自己的 GitHub 账号下。
 2. **克隆自己的 fork：**
@@ -378,7 +412,41 @@ We will review your article title and outline within 3 working days.
 
 **Submission Steps:**
 
-From the first draft onward, submit your manuscript through a Pull Request. Follow this submission workflow. If you are not familiar with the command line (CLI), you can use GitHub Desktop to complete the process; see the [GitHub Desktop submission tutorial](submission_tutorial/github_desktop.md):
+From the first draft onward, submit your manuscript through a Pull Request. The instructions below cover both the GitHub Desktop graphical workflow and the command-line interface (CLI).
+
+##### Submit with GitHub Desktop
+
+GitHub Desktop is GitHub's official desktop application for managing repositories, branches, commits, and pushes through a graphical interface. Search for “GitHub Desktop” and download and install it from the official GitHub website.
+
+1. **Fork and clone the repository:** Open the [repository homepage](https://github.com/CompPsyUnion/2627-wechat-blogs) and click **Fork** to fork it to your GitHub account. Open GitHub Desktop and sign in. Select **File → Clone repository…**, choose your `2627-wechat-blogs` fork (verify the owner is your username, not `CompPsyUnion`), select a local path, and click **Clone**.
+
+   ![Open the clone repository dialog in GitHub Desktop](docs/images/clone_repo.png)
+
+   ![Select your fork from the repository list](docs/images/clone_repo_step2.png)
+
+   ![Choose a local path and clone the repository](docs/images/clone_repo_setp3.png)
+
+2. **Switch to the latest main and create a branch:** Select the `2627-wechat-blogs` repository in GitHub Desktop and switch to `main`. If **Fetch origin** appears, click it to check for remote updates; if **Pull origin** appears afterward, click it to pull the updates. Then select **Current Branch → New Branch**, enter a name following the [branch naming conventions](#branch-naming-conventions), and click **Create Branch**. Confirm that the new branch is selected. Do not edit or commit directly on `main`.
+
+   ![Open the Current Branch menu](docs/images/switch.png)
+
+   ![Select New Branch and enter a branch name](docs/images/switch_step2.png)
+
+   ![Create and switch to the new branch](docs/images/switch_step3.png)
+
+3. **Create and edit the article folder:** Open the local repository in File Explorer and create a folder under the category directory: `blog/software/<article_folder>/`, `blog/hardware/<article_folder>/`, `blog/algorithm/<article_folder>/`, or `blog/story/<article_folder>/`. Use lowercase snake_case for the folder name. Include the Chinese manuscript `README.md`, English manuscript `README_EN.md`, and an `img/` directory. Contributors must translate and review the English manuscript; place images in `img/` and reference them using relative paths. See the **Markdown Article Content Requirements** section below for content, translation, and formatting rules.
+
+4. **Review changes and commit:** Save your files and return to GitHub Desktop. Review the **Changes** list and diff, confirming that only the manuscript and relevant images are included. Enter a **Summary** (for example, `docs(blog): add article on cognitive biases`) and an optional **Description**. Follow the [commit message conventions](#commit-message-conventions) and do not add AI attribution footers. Confirm you are not on `main`, then click **Commit to current branch**.
+
+5. **Push the branch:** Click **Push origin** at the top of GitHub Desktop (the first push may show **Publish branch**) to push the branch to your fork.
+
+   ![Commit and push the branch in GitHub Desktop](docs/images/commit_and_push.png)
+
+6. **Create a PR:** After pushing, click **Preview Pull Request** or **Create Pull Request**. On GitHub, confirm the base repository is `CompPsyUnion/2627-wechat-blogs`, the base branch is `main`, the head repository is your fork, and the compare branch is your working branch. Add a clear PR title and description, link the related Issue (for example, `Closes #123` or `Refs #123`), summarize the manuscript and checks, and create the PR.
+
+7. **Address review comments:** If changes are requested, edit files locally on the same branch, review the diff in GitHub Desktop, commit, and click **Push origin** again. The existing PR updates automatically.
+
+##### Submit with the command line (CLI)
 
 1. **Fork the repository:** Open the [repository homepage](https://github.com/CompPsyUnion/2627-wechat-blogs), click **Fork**, and fork it to your GitHub account.
 2. **Clone your fork:**
