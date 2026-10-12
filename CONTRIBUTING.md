@@ -105,7 +105,7 @@
 
 **提交步骤：**
 
-从初稿开始，请使用 Pull Request 提交，不要将完整内容粘贴或上传到 Issue 评论中。下面是具体操作流程：
+从初稿开始，请使用 Pull Request 提交，不要将完整内容粘贴或上传到 Issue 评论中。下面是具体操作流程。如果不熟悉命令行操作（CLI），也可以使用 GitHub Desktop 完成投稿流程，详见[GitHub Desktop 投稿教程](submission_tutorial/github_desktop.md)：
 
 1. **Fork 仓库：** 打开 [仓库主页](https://github.com/CompPsyUnion/2627-wechat-blogs)，点击 **Fork**，将仓库复制到自己的 GitHub 账号下。
 2. **克隆自己的 fork：**
@@ -382,7 +382,7 @@ We will review your article title and outline within 3 working days.
 
 **Submission Steps:**
 
-From the first draft onward, use a Pull Request instead of pasting or uploading the complete manuscript to Issue comments. Follow this submission workflow:
+From the first draft onward, use a Pull Request instead of pasting or uploading the complete manuscript to Issue comments. Follow this submission workflow. If you are not familiar with the command line (CLI), you can use GitHub Desktop to complete the process; see the [GitHub Desktop submission tutorial](submission_tutorial/github_desktop.md):
 
 1. **Fork the repository:** Open the [repository homepage](https://github.com/CompPsyUnion/2627-wechat-blogs), click **Fork**, and fork it to your GitHub account.
 2. **Clone your fork:**
