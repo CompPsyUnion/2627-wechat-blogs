@@ -34,7 +34,7 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           BEFORE_SHA: ${{ github.event.before }}
         run: |
-          config=".github/workflows/markdownlint.json"
+          config=".markdownlint.json"
           if [[ "$EVENT_NAME" == "push" ]]; then
             base="$BEFORE_SHA"
           else
@@ -43,13 +43,37 @@ jobs:
 
           if [[ "$base" == "0000000000000000000000000000000000000000" ]] || \
              git diff --name-only "$base...HEAD" -- "$config" | grep -q .; then
-            npx --yes markdownlint-cli2 --config "$config" "**/*.md" "#node_modules"
+            mapfile -t files < <(git ls-files '*.md')
+            full_check=true
+          else
+            mapfile -t files < <(git diff --name-only "$base...HEAD" -- '*.md')
+            full_check=false
+          fi
+
+          if ((${#files[@]} == 0)); then
+            echo "No Markdown files to check." | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
 
-          mapfile -t files < <(git diff --name-only "$base...HEAD" -- '*.md')
-          if ((${#files[@]} == 0)); then
-            echo "No Markdown files changed."
-            exit 0
+          echo "## Markdown lint" >> "$GITHUB_STEP_SUMMARY"
+          if [[ "$full_check" == true ]]; then
+            echo "Checked all tracked Markdown files because the lint configuration changed." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Checked Markdown files changed in this event." >> "$GITHUB_STEP_SUMMARY"
           fi
-          npx --yes markdownlint-cli2 --config "$config" "${files[@]}"
+
+          set +e
+          npx --yes markdownlint-cli2 --config "$config" "${files[@]}" 2>&1 | tee lint-output.txt
+          lint_status=${PIPESTATUS[0]}
+          set -e
+
+          if [[ "$lint_status" -eq 0 ]]; then
+            echo "\n✅ No Markdown lint issues found." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "\n❌ Markdown lint failed. Details:" >> "$GITHUB_STEP_SUMMARY"
+            echo '```text' >> "$GITHUB_STEP_SUMMARY"
+            cat lint-output.txt >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          exit "$lint_status"
