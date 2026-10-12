@@ -32,9 +32,19 @@ Issue 中仍然提出文章标题和大纲、确认认领及安排进度；大�
 
 ### 3. 创建并切换到新分支
 
-在 GitHub Desktop 顶部确认当前仓库为 `2627-wechat-blogs`。点击 **Current Branch**，选择 **New Branch**，输入符合[分支命名规范](../CONTRIBUTING.md#分支命名规范)的名称，然后点击 **Create Branch**。请勿在 `main` 分支上直接编辑或提交。
+在 GitHub Desktop 顶部确认当前仓库为 `2627-wechat-blogs`，并先切换到 `main` 分支。若 GitHub Desktop 显示 **Fetch origin**，点击它检查远端更新；如随后出现 **Pull origin**，点击拉取更新，确保从最新的 `main` 创建分支。然后点击 **Current Branch** 打开分支菜单：
 
-例如，撰写算法类文章可使用 `docs/cognitive-biases`；修复问题和新增功能的分支请分别遵循 `fix/` 和 `feature/` 规则。创建后确认顶部显示的是新分支。
+![打开 Current Branch 菜单](./img/switch.png)
+
+选择 **New Branch**，输入符合[分支命名规范](../CONTRIBUTING.md#分支命名规范)的名称：
+
+![选择 New Branch 并填写分支名称](./img/switch_step2.png)
+
+点击 **Create Branch** 创建分支，并确认 GitHub Desktop 顶部显示新分支名称：
+
+![创建并切换到新分支](./img/switch_step3.png)
+
+请勿在 `main` 分支上直接编辑或提交。
 
 ### 4. 创建文章文件夹并撰写中英文稿
 
@@ -121,9 +131,19 @@ Choose where to save the local repository and click **Clone**. GitHub Desktop wi
 
 ### 3. Create and switch to a branch
 
-In GitHub Desktop, confirm that the current repository is `2627-wechat-blogs`. Click **Current Branch**, select **New Branch**, enter a name following the [branch naming conventions](../CONTRIBUTING.md#branch-naming-conventions), and click **Create Branch**. Do not edit or commit directly on `main`.
+In GitHub Desktop, confirm that the current repository is `2627-wechat-blogs` and switch to the `main` branch first. If GitHub Desktop shows **Fetch origin**, click it to check for remote updates. If **Pull origin** appears afterward, click it to pull those updates so your new branch starts from the latest `main`. Then click **Current Branch** to open the branch menu:
 
-For example, an article about cognitive biases could use `docs/cognitive-biases`. Bug-fix and feature branches must follow the `fix/` and `feature/` conventions. Confirm that the new branch is selected at the top of the application.
+![Open the Current Branch menu](./img/switch.png)
+
+Select **New Branch** and enter a name following the [branch naming conventions](../CONTRIBUTING.md#branch-naming-conventions):
+
+![Select New Branch and enter a branch name](./img/switch_step2.png)
+
+Click **Create Branch**, then confirm that the new branch name appears at the top of GitHub Desktop:
+
+![Create and switch to the new branch](./img/switch_step3.png)
+
+Do not edit or commit directly on `main`.
 
 ### 4. Create the article folder and write both manuscripts
 
