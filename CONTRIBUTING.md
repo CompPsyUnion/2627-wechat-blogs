@@ -94,18 +94,17 @@
 **注意时间节点：**
 
 - 请在上方我们给你标注的 milestone 的 due date 之前完成你的推文
-- 如果长时间没给你标注 milestone，你也可以直接开始编写完整的推文内容；从初稿开始请通过 Pull Request 提交，不要发送到 Issue
+- 如果长时间没给你标注 milestone，你也可以直接开始编写完整的推文内容，并通过 Pull Request 提交
 - 越是完善的内容，我们越可能给你更早排期到位
 - 如果超期未完成，你将面临被扣积分的风险
 
 **编写建议：**
 
-- 你可以在本地使用编辑器写 Markdown
-- **建议不要直接在 GitHub issue 评论框中写**，因为你的 Markdown 最终需要通过 VSCode Markdownlint 插件的语法规范检测
+- 请在本地编辑器中撰写 Markdown 稿件，并通过 Pull Request 提交文件。
 
 **提交步骤：**
 
-从初稿开始，请使用 Pull Request 提交，不要将完整内容粘贴或上传到 Issue 评论中。下面是具体操作流程。如果不熟悉命令行操作（CLI），也可以使用 GitHub Desktop 完成投稿流程，详见[GitHub Desktop 投稿教程](submission_tutorial/github_desktop.md)：
+从初稿开始，请使用 Pull Request 提交。下面是具体操作流程。如果不熟悉命令行操作（CLI），也可以使用 GitHub Desktop 完成投稿流程，详见[GitHub Desktop 投稿教程](submission_tutorial/github_desktop.md)：
 
 1. **Fork 仓库：** 打开 [仓库主页](https://github.com/CompPsyUnion/2627-wechat-blogs)，点击 **Fork**，将仓库复制到自己的 GitHub 账号下。
 2. **克隆自己的 fork：**
@@ -172,7 +171,6 @@
   - 确保图片的版权和来源合法
   - 提交前检查仓库预览中的图片路径是否有效
   - 图片清晰度足够、大小适中
-    > 本地图片请放在文章文件夹的 `img/` 目录中，并在正文中使用相对路径引用。请确保图片版权和来源合法。
 - **代码块：** 如果包含代码，请使用 Markdown 代码块，并**标注语言**
   - 示例：` ```python` 而不是仅仅 ` ``` `
   - 确保代码的正确性和可读性
@@ -180,10 +178,9 @@
   - 由于微信对外部链接限制，外部链接请直接粘贴链接，**不要使用 markdown 语法插入链接**
   - 避免在公式块中特殊规定颜色，_这个需求我们做不了_
   - **不要插入 HTML 语句**，我们微信也没那么 6
-  - 如果我们发现你的 markdown 在我们这里会有 lint 报错，你会需要返工
-  - 需要在本地格式化通过后再提交（如不会请自行上网搜索，或者看第一次周常回放）
-- 如需**特殊署名**，请在自己文章下方标注作者，或者在 Issue 中 Comment 请求。我们最终会以 `Robert(Siyuan) He` 或类似的形式呈现。
-- 需要在本地格式化并检查通过后再提交（如不会请自行上网搜索，或者看第一次周常回放）。如果我们发现 Markdownlint 报错，你需要返工；自动格式化造成歧义时，也需要你自行决定如何排版。
+  - 需要在本地格式化并检查通过后再通过 PR 提交（如不会请自行上网搜索，或者看第一次周常回放）
+- 如需**特殊署名**，请在文章末尾标注作者，或者在 Pull Request 中提出请求。我们最终会以 `Robert(Siyuan) He` 或类似的形式呈现。
+- 如果我们发现 Markdownlint 报错，你需要返工；自动格式化造成歧义时，也需要你自行决定如何排版。
 - **参考资料：** 如果包含参考资料，请在文章末尾使用引用的方式列出，并确保版权和来源合法
 
 #### 4. 完整稿件审核
@@ -192,13 +189,13 @@
 
 **审核通过：**
 
-- 维护者会留言："好的，收到" 或类似内容
+- 维护者会在 Pull Request 中留言确认，例如："好的，收到" 或类似内容
 - 你的文案将移交宣传部
 - 维护者会 close 这个 issue，你的任务就算彻底完成了
 
 **需要修改：**
 
-- 我们会在 issue 下方留言并提出修改意见
+- 维护者会在 Pull Request 中提出修改意见
 - 请按照 Pull Request 中的意见修改，在同一个分支中保存、commit 并 push，PR 会自动更新
 - 我们也可能顺手帮你格式化了，需要返工的情况大概率是自动格式化时会产生歧义，需要你来自己决定如何排版
 
@@ -371,18 +368,17 @@ We will review your article title and outline within 3 working days.
 **Note on Timeline:**
 
 - Please complete your article before the due date of the milestone we assigned to you
-- If you haven't been assigned a milestone for a long time, you can still start writing the complete article; from the first draft onward, submit it through a Pull Request rather than the Issue
+- If you haven't been assigned a milestone for a long time, you can still start writing the complete article and submit it through a Pull Request
 - The more complete your content, the more likely we'll schedule you earlier
 - If you fail to complete on time, you risk having points deducted
 
 **Writing Recommendations:**
 
-- You can write Markdown locally using an editor
-- **It's recommended NOT to write directly in the GitHub issue comment box**, as your Markdown ultimately needs to pass VSCode Markdownlint plugin's syntax validation
+- Write and edit your Markdown manuscripts locally, then add them to your branch and submit them through a Pull Request.
 
 **Submission Steps:**
 
-From the first draft onward, use a Pull Request instead of pasting or uploading the complete manuscript to Issue comments. Follow this submission workflow. If you are not familiar with the command line (CLI), you can use GitHub Desktop to complete the process; see the [GitHub Desktop submission tutorial](submission_tutorial/github_desktop.md):
+From the first draft onward, submit your manuscript through a Pull Request. Follow this submission workflow. If you are not familiar with the command line (CLI), you can use GitHub Desktop to complete the process; see the [GitHub Desktop submission tutorial](submission_tutorial/github_desktop.md):
 
 1. **Fork the repository:** Open the [repository homepage](https://github.com/CompPsyUnion/2627-wechat-blogs), click **Fork**, and fork it to your GitHub account.
 2. **Clone your fork:**
@@ -456,14 +452,13 @@ From the first draft onward, use a Pull Request instead of pasting or uploading 
 - **Code Blocks:** If including code, use Markdown code blocks and **specify the language**
   - Example: ` ```python` instead of just ` ``` `
   - Ensure code correctness and readability
-- **Markdown Syntax Standards:** Use VSCode's Markdownlint (DavidAnson.vscode-markdownlint) plugin to check syntax
-  - Due to WeChat's restrictions on external links, please paste external links directly into the article text — **do not use Markdown link syntax**
-  - Avoid specifying special colours or styling inside formula/math blocks — we can't support custom colours in rendered posts
-  - **Do NOT insert HTML statements**, our WeChat isn't that sophisticated
-  - If we find your markdown has lint errors on our end, you'll need to rework it
-  - If you need a special author signature, please mark the author at the end of your article or request it in the Issue comments. We will present it in a format like `Robert(Siyuan) He` or similar.
-  - Format the manuscript locally and pass validation before submitting (if you don't know how, please search online or watch the first weekly meeting replay)
-  - If we find Markdown lint errors on our end, you will need to rework the manuscript. Rework may also be needed when auto-formatting creates ambiguity, requiring you to decide on the formatting
+- **Markdown Syntax Standards:** Use VS Code's Markdownlint (DavidAnson.vscode-markdownlint) extension to check syntax
+  - Due to WeChat's restrictions on external links, paste external URLs directly into the article text — **do not use Markdown link syntax**
+  - Avoid specifying special colours or styling inside formula/math blocks — custom colours cannot be supported in the published posts
+  - **Do NOT insert HTML**
+  - Format and validate the manuscripts locally before submitting them through a PR (if you don't know how, please search online or watch the first weekly meeting replay)
+  - If we find Markdown lint errors, you will need to revise the manuscript. Revision may also be needed when auto-formatting creates ambiguity, requiring you to decide on the formatting
+  - If you need a special author signature, mark the author at the end of your article or request it in the Pull Request description. We will present it in a format like `Robert(Siyuan) He` or similar.
 - **References:** If including references, list them at the end of the article using citation format, ensuring copyright and sources are legitimate
 
 #### 4. Complete Manuscript Review
@@ -472,13 +467,13 @@ We will review your complete manuscript within 3 working days. Please follow the
 
 **Review Approved:**
 
-- Maintainers will comment: "OK, approved" or similar
+- Maintainers will confirm approval in the Pull Request with a comment such as "OK, received"
 - Your content will be handed over to the publicity department
 - Maintainers will close this issue, and your task is completely finished
 
 **Needs Revision:**
 
-- We will comment below the issue with revision suggestions
+- Maintainers will leave revision suggestions in the Pull Request
 - Please revise according to the suggestions on the Pull Request, then save, commit, and push on the same branch; the PR will update automatically
 - We may also help you format it, but rework is usually needed when auto-formatting creates ambiguity, requiring you to make formatting decisions
 

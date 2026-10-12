@@ -8,7 +8,7 @@
 
 本教程介绍如何使用 GitHub Desktop 完成 CompPsyUnion 微信公众号文章投稿。GitHub Desktop 是 GitHub 官方提供的桌面应用程序，可通过图形界面管理 Git 仓库、分支、提交和推送，适合不熟悉命令行（CLI）的投稿者。请在网上搜索“GitHub Desktop”，并从 GitHub 官方网站下载和安装。
 
-Issue 中仍然提出文章标题和大纲、确认认领及安排进度；大纲审核通过后，从初稿开始的稿件和修订都通过 Pull Request（PR）提交，不要把完整稿件贴到 Issue 评论中。
+Issue 用于提出文章标题和大纲、确认认领及安排进度；大纲审核通过后，从初稿开始通过 Pull Request（PR）提交稿件和后续修订。
 
 如果你还没有完成选题，请先按 [CONTRIBUTING.md](../CONTRIBUTING.md) 的说明在 Issue 提出标题和大纲，并等待审核通过（Issue 标记为 `Task`）后再开始写初稿。
 
@@ -97,7 +97,7 @@ Push 完成后，在 GitHub Desktop 点击 **Preview Pull Request** 或 **Create
 
 ### 8. 根据 Review 修改并更新 PR
 
-维护者会在 PR 中 review 稿件。需要修改时，在本地同一个分支中编辑文件，保存后回到 GitHub Desktop检查 diff，再填写 commit 信息并 `Commit to <branch-name>`，最后点击 **Push origin**。变更会自动出现在原 PR 中，不要另开重复 PR，也不要把修订内容改贴到 Issue。
+维护者会在 PR 中 review 稿件。需要修改时，在本地同一个分支中编辑文件，保存后回到 GitHub Desktop 检查 diff，再填写 commit 信息并 `Commit to <branch-name>`，最后点击 **Push origin**。变更会自动出现在原 PR 中。
 
 更多投稿流程、文章要求、分支及 commit 命名规则，请参阅 [CONTRIBUTING.md](../CONTRIBUTING.md)。
 
@@ -107,7 +107,7 @@ Push 完成后，在 GitHub Desktop 点击 **Preview Pull Request** 或 **Create
 
 This tutorial explains how to submit a CompPsyUnion WeChat article using GitHub Desktop. GitHub Desktop is GitHub's official desktop application for managing Git repositories, branches, commits, and pushes through a graphical interface. It is useful if you are not familiar with the command line (CLI). Search online for “GitHub Desktop” and download and install it from the official GitHub website.
 
-Use the Issue to propose the title and outline, confirm the assignee, and track scheduling. Once the outline is approved, submit the first draft and all subsequent revisions through a Pull Request (PR)—do not paste the complete manuscript into Issue comments.
+Use the Issue to propose the title and outline, confirm the assignee, and track scheduling. Once the outline is approved, submit the first draft and all subsequent revisions through a Pull Request (PR).
 
 If you have not proposed your topic yet, follow [CONTRIBUTING.md](../CONTRIBUTING.md) to create an Issue with the title and outline. Wait for approval (the Issue should be marked as `Task`) before drafting.
 
@@ -196,6 +196,6 @@ Provide a clear PR title and description, link the related Issue (for example, `
 
 ### 8. Address review comments and update the PR
 
-Maintainers will review the manuscript in the PR. To make changes, edit files locally on the same branch, save them, and return to GitHub Desktop to review the diff. Enter a commit message, click `Commit to <branch-name>`, then click **Push origin**. The existing PR updates automatically. Do not open a duplicate PR or move revisions into Issue comments.
+Maintainers will review the manuscript in the PR. To make changes, edit files locally on the same branch, save them, and return to GitHub Desktop to review the diff. Enter a commit message, click `Commit to <branch-name>`, then click **Push origin**. The existing PR updates automatically.
 
 For the complete submission process, manuscript requirements, and branch/commit naming rules, see [CONTRIBUTING.md](../CONTRIBUTING.md).
