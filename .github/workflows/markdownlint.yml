@@ -1,0 +1,79 @@
+name: Markdown lint
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  markdownlint:
+    name: Lint Markdown files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out pull request
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Lint changed Markdown files
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          config=".markdownlint.json"
+          if [[ "$EVENT_NAME" == "push" ]]; then
+            base="$BEFORE_SHA"
+          else
+            base="$BASE_SHA"
+          fi
+
+          if [[ "$base" == "0000000000000000000000000000000000000000" ]] || \
+             git diff --name-only "$base...HEAD" -- "$config" | grep -q .; then
+            mapfile -t files < <(git ls-files '*.md')
+            full_check=true
+          else
+            mapfile -t files < <(git diff --name-only "$base...HEAD" -- '*.md')
+            full_check=false
+          fi
+
+          if ((${#files[@]} == 0)); then
+            echo "No Markdown files to check." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          echo "## Markdown lint" >> "$GITHUB_STEP_SUMMARY"
+          if [[ "$full_check" == true ]]; then
+            echo "Checked all tracked Markdown files because the lint configuration changed." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Checked Markdown files changed in this event." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          set +e
+          npx --yes markdownlint-cli2 --config "$config" "${files[@]}" 2>&1 | tee lint-output.txt
+          lint_status=${PIPESTATUS[0]}
+          set -e
+
+          if [[ "$lint_status" -eq 0 ]]; then
+            echo "✅ No Markdown lint issues found." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "❌ Markdown lint failed. Details:" >> "$GITHUB_STEP_SUMMARY"
+            echo '```text' >> "$GITHUB_STEP_SUMMARY"
+            cat lint-output.txt >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          exit "$lint_status"
