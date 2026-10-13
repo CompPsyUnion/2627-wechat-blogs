@@ -126,7 +126,7 @@ GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库
 
    ![创建并切换到新分支](docs/images/switch_step3.png)
 
-3. **创建并编辑文章文件夹：** 在文件资源管理器中打开本地仓库，根据文章类别创建目录 `blog/software/<article_folder>/`、`blog/hardware/<article_folder>/`、`blog/algorithm/<article_folder>/` 或 `blog/story/<article_folder>/`。文件夹名使用小写 snake_case。文件夹中应有中文稿 `README.md`、英文稿 `README_EN.md` 和图片目录 `img/`。英文稿需由投稿者翻译并通读确认；图片放入 `img/`，正文使用相对路径引用。格式、翻译及内容要求详见下方“Markdown 文章内容要求”部分。
+3. **创建并编辑文章文件夹：** 在文件资源管理器中打开本地仓库，根据文章类别创建目录 `blogs/software/<article_folder>/`、`blogs/hardware/<article_folder>/`、`blogs/algorithm/<article_folder>/` 或 `blogs/story/<article_folder>/`。文件夹名使用小写 snake_case。文件夹中应有中文稿 `README.md`、英文稿 `README_EN.md` 和图片目录 `img/`。英文稿需由投稿者翻译并通读确认；图片放入 `img/`，正文使用相对路径引用。格式、翻译及内容要求详见下方“Markdown 文章内容要求”部分。
 
 4. **检查并 Commit：** 保存后返回 GitHub Desktop，在 **Changes** 中检查文件清单和 diff，确认只包含本次稿件及相关图片。填写 **Summary**（例如 `docs(blog): add article on cognitive biases`），可选填写 **Description**；遵守[提交信息规范](#提交信息规范)，不要添加 AI 署名 footer。确认当前分支不是 `main`，点击 **Commit to current branch**。
 
@@ -158,11 +158,11 @@ GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库
     git switch -c <branch-name> # Replace with your branch name
     ```
 
-4. **创建并编辑文本：** 根据文章类别，在对应的 `blog/` 子目录中创建一个文章文件夹：软件类放在 `blog/software/`，硬件类放在 `blog/hardware/`，算法类放在 `blog/algorithm/`，故事类放在 `blog/story/`。文件夹使用小写蛇形命名法描述文章标题，例如 `a_good_article_name/`。文件夹中需要包含中英文稿件 `README.md`、`README_EN.md`，以及存放文章图片的 `img/` 目录。图片应放在 `img/` 中，并在正文使用相对路径引用。结构如下：
+4. **创建并编辑文本：** 根据文章类别，在对应的 `blogs/` 子目录中创建一个文章文件夹：软件类放在 `blogs/software/`，硬件类放在 `blogs/hardware/`，算法类放在 `blogs/algorithm/`，故事类放在 `blogs/story/`。文件夹使用小写蛇形命名法描述文章标题，例如 `a_good_article_name/`。文件夹中需要包含中英文稿件 `README.md`、`README_EN.md`，以及存放文章图片的 `img/` 目录。图片应放在 `img/` 中，并在正文使用相对路径引用。结构如下：
 
     ```text
     2627-wechat-blogs/
-    └── blog/
+    └── blogs/
         └── algorithm/
             └── a_good_article_name/
                 ├── README.md       # 中文稿件
@@ -171,14 +171,14 @@ GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库
                     └── example_image.png
     ```
 
-    请将新文件夹放入与文章类别对应的目录，例如算法类文章放在 `blog/algorithm/a_good_article_name/`。使用本地编辑器编写中英文稿件，并用 VSCode Markdownlint 插件检查。图片请放入该文章文件夹下的 `img/` 目录，正文中使用相对路径引用。
+    请将新文件夹放入与文章类别对应的目录，例如算法类文章放在 `blogs/algorithm/a_good_article_name/`。使用本地编辑器编写中英文稿件，并用 VSCode Markdownlint 插件检查。图片请放入该文章文件夹下的 `img/` 目录，正文中使用相对路径引用。
 
 5. **Commit：** 检查并提交变更：
 
     ```bash
     git status
     git diff --check
-    git add blog/<category>/<article-folder>/
+    git add blogs/<category>/<article-folder>/
     git commit -m "docs(article-name): add article draft"
     ```
 
@@ -434,7 +434,7 @@ GitHub Desktop is GitHub's official desktop application for managing repositorie
 
    ![Create and switch to the new branch](docs/images/switch_step3.png)
 
-3. **Create and edit the article folder:** Open the local repository in File Explorer and create a folder under the category directory: `blog/software/<article_folder>/`, `blog/hardware/<article_folder>/`, `blog/algorithm/<article_folder>/`, or `blog/story/<article_folder>/`. Use lowercase snake_case for the folder name. Include the Chinese manuscript `README.md`, English manuscript `README_EN.md`, and an `img/` directory. Contributors must translate and review the English manuscript; place images in `img/` and reference them using relative paths. See the **Markdown Article Content Requirements** section below for content, translation, and formatting rules.
+3. **Create and edit the article folder:** Open the local repository in File Explorer and create a folder under the category directory: `blogs/software/<article_folder>/`, `blogs/hardware/<article_folder>/`, `blogs/algorithm/<article_folder>/`, or `blogs/story/<article_folder>/`. Use lowercase snake_case for the folder name. Include the Chinese manuscript `README.md`, English manuscript `README_EN.md`, and an `img/` directory. Contributors must translate and review the English manuscript; place images in `img/` and reference them using relative paths. See the **Markdown Article Content Requirements** section below for content, translation, and formatting rules.
 
 4. **Review changes and commit:** Save your files and return to GitHub Desktop. Review the **Changes** list and diff, confirming that only the manuscript and relevant images are included. Enter a **Summary** (for example, `docs(blog): add article on cognitive biases`) and an optional **Description**. Follow the [commit message conventions](#commit-message-conventions) and do not add AI attribution footers. Confirm you are not on `main`, then click **Commit to current branch**.
 
@@ -466,11 +466,11 @@ GitHub Desktop is GitHub's official desktop application for managing repositorie
     git switch -c <branch-name> # Replace with your branch name
     ```
 
-4. **Create and edit the text:** Create an article folder in the `blog/` subdirectory matching the article category: software in `blog/software/`, hardware in `blog/hardware/`, algorithms in `blog/algorithm/`, and stories in `blog/story/`. Name the folder in lowercase snake_case based on the article title, for example `a_good_article_name/`. It must contain the Chinese manuscript `README.md`, the English manuscript `README_EN.md`, and an `img/` directory for article images. The structure is:
+4. **Create and edit the text:** Create an article folder in the `blogs/` subdirectory matching the article category: software in `blogs/software/`, hardware in `blogs/hardware/`, algorithms in `blogs/algorithm/`, and stories in `blogs/story/`. Name the folder in lowercase snake_case based on the article title, for example `a_good_article_name/`. It must contain the Chinese manuscript `README.md`, the English manuscript `README_EN.md`, and an `img/` directory for article images. The structure is:
 
     ```text
     2627-wechat-blogs/
-    └── blog/
+    └── blogs/
         └── algorithm/
             └── a_good_article_name/
                 ├── README.md       # Chinese manuscript
@@ -479,14 +479,14 @@ GitHub Desktop is GitHub's official desktop application for managing repositorie
                     └── example_image.png
     ```
 
-    For example, create an algorithm article at `blog/algorithm/a_good_article_name/`. Write both manuscripts locally, then check them with the VS Code Markdownlint extension. Place images in that article's `img/` directory and reference them using relative paths.
+    For example, create an algorithm article at `blogs/algorithm/a_good_article_name/`. Write both manuscripts locally, then check them with the VS Code Markdownlint extension. Place images in that article's `img/` directory and reference them using relative paths.
 
 5. **Commit:** Check and commit the change:
 
     ```bash
     git status
     git diff --check
-    git add blog/<category>/<article-folder>/
+    git add blogs/<category>/<article-folder>/
     git commit -m "docs(article-name): add article draft"
     ```
 
