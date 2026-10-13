@@ -134,7 +134,7 @@ GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库
 
    ![在 GitHub Desktop 中提交并推送分支](docs/images/commit_and_push.png)
 
-6. **创建 PR：** Push 完成后，点击 **Preview Pull Request** 或 **Create Pull Request**。在打开的 GitHub 页面确认 base repository 为 `CompPsyUnion/2627-wechat-blogs`、base branch 为 `main`、head repository 为自己的 fork、compare branch 为刚推送的工作分支。填写 PR 标题和描述，关联 Issue（如 `Closes #123` 或 `Refs #123`），说明稿件内容及检查结果，然后创建 PR。
+6. **创建 PR：** Push 完成后，点击 **Preview Pull Request** 或 **Create Pull Request**。在打开的 GitHub 页面确认 base repository 为 `CompPsyUnion/2627-wechat-blogs`、base branch 为 `main`、head repository 为自己的 fork、compare branch 为刚推送的工作分支。填写 PR 标题和描述（标题遵循[PR 标题规范](#pr-标题规范)），关联 Issue（如 `Closes #123` 或 `Refs #123`），说明稿件内容及检查结果，然后创建 PR。
 
 7. **处理 review：** 如需修改，在同一分支本地编辑，在 GitHub Desktop 检查 diff、commit 并再次 **Push origin**；已有 PR 会自动更新。
 
@@ -160,7 +160,7 @@ GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库
 
 4. **创建并编辑文本：** 根据文章类别，在对应的 `blogs/` 子目录中创建一个文章文件夹：软件类放在 `blogs/software/`，硬件类放在 `blogs/hardware/`，算法类放在 `blogs/algorithm/`，故事类放在 `blogs/story/`。文件夹使用小写蛇形命名法描述文章标题，例如 `a_good_article_name/`。文件夹中需要包含中英文稿件 `README.md`、`README_EN.md`，以及存放文章图片的 `img/` 目录。图片应放在 `img/` 中，并在正文使用相对路径引用。结构如下：
 
-    ```text
+    ```bash
     2627-wechat-blogs/
     └── blogs/
         └── algorithm/
@@ -190,7 +190,7 @@ GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库
    git push -u origin <branch-name>
    ```
 
-7. **创建 PR：** 打开 `https://github.com/<your-username>/2627-wechat-blogs` ，从自己的 fork 向 `CompPsyUnion/2627-wechat-blogs` 的 `main` 分支创建 Pull Request。PR 描述中请关联 Issue（如 `Closes #123` 或 `Refs #123`），并说明检查结果。
+7. **创建 PR：** 打开 `https://github.com/<your-username>/2627-wechat-blogs` ，从自己的 fork 向 `CompPsyUnion/2627-wechat-blogs` 的 `main` 分支创建 Pull Request。PR 标题请遵循[PR 标题规范](#pr-标题规范)，描述中请关联 Issue（如 `Closes #123` 或 `Refs #123`），并说明检查结果。
 
 8. **根据 review 修改：** 在同一个分支中编辑、commit 并 push，PR 会自动更新。
 
@@ -201,18 +201,18 @@ GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库
 - 文章内容要有逻辑性和连贯性，避免语法错误和拼写错误
 - 文章内容要有一定的原创性，避免大篇幅抄袭和引用。我们会使用工具来检测文章的原创性
 - **图片插入：** 使用 Markdown 语法 `![alt text](relative-image-path)` 插入图片
-  - 图片文件存放在文章文件夹的 `img/` 目录中，并使用相对路径引用
-  - 确保图片的版权和来源合法
-  - 提交前检查仓库预览中的图片路径是否有效
-  - 图片清晰度足够、大小适中
+   - 图片文件存放在文章文件夹的 `img/` 目录中，并使用相对路径引用
+   - 确保图片的版权和来源合法
+   - 提交前检查仓库预览中的图片路径是否有效
+   - 图片清晰度足够、大小适中
 - **代码块：** 如果包含代码，请使用 Markdown 代码块，并**标注语言**
-  - 示例：` ```python` 而不是仅仅 ` ``` `
-  - 确保代码的正确性和可读性
+   - 示例：` ```python` 而不是仅仅 ` ``` `
+   - 确保代码的正确性和可读性
 - **Markdown 语法规范：** 使用 VSCode 的 Markdownlint (DavidAnson.vscode-markdownlint) 插件检查语法
-  - 由于微信对外部链接限制，外部链接请直接粘贴链接，**不要使用 markdown 语法插入链接**
-  - 避免在公式块中特殊规定颜色，_这个需求我们做不了_
-  - **不要插入 HTML 语句**，我们微信也没那么 6
-  - 需要在本地格式化并检查通过后再通过 PR 提交（如不会请自行上网搜索，或者看第一次周常回放）
+   - 由于微信对外部链接限制，外部链接请直接粘贴链接，**不要使用 markdown 语法插入链接**
+   - 避免在公式块中特殊规定颜色，_这个需求我们做不了_
+   - **不要插入 HTML 语句**，我们微信也没那么 6
+   - 需要在本地格式化并检查通过后再通过 PR 提交（如不会请自行上网搜索，或者看第一次周常回放）
 - 如需**特殊署名**，请在文章末尾标注作者，或者在 Pull Request 中提出请求。我们最终会以 `Robert(Siyuan) He` 或类似的形式呈现。
 - 如果我们发现 Markdownlint 报错，你需要返工；自动格式化造成歧义时，也需要你自行决定如何排版。
 - **参考资料：** 如果包含参考资料，请在文章末尾使用引用的方式列出，并确保版权和来源合法
@@ -276,6 +276,10 @@ Refs #123
 
 禁止出现指名 AI 的 `Co-Authored-By:` trailer（如 `Co-Authored-By: Claude ...`）或任何 `Generated with ...` 之类的 AI 署名 footer。
 
+### PR 标题规范
+
+PR 标题使用大写字母开头的自然语句，不需要遵循 commit message 规范（无需 `<type>(<scope>):` 前缀），例如 `Update the contribution workflow`。
+
 ### 积分制度
 
 - **主动提出并完成：** 如果是你主动提出此 issue，self-assign 并最后完成 pull request，你会得到 **3 点积分**
@@ -288,19 +292,19 @@ Refs #123
 ### 关于 Issue 标签 (Labels) 和 种类 (Types)
 
 - **种类**
-  - `Task` 表示这个 issue 已经通过了标题和大纲的审核，可以开始写完整内容
+   - `Task` 表示这个 issue 已经通过了标题和大纲的审核，可以开始写完整内容
 - **标签**
-  - 你可以自己添加的
-    - `blogs-software` 软件类技术推文，如开发工具或者插件的介绍等
-    - `blogs-hardware` 硬件类技术推文，如电脑硬件远离，DIY 相关等
-    - `blogs-algorithm` 算法类技术推文，如机器学习、深度学习、数据分析等
-    - `blogs-story` 历史、故事类技术推文，如计算机发展史、编程语言发展史等
-  - 由组织管理者添加的
-    - `duplicate` 表示这个 issue 是重复的，已经被关闭
-    - `invalid` 表示这个 issue 的标题和大纲审核不通过，已经被关闭
-    - `published` 表示这个 issue 的文章已经发布
-    - `in-review` 表示这个 issue 的文章正在审核中
-    - `publish-pending` 表示这个 issue 的文章正在排期发布
+   - 你可以自己添加的
+      - `blogs-software` 软件类技术推文，如开发工具或者插件的介绍等
+      - `blogs-hardware` 硬件类技术推文，如电脑硬件远离，DIY 相关等
+      - `blogs-algorithm` 算法类技术推文，如机器学习、深度学习、数据分析等
+      - `blogs-story` 历史、故事类技术推文，如计算机发展史、编程语言发展史等
+   - 由组织管理者添加的
+      - `duplicate` 表示这个 issue 是重复的，已经被关闭
+      - `invalid` 表示这个 issue 的标题和大纲审核不通过，已经被关闭
+      - `published` 表示这个 issue 的文章已经发布
+      - `in-review` 表示这个 issue 的文章正在审核中
+      - `publish-pending` 表示这个 issue 的文章正在排期发布
 
 ### 在你开始前
 
@@ -442,7 +446,7 @@ GitHub Desktop is GitHub's official desktop application for managing repositorie
 
    ![Commit and push the branch in GitHub Desktop](docs/images/commit_and_push.png)
 
-6. **Create a PR:** After pushing, click **Preview Pull Request** or **Create Pull Request**. On GitHub, confirm the base repository is `CompPsyUnion/2627-wechat-blogs`, the base branch is `main`, the head repository is your fork, and the compare branch is your working branch. Add a clear PR title and description, link the related Issue (for example, `Closes #123` or `Refs #123`), summarize the manuscript and checks, and create the PR.
+6. **Create a PR:** After pushing, click **Preview Pull Request** or **Create Pull Request**. On GitHub, confirm the base repository is `CompPsyUnion/2627-wechat-blogs`, the base branch is `main`, the head repository is your fork, and the compare branch is your working branch. Add a clear PR title and description following the [PR title conventions](#pr-title-conventions), link the related Issue (for example, `Closes #123` or `Refs #123`), summarize the manuscript and checks, and create the PR.
 
 7. **Address review comments:** If changes are requested, edit files locally on the same branch, review the diff in GitHub Desktop, commit, and click **Push origin** again. The existing PR updates automatically.
 
@@ -468,7 +472,7 @@ GitHub Desktop is GitHub's official desktop application for managing repositorie
 
 4. **Create and edit the text:** Create an article folder in the `blogs/` subdirectory matching the article category: software in `blogs/software/`, hardware in `blogs/hardware/`, algorithms in `blogs/algorithm/`, and stories in `blogs/story/`. Name the folder in lowercase snake_case based on the article title, for example `a_good_article_name/`. It must contain the Chinese manuscript `README.md`, the English manuscript `README_EN.md`, and an `img/` directory for article images. The structure is:
 
-    ```text
+    ```bash
     2627-wechat-blogs/
     └── blogs/
         └── algorithm/
@@ -498,7 +502,7 @@ GitHub Desktop is GitHub's official desktop application for managing repositorie
     git push -u origin <branch-name>
     ```
 
-7. **Open a PR:** Create a Pull Request from your fork to the `main` branch of `CompPsyUnion/2627-wechat-blogs`. Reference the Issue in the PR description, such as `Closes #123` or `Refs #123`, and include your check results.
+7. **Open a PR:** Create a Pull Request from your fork to the `main` branch of `CompPsyUnion/2627-wechat-blogs`. Follow the [PR title conventions](#pr-title-conventions) for the PR title. Reference the Issue in the PR description, such as `Closes #123` or `Refs #123`, and include your check results.
 
 8. **Address review comments:** Edit, commit, and push on the same branch; the PR updates automatically.
 
@@ -513,20 +517,20 @@ GitHub Desktop is GitHub's official desktop application for managing repositorie
 - Content should be logical and coherent, avoiding grammatical and spelling errors
 - Content should have a certain level of originality, avoiding extensive plagiarism and quotation. We will use tools to detect originality
 - **Image Insertion:** Use Markdown syntax `![alt text](relative-image-path)` to insert images
-  - Store image files in the article folder's `img/` directory and reference them using relative paths
-  - Ensure image copyright and sources are legitimate
-  - Before submission, ensure image paths work in the repository preview
-  - Images should be clear and appropriately sized
+   - Store image files in the article folder's `img/` directory and reference them using relative paths
+   - Ensure image copyright and sources are legitimate
+   - Before submission, ensure image paths work in the repository preview
+   - Images should be clear and appropriately sized
 - **Code Blocks:** If including code, use Markdown code blocks and **specify the language**
-  - Example: ` ```python` instead of just ` ``` `
-  - Ensure code correctness and readability
+   - Example: ` ```python` instead of just ` ``` `
+   - Ensure code correctness and readability
 - **Markdown Syntax Standards:** Use VS Code's Markdownlint (DavidAnson.vscode-markdownlint) extension to check syntax
-  - Due to WeChat's restrictions on external links, paste external URLs directly into the article text — **do not use Markdown link syntax**
-  - Avoid specifying special colours or styling inside formula/math blocks — custom colours cannot be supported in the published posts
-  - **Do NOT insert HTML**
-  - Format and validate the manuscripts locally before submitting them through a PR (if you don't know how, please search online or watch the first weekly meeting replay)
-  - If we find Markdown lint errors, you will need to revise the manuscript. Revision may also be needed when auto-formatting creates ambiguity, requiring you to decide on the formatting
-  - If you need a special author signature, mark the author at the end of your article or request it in the Pull Request description. We will present it in a format like `Robert(Siyuan) He` or similar.
+   - Due to WeChat's restrictions on external links, paste external URLs directly into the article text — **do not use Markdown link syntax**
+   - Avoid specifying special colours or styling inside formula/math blocks — custom colours cannot be supported in the published posts
+   - **Do NOT insert HTML**
+   - Format and validate the manuscripts locally before submitting them through a PR (if you don't know how, please search online or watch the first weekly meeting replay)
+   - If we find Markdown lint errors, you will need to revise the manuscript. Revision may also be needed when auto-formatting creates ambiguity, requiring you to decide on the formatting
+   - If you need a special author signature, mark the author at the end of your article or request it in the Pull Request description. We will present it in a format like `Robert(Siyuan) He` or similar.
 - **References:** If including references, list them at the end of the article using citation format, ensuring copyright and sources are legitimate
 
 #### 4. Complete Manuscript Review
@@ -584,6 +588,10 @@ The `type` may be `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `
 
 Do not include a named-AI `Co-Authored-By:` trailer (such as `Co-Authored-By: Claude ...`) or any `Generated with ...` AI attribution footer.
 
+### PR Title Conventions
+
+PR titles should be natural sentences starting with a capital letter. They do not need to follow the commit message format (no `<type>(<scope>):` prefix), for example `Update the contribution workflow`.
+
 ### Points System
 
 - **Proactive proposal and completion:** If you propose an Issue, self-assign, and complete its Pull Request, you will receive **3 points**
@@ -596,19 +604,19 @@ Do not include a named-AI `Co-Authored-By:` trailer (such as `Co-Authored-By: Cl
 ### About Issue Types and Labels
 
 - **Types**
-  - `Task`: indicates the issue has passed title & outline review — you may start writing the full manuscript
+   - `Task`: indicates the issue has passed title & outline review — you may start writing the full manuscript
 - **Labels**
-  - User-assignable labels (you can add these when appropriate):
-    - `blogs-software` — software/tool oriented posts
-    - `blogs-hardware` — hardware / DIY / electronics posts
-    - `blogs-algorithm` — algorithm / ML / data-science posts
-    - `blogs-story` — historical / narrative posts (history of computing, language evolution, etc.)
-  - Maintainer-controlled labels
-    - `duplicate` — this issue duplicates an existing one (will be closed)
-    - `invalid` — title & outline did not pass review (will be closed)
-    - `published` — the article from this issue has been published
-    - `in-review` — the article is currently under review
-    - `publish-pending` — the article is scheduled / pending publication
+   - User-assignable labels (you can add these when appropriate):
+      - `blogs-software` — software/tool oriented posts
+      - `blogs-hardware` — hardware / DIY / electronics posts
+      - `blogs-algorithm` — algorithm / ML / data-science posts
+      - `blogs-story` — historical / narrative posts (history of computing, language evolution, etc.)
+   - Maintainer-controlled labels
+      - `duplicate` — this issue duplicates an existing one (will be closed)
+      - `invalid` — title & outline did not pass review (will be closed)
+      - `published` — the article from this issue has been published
+      - `in-review` — the article is currently under review
+      - `publish-pending` — the article is scheduled / pending publication
 
 ### Before You Start
 

@@ -1,9 +1,13 @@
 {
   "default": true,
+  "MD007": {
+    "indent": 3
+  },
   "MD013": false,
   "MD033": {
     "allowed_elements": []
   },
   "MD034": false,
-  "MD036": false
+  "MD036": false,
+  "MD041": false
 }
