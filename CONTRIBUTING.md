@@ -586,7 +586,7 @@ Do not include a named-AI `Co-Authored-By:` trailer (such as `Co-Authored-By: Cl
 
 ### Points System
 
-- **Proactive article proposal:** If you proactively propose an Issue, you will receive **1 point**; if you self-assign and complete its Pull Request, you will receive **2 additional points**
+- **Proactive proposal and completion:** If you propose an Issue, self-assign, and complete its Pull Request, you will receive **3 points**
 - **Proactive claim and completion:** If you claim an existing, unclaimed Issue, self-assign, and complete its Pull Request, you will receive **3 points**
 - **Proposal adopted:** If another member completes an Issue you proposed, you will receive **1 point**
 - **Assigned task completion:** If we assign you an Issue and you complete its corresponding Pull Request, you will receive **2 points**
