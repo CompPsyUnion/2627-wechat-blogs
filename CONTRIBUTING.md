@@ -288,6 +288,11 @@ PR 标题使用大写字母开头的自然语句，不需要遵循 commit messag
 - **合作完成** 如果是多人合作完成一个 pull request，每人可以得到 **1-2 点积分（取决于是否为主动完成）**
 - **逾期未完成：** 如果你长时间没有完成 milestone 的 due date，你将面临被扣积分的风险
 
+> 比如，如果完成一次如下所示的从发起提议到提交投稿的完整流程，你共计可以获得4个技术部Credit:
+>
+> 1. 自己提出了一个提议 -> you.credit += 1
+> 2. 自己认领了自己的 issue (assign yourself) + 提出了 PR + 最终 PR 经过 review 被 merge -> you.credit += 3
+
 ### 关于 Issue 标签 (Labels) 和 种类 (Types)
 
 - **种类**
@@ -595,10 +600,14 @@ PR titles should be natural sentences starting with a capital letter. They do no
 
 - **Proposal adopted:** If you voluntarily raise an issue that is later adopted, you will receive **1 credit**
 - **Proactive claim and completion:** If you claim an existing, unclaimed Issue, self-assign, and complete its Pull Request, you will receive **3 credits**
-
 - **Assigned task completion:** If we assign you an Issue and you complete its corresponding Pull Request, you will receive **2 credits**
 - **Collaborative completion:** If multiple people collaborate on a Pull Request, each contributor will receive **1–2 credits**, depending on whether they completed it proactively
 - **Overdue incompletion:** If you fail to complete the milestone by its due date for a long time, you risk having credits deducted
+
+> For example, if you successfully complete the entire process from proposing an idea to submitting the manuscript as shown below, you will be awarded a total of 4 credits.
+>
+> 1. When you propose an idea yourself -> you.credit += 1
+> 2. When you claim your own issue (assign yourself) and then propose a PR, and finally the PR is reviewed and merged -> you.credit += 3
 
 ### About Issue Types and Labels
 
