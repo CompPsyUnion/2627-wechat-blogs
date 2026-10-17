@@ -282,9 +282,8 @@ PR 标题使用大写字母开头的自然语句，不需要遵循 commit messag
 
 ### 积分制度
 
-- **主动提出并完成：** 如果是你主动提出此 issue，self-assign 并最后完成 pull request，你会得到 **3 点积分**
+- **主动提出推文提议：** 如果是你主动提出一个 issue，并且后续被采纳，你会得到 **1 点积分**
 - **主动认领并完成：** 如果是你主动在 issue 区认领了一个已有的，没有被认领过的 issue，self-assign 并最后完成 pull request，你也可以得到 **3 点积分**
-- **提议被采纳：** 如果你只是提出了这个 issue 但是我们 assign 给别的成员完成，你也可以得到 **1 点积分**
 - **被动完成任务：** 如果开始时是我们 assign 给你一个 issue 对应的 pull request（不管 issue 初始是否为空），且你在最后完成，你可以得到 **2 点积分**
 - **合作完成** 如果是多人合作完成一个 pull request，每人可以得到 **1-2 点积分（取决于是否为主动完成）**
 - **逾期未完成：** 如果你长时间没有完成 milestone 的 due date，你将面临被扣积分的风险
@@ -408,7 +407,7 @@ We will review your article title and outline within 3 working days.
 - Please complete your article before the due date of the milestone we assigned to you
 - If you haven't been assigned a milestone for a long time, you can still start writing the complete article and submit it through a Pull Request
 - The more complete your content, the more likely we'll schedule you earlier
-- If you fail to complete on time, you risk having points deducted
+- If you fail to complete on time, you risk having credits deducted
 
 **Writing Recommendations:**
 
@@ -592,14 +591,14 @@ Do not include a named-AI `Co-Authored-By:` trailer (such as `Co-Authored-By: Cl
 
 PR titles should be natural sentences starting with a capital letter. They do not need to follow the commit message format (no `<type>(<scope>):` prefix), for example `Update the contribution workflow`.
 
-### Points System
+### Credits System
 
-- **Proactive proposal and completion:** If you propose an Issue, self-assign, and complete its Pull Request, you will receive **3 points**
-- **Proactive claim and completion:** If you claim an existing, unclaimed Issue, self-assign, and complete its Pull Request, you will receive **3 points**
-- **Proposal adopted:** If you only propose the Issue and we assign another member to complete it, you will receive **1 point**
-- **Assigned task completion:** If we assign you an Issue and you complete its corresponding Pull Request, you will receive **2 points**
-- **Collaborative completion:** If multiple people collaborate on a Pull Request, each contributor will receive **1–2 points**, depending on whether they completed it proactively
-- **Overdue incompletion:** If you fail to complete the milestone by its due date for a long time, you risk having points deducted
+- **Proposal adopted:** If you voluntarily raise an issue that is later adopted, you will receive **1 credit**
+- **Proactive claim and completion:** If you claim an existing, unclaimed Issue, self-assign, and complete its Pull Request, you will receive **3 credits**
+
+- **Assigned task completion:** If we assign you an Issue and you complete its corresponding Pull Request, you will receive **2 credits**
+- **Collaborative completion:** If multiple people collaborate on a Pull Request, each contributor will receive **1–2 credits**, depending on whether they completed it proactively
+- **Overdue incompletion:** If you fail to complete the milestone by its due date for a long time, you risk having credits deducted
 
 ### About Issue Types and Labels
 
