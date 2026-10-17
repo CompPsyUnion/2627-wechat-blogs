@@ -280,7 +280,7 @@ Refs #123
 
 - **主动提出并完成：** 如果是你主动提出此 issue，self-assign 并最后完成 pull request，你会得到 **3 点积分**
 - **主动认领并完成：** 如果是你主动在 issue 区认领了一个已有的，没有被认领过的 issue，self-assign 并最后完成 pull request，你也可以得到 **3 点积分**
-- **提议被采纳：** 如果你只是提出了这个 issue 但是我们 assign 给别的成员完成，你也可以得到 **1 点积分**
+- **主动提出推文提议：** 如果是你主动提出一个 issue，你会得到 **1 点积分**
 - **被动完成任务：** 如果开始时是我们 assign 给你一个 issue 对应的 pull request（不管 issue 初始是否为空），且你在最后完成，你可以得到 **2 点积分**
 - **合作完成** 如果是多人合作完成一个 pull request，每人可以得到 **1-2 点积分（取决于是否为主动完成）**
 - **逾期未完成：** 如果你长时间没有完成 milestone 的 due date，你将面临被扣积分的风险
@@ -586,9 +586,9 @@ Do not include a named-AI `Co-Authored-By:` trailer (such as `Co-Authored-By: Cl
 
 ### Points System
 
-- **Proactive proposal and completion:** If you propose an Issue, self-assign, and complete its Pull Request, you will receive **3 points**
+- **Proactive article proposal:** If you proactively propose an Issue, you will receive **1 point**; if you self-assign and complete its Pull Request, you will receive **2 additional points**
 - **Proactive claim and completion:** If you claim an existing, unclaimed Issue, self-assign, and complete its Pull Request, you will receive **3 points**
-- **Proposal adopted:** If you only propose the Issue and we assign another member to complete it, you will receive **1 point**
+- **Proposal adopted:** If another member completes an Issue you proposed, you will receive **1 point**
 - **Assigned task completion:** If we assign you an Issue and you complete its corresponding Pull Request, you will receive **2 points**
 - **Collaborative completion:** If multiple people collaborate on a Pull Request, each contributor will receive **1–2 points**, depending on whether they completed it proactively
 - **Overdue incompletion:** If you fail to complete the milestone by its due date for a long time, you risk having points deducted
