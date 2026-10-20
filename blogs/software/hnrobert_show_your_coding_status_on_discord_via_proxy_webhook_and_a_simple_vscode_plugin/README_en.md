@@ -1,6 +1,6 @@
 # Show your coding status on Discord via proxy, webhook and a simple VSCode plugin
 
-This workshop will guide you through the steps to connect Visual Studio Code (VSCode) with Discord using proxy, webhook and a VSCode plugin, allowing you to display your coding activity as a rich presence status on your Discord profile and catch up with the developer community.
+Hello everyone! This article will walk you through the steps to connect Visual Studio Code (VSCode) with Discord using a proxy, a webhook and a simple VSCode plugin, allowing you to display your coding activity as a fun online status on your Discord profile (Playing: Visual Studio Code, XD), and stay in touch with the developer community!
 
 ![Main Demo](./assets/images/discord-bot-example.png)
 
@@ -9,18 +9,18 @@ This workshop will guide you through the steps to connect Visual Studio Code (VS
 [Click to Download **VSCode installer**](https://code.visualstudio.com) and [Click to Download **Discord installer** and **SteamCommunity**](http://ug.link/hnrobert-nas/filemgr/share-download/?id=b80a41b4bd604b80945dcde6bde1d9c3)
 
 - Just download the installers/packages that match your own computer's platform/architecture.
-- **If you've already known how to connect to Discord under domestic network environment, you may skip the installation of SteamCommunity**, otherwise please have it prepared, and we will introduce more about its usage during the session
-- If you are still not sure about how to set up the Proxy using SteamCommunity, please follow the steps in the [Background Knowledge](#usage-of-steamcommunity-as-a-proxy-provider) section below during the session.
+- **If you've already known how to connect to Discord under domestic network environment, you may skip the installation of SteamCommunity**, otherwise please have it prepared, and we will introduce more about its usage later in this article
+- If you are still not sure about how to set up the Proxy using SteamCommunity, please follow the steps in the [Background Knowledge](#usage-of-steamcommunity-as-a-proxy-provider) section below.
 
 ## Background Knowledge
 
-Discord is a popular communication platform among gamers and developers. It allows users to create servers, join communities, and communicate via text, voice, and video. One of its features is the ability to display rich presence status, which shows what a user is currently doing in supported applications. About how nice Discord is, we may introduce more about it after solving today's first issue - network.
+Discord is a popular communication platform among gamers and developers. It allows users to create servers, join communities, and communicate via text, voice, and video. One of its features is the ability to display rich presence status, which shows what a user is currently doing in supported applications. About how nice Discord is, we may introduce more about it after solving the first issue you may run into - the network.
 
-It may not be difficult for you to notice that, after downloading the installer of Discord and installing it locally, when you're trying to connect to the Discord server, you may face the first issue in our today's session: **it may fail to connect under domestic network environment**. This is because Discord do not provide their service in some regions, and users may need to use a proxy service to access it.
+It may not be difficult for you to notice that, after downloading the installer of Discord and installing it locally, when you're trying to connect to the Discord server, you may face the first issue that this article will help you solve: **it may fail to connect directly under domestic network environment**. This is because Discord do not provide their service in some regions, and users may need to use a proxy service to access it.
 
 ### What is **Proxy Service**?
 
-A **Proxy Service** is a service that allows users to connect to the internet through a server located in a different region or country. This can help bypass regional restrictions and access blocked content.
+A **Proxy Service** is a service that allows users to connect to the internet through a server located in a different region or country. This can help bypass regional restrictions and access more content that would otherwise be unreachable under special network circumstances.
 
 - Normally if you want to access a website, the diagram below shows how it works without Proxy:
 
@@ -42,11 +42,11 @@ A **Proxy Service** is a service that allows users to connect to the internet th
 
 For example, now, through using a Proxy, you can route your internet traffic toward Discord through a server in a location where Discord is accessible, allowing them to connect to the Discord servers without issues.
 
-Usually, there are many Proxy service providers available, both free and paid, legal and illegal. In this session, we will not recommend any specific Proxy service provider, but we will introduce a method to set up a Proxy using `SteamCommunity`, which is a legal and free option for users in domestic network environments.
+Usually, there are many Proxy service providers available, both free and paid (after all, running such a server comes with maintenance costs, which is understandable). In this article, we will not recommend any paid or special Proxy service providers, but we will introduce a method to set up a Proxy using the `SteamCommunity` tool, which is a legal and free option for users in domestic network environments.
 
 ### Usage of SteamCommunity as a Proxy Provider
 
-SteamCommunity is a platform for gamers to connect and share content. It also provides a built-in proxy service that can be used to access blocked websites, including Discord.
+SteamCommunity is a platform for gamers to connect and share content. It provides a built-in proxy service that can be used to access Discord, the chat app we will be covering today.
 
 > Meanwhile, not only Discord app, SteamCommunity can provide proxy service for other applications as well, such as web browsers, game launchers, etc.  
 > Any application that sends internet traffic can potentially benefit from using SteamCommunity as a proxy, as long as SteamCommunity supports.
@@ -98,12 +98,12 @@ Discord is widely used among developers and gamers for communication and collabo
 ## Experience Discord Presence Extension and GitHub Integration
 
 1. Make sure you have followed the steps above to set up Discord and SteamCommunity proxy service.
-2. Launch Discord on your computer and try join a [Discord Server (right click and copy link)](https://discord.com/invite/5dVbWhEbQc) through the add button on the left, clicking the `Join Discord Server` button below, and paste the invite link you copied:
+2. Launch Discord on your computer and join a [Discord Server (right-click to copy the link)](https://discord.com/invite/5dVbWhEbQc) through the add button on the left: click the `Join Discord Server` button below and paste the invite link you copied:
    ![Discord Join Server](./assets/images/discord-join-server.png)
 
    You may also just visit the link above in your web browser, make sure you're using your account that has just been registered or your account that you've always been using, and let it redirect you to your Discord app to join the server.
 
-3. In the server, you can see the example of rich presence status (of me), and browse through the `#github` channel with a GitHub Bot installed and see how it has worked.
+3. In the server, you can see examples of rich presence status (such as mine), and browse through the `#github` channel with a GitHub Bot installed to see how it works.
 4. Try star [this repository](https://github.com/CompPsyUnion/2526-weekly-session) on GitHub, and see how the GitHub Bot in Discord notify the server about your action.
    ![GitHub Star](./assets/images/github-star.png)
 
@@ -111,10 +111,10 @@ Discord is widely used among developers and gamers for communication and collabo
 
    ![Discord GitHub Bot Effect](./assets/images/discord-github-bot-effect.png)
 
-> Webhook is a way for applications to communicate with each other in real-time. In the context of Discord and GitHub, a Webhook Bot can be set up to send notifications to a Discord channel whenever certain events occur on a GitHub repository, such as new commits, pull requests, or issues.  
+> Webhook is a way for applications to communicate with each other in real-time. In the context of Discord and GitHub, a Webhook Bot can be set up to send notifications to a Discord channel whenever certain events occur on a GitHub repository, such as new commits, pull requests, or issues.
 > Webhook is like a promise that one application makes to another application, saying "Hey, when this thing happens, I'll let you know by sending you a message." In this case, GitHub is promising to notify Discord whenever something important happens in the repository.
 >
-> We may introduce more about how to set up a Discord Webhook Bot for GitHub, even some further usage of webhook technology **in our future sessions**.
+> We may introduce more about how to set up a Discord Webhook Bot for GitHub, and even some further usage of webhook technology **in a future article**.
 
 ## Steps to Connect VSCode with Discord
 
