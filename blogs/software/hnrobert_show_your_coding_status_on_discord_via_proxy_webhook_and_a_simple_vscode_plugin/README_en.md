@@ -98,14 +98,14 @@ Discord is widely used among developers and gamers for communication and collabo
 ## Experience Discord Presence Extension and GitHub Integration
 
 1. Make sure you have followed the steps above to set up Discord and SteamCommunity proxy service.
-2. Launch Discord on your computer and join a [Discord Server (right-click to copy the link)](https://discord.com/invite/5dVbWhEbQc) through the add button on the left: click the `Join Discord Server` button below and paste the invite link you copied:
+2. Launch Discord on your computer and join a [Discord Server (right-click to copy the link)](https://discord.gg/5MtNmFRuVa) through the add button on the left: click the `Join Discord Server` button below and paste the invite link you copied:
    ![Discord Join Server](./assets/images/discord-join-server.png)
 
    You may also just visit the link above in your web browser, make sure you're using your account that has just been registered or your account that you've always been using, and let it redirect you to your Discord app to join the server.
 
 3. In the server, you can see examples of rich presence status (such as mine), and browse through the `#github` channel with a GitHub Bot installed to see how it works.
-4. Try star [this repository](https://github.com/CompPsyUnion/2526-weekly-session) on GitHub, and see how the GitHub Bot in Discord notify the server about your action.
-   ![GitHub Star](./assets/images/github-star.png)
+4. Try leaving a comment in [this repository's discussion](https://github.com/CompPsyUnion/2526-weekly-session/discussions/46) on GitHub, and see how the GitHub Bot in Discord notifies the server about your action.
+   ![GitHub Discussion Comment](./assets/images/github-discussion-comment.png)
 
    **Effect:**
 

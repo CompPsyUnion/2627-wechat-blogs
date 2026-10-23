@@ -98,20 +98,20 @@ Discord 在开发者和游戏玩家中广泛用于交流和协作。但为什么
 ## 体验 Discord Presence 扩展和 GitHub 集成
 
 1. 确保你已按照上述步骤设置 Discord 和 SteamCommunity 代理服务。
-2. 在你的计算机上启动 Discord，并通过左侧的添加按钮加入一个 [Discord 服务器（右键复制链接）](https://discord.com/invite/5dVbWhEbQc)：点击下方的 `加入 Discord 服务器` 按钮，然后粘贴你复制的邀请链接：
+2. 在你的计算机上启动 Discord，并通过左侧的添加按钮加入一个 [Discord 服务器（右键复制链接）](https://discord.gg/5MtNmFRuVa)：点击下方的 `加入 Discord 服务器` 按钮，然后粘贴你复制的邀请链接：
    ![Discord 加入服务器](./assets/images/discord-join-server.png)
 
    你也可以直接在网页浏览器中访问上面的链接，确保你使用的是刚刚注册的账户或你一直在使用的账户，然后让它重定向到你的 Discord 应用以加入服务器。
 
 3. 在服务器中，你可以看到 Rich Presence 状态的示例（比如我的），并浏览添加了 GitHub Bot 的 `#github` 频道，看看它是如何工作的。
-4. 尝试在 GitHub 上为[此仓库](https://github.com/CompPsyUnion/2526-weekly-session)点星，并查看 Discord 中的 GitHub Bot 如何通知服务器你的操作。
-   ![GitHub 点星](./assets/images/github-star.png)
+4. 尝试在 GitHub 上进入[此仓库的讨论区](https://github.com/CompPsyUnion/2526-weekly-session/discussions/46)发布一条评论，看看 Discord 中的 GitHub Bot 会如何把你的操作通知给服务器的其他成员。
+   ![GitHub 讨论区评论](./assets/images/github-discussion-comment.png)
 
    **效果：**
 
    ![Discord GitHub Bot 效果](./assets/images/discord-github-bot-effect.png)
 
-> Webhook 是应用程序之间实时通信的一种方式。在 Discord 和 GitHub 的上下文中，可以设置 Webhook Bot 在 GitHub 仓库发生某些事件时向 Discord 频道发送通知，例如新提交、拉取请求或问题。  
+> Webhook 是应用程序之间实时通信的一种方式。在 Discord 和 GitHub 的上下文中，可以设置 Webhook Bot 在 GitHub 仓库发生某些事件时向 Discord 频道发送通知，例如新提交、拉取请求或问题。
 > Webhook 就像一个应用程序对另一个应用程序做出的承诺，说 "嘿，当这件事发生时，我会通过发送消息通知你"。在这种情况下，GitHub 承诺在仓库中发生重要事情时通知 Discord。
 >
 > 我们可能会在**未来的推文**中更多地介绍如何为 GitHub 设置 Discord Webhook Bot，甚至 Webhook 技术的一些进一步用法。
