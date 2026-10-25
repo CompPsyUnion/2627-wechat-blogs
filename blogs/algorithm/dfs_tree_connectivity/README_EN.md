@@ -359,10 +359,10 @@ Let us examine the role of an edge $e(u \to v)$ in each case.
 
 Tree edges discover new vertices and assign them larger discovery timestamps. Once a vertex's dfn has been assigned, it never changes. Back edges and cross edges pointing to vertices still on the stack may instead update the low values introduced below.
 
-- Forward edges do not affect strong connectivity and can therefore be ignored.
+* Forward edges do not affect strong connectivity and can therefore be ignored.
 
-- A back edge $u\to v$, together with the DFS tree path from ancestor $v$ to descendant $u$, forms a directed cycle. All vertices on that tree path therefore belong to the same SCC, but the SCC may also contain other vertices. In this particular graph, vertices 2, 5, and 8 form a complete SCC.
-- A cross edge makes $v$ reachable from $u$. If $v$ can also reach $u$, the cross edge contributes to strong connectivity.
+* A back edge $u\to v$, together with the DFS tree path from ancestor $v$ to descendant $u$, forms a directed cycle. All vertices on that tree path therefore belong to the same SCC, but the SCC may also contain other vertices. In this particular graph, vertices 2, 5, and 8 form a complete SCC.
+* A cross edge makes $v$ reachable from $u$. If $v$ can also reach $u$, the cross edge contributes to strong connectivity.
 
 Every SCC has a vertex of minimum depth in the DFS tree. Identifying that vertex allows us to determine the corresponding SCC.
 
@@ -370,9 +370,9 @@ Unlike the articulation point algorithm for undirected graphs, this algorithm us
 
 For an edge $u \to v$, maintain low as follows:
 
-- If $v$ has not been visited, recursively search $v$, then set $low_u=\min(low_u,low_v)$ after the recursive call returns.
-- If $v$ has already been visited and is still on the stack, set $low_u=\min(low_u,dfn_v)$.
-- If $v$ has already been popped from the stack, its SCC has been determined, so this edge does not update $low_u$.
+* If $v$ has not been visited, recursively search $v$, then set $low_u=\min(low_u,low_v)$ after the recursive call returns.
+* If $v$ has already been visited and is still on the stack, set $low_u=\min(low_u,dfn_v)$.
+* If $v$ has already been popped from the stack, its SCC has been determined, so this edge does not update $low_u$.
 
 After all outgoing edges of $u$ have been processed, if $low_u=dfn_u$, then $u$ is the vertex of minimum depth in an SCC. Pop vertices from the top of the stack until $u$ is popped. These vertices together form one SCC.
 
@@ -382,7 +382,7 @@ The example graph contains two cycles, $A \to B \to C \to A$ and $D \to E \to D$
 
 Orange highlights the vertex or edge currently being processed or updated. Pale vertices have not yet been visited, and colored background regions indicate SCCs that have already been identified. In the stack notation below, the bottom is on the left and the top is on the right. This is Tarjan's vertex stack, not the recursive call stack.
 
-1. Visit A, B, and C, initializing low
+##### 1. Visit A, B, and C, initializing low
 
 Follow the tree edges to visit $A,B,C$ in order. When each vertex is first visited, initialize its low value to its own dfn:
 
@@ -395,7 +395,7 @@ At this point, we have just entered $C$ and have not yet examined its edge to $A
 
 ![dfn and low after visiting A, B, and C](img/tarjan-low-01.png)
 
-2. Examine C → A and update C's low
+##### 2. Examine C → A and update C's low
 
 $A$ has already been visited and is still on the stack, so use $dfn_A$ to update $low_C$:
 
@@ -407,7 +407,7 @@ This means that $C$ can follow this edge back to the earlier-discovered vertex $
 
 ![C's low decreases to 1 after examining the edge to A](img/tarjan-low-02.png)
 
-3. Return to B, then visit D and E
+##### 3. Return to B, then visit D and E
 
 All outgoing edges of $C$ have been examined. Since $low_C=1\ne dfn_C=3$, we cannot pop an SCC at $C$, so $C$ stays on the vertex stack.
 
@@ -423,7 +423,7 @@ Notice that although the recursive call for $C$ has finished, $C$ remains on Tar
 
 ![dfn and low after returning to B and visiting D and E](img/tarjan-low-03.png)
 
-4. Examine E → D and update E's low
+##### 4. Examine E → D and update E's low
 
 $D$ has already been visited and is still on the stack, so:
 
@@ -435,7 +435,7 @@ Since $low_E=4\ne dfn_E=5$, $E$ is not the vertex of minimum depth in an SCC. Th
 
 ![E's low decreases to 4 after examining the edge to D](img/tarjan-low-04.png)
 
-5. Return to D and pop the first SCC
+##### 5. Return to D and pop the first SCC
 
 When the recursive call for $E$ returns to $D$, update:
 
@@ -449,7 +449,7 @@ Next, return to $B$ and update $low_B=\min(1,4)=1$, which leaves the value uncha
 
 ![D and E are popped and identified as an SCC](img/tarjan-low-05.png)
 
-6. Return to A and pop the second SCC
+##### 6. Return to A and pop the second SCC
 
 The search from $B$ finishes. Since $low_B=1\ne dfn_B=2$, $B$ stays on the stack. After returning to $A$:
 
