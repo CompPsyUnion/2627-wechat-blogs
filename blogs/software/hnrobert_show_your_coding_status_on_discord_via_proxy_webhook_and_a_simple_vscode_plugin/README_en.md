@@ -18,6 +18,8 @@ Discord is a popular communication platform among gamers and developers. It allo
 
 It may not be difficult for you to notice that, after downloading the installer of Discord and installing it locally, when you're trying to connect to the Discord server, you may face the first issue that this article will help you solve: **it may fail to connect directly under domestic network environment**. This is because Discord do not provide their service in some regions, and users may need to use a proxy service to access it.
 
+![Discord Connection Issue](./assets/images/discord-connect-issue.png)
+
 ### What is **Proxy Service**?
 
 A **Proxy Service** is a service that allows users to connect to the internet through a server located in a different region or country. This can help bypass regional restrictions and access more content that would otherwise be unreachable under special network circumstances.
