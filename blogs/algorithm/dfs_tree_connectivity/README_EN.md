@@ -10,8 +10,6 @@ Let us look at a concrete example:
 
 ![DFS traversal starting at vertex 1](img/DFSshow.png)
 
-*Figure 1: DFS traversal starting at vertex 1*
-
 Starting from vertex 1, we visit vertices 3, 5, and 7 in order. All neighbors of vertex 7 have already been visited, so we backtrack through vertex 5 to vertex 3, then visit vertex 6. We continue in this way until all vertices have been visited. The traversal order in this example is 1-3-5-7-6-2-8-4-10-9-11-12.
 
 ### DFS Trees in Undirected Graphs
@@ -19,8 +17,6 @@ Starting from vertex 1, we visit vertices 3, 5, and 7 in order. All neighbors of
 If we highlight each edge used to visit a new vertex for the first time during DFS, we obtain the following graph:
 
 ![An undirected DFS tree with tree edges highlighted](img/dfs_tree_no_dfn.png)
-
-*Figure 2: An undirected DFS tree with tree edges highlighted*
 
 This is the DFS tree mentioned in the title.
 
@@ -40,15 +36,11 @@ DFS trees in directed graphs are constructed similarly to those in undirected gr
 
 ![A DFS forest of a directed graph](img/weakly_connected_dfs_forest.png)
 
-*Figure 3: A DFS forest of a directed graph*
-
 #### Forward Edges, Back Edges, and Cross Edges
 
 The following directed graph illustrates a DFS tree and the different types of non-tree edges:
 
 ![Types of non-tree edges in a directed DFS tree](img/oneTree.png)
-
-*Figure 4: Types of non-tree edges in a directed DFS tree*
 
 * A non-tree edge directed from an ancestor to a descendant is called a **forward edge**.
 
@@ -65,8 +57,6 @@ For the undirected DFS tree above, each vertex receives the following dfn value:
 
 ![Discovery numbers and back edges in a DFS tree](img/dfn_tree_with_back_edges.png)
 
-*Figure 5: Discovery numbers and back edges in a DFS tree*
-
 ## 2. Connectivity in Undirected Graphs
 
 Now that we have a DFS tree, let us see how it helps us analyze graph connectivity.
@@ -78,8 +68,6 @@ Definition: In an undirected graph, a vertex whose removal increases the number 
 A connected component is a maximal connected subgraph.
 
 ![Connected components before and after removing an articulation point](img/articulation-point-diagrams.png)
-
-*Figure 6: Connected components before and after removing an articulation point*
 
 Vertex V in the diagram is an articulation point. Removing it splits the original connected component into two connected components.
 
@@ -98,8 +86,6 @@ After removing $x$, each of its child subtrees remains internally connected, and
 In the diagram below, $y$ is a child of $x$, $u\in T(y)$, and $v\in T'(x)$. If $T(y)$ can reach $T'(x)$ without passing through $x$, there must be a back edge $(u,v)$ connecting these two parts. By the properties of back edges in undirected graphs, $v$ must be a strict ancestor of $x$, meaning an ancestor other than $x$ itself.
 
 ![A child subtree connecting to a strict ancestor through a back edge](img/Alex_Wei.png)
-
-*Figure 7: A child subtree connecting to a strict ancestor through a back edge*
 
 Thus, $x$ is an articulation point whenever there is a child subtree $T(y)$ with no back edge from any of its vertices to a strict ancestor of $x$. Whether other child subtrees can connect to strict ancestors of $x$ does not affect this conclusion.
 
@@ -195,8 +181,6 @@ int main()
 Definition: In an undirected graph, an edge whose removal increases the number of connected components is called a **bridge**, or a **cut edge**.
 
 ![Connected components before and after removing a bridge](img/bridge-diagrams.png)
-
-*Figure 8: Connected components before and after removing a bridge*
 
 As shown above, removing edge C-D splits the original graph into two connected components.
 
@@ -362,19 +346,13 @@ From weakest to strongest, these levels are called weak connectivity, unilateral
 
    ![An example of weak connectivity](img/weak-connectivity.png)
 
-   *Figure 9: An example of weak connectivity*
-
 2. Unilateral connectivity: For any two vertices $u,v$, at least one direction is reachable ($u \to v$ or $v \to u$). This adds a requirement beyond weak connectivity: the path must follow the edge directions. A weakly connected graph is not necessarily unilaterally connected.
 
    ![An example of unilateral connectivity](img/unilateral-connectivity.png)
 
-   *Figure 10: An example of unilateral connectivity*
-
 3. Strong connectivity: For any two vertices $u,v$, both $u \to v$ and $v \to u$ hold. In other words, every pair of vertices must be mutually reachable.
 
    ![An example of strong connectivity](img/strong-connectivity.png)
-
-   *Figure 11: An example of strong connectivity*
 
 When studying a graph, it is useful to simplify its structure. Mutual reachability among strongly connected vertices allows us to compress this information. We will therefore focus on strong connectivity next.
 
@@ -391,8 +369,6 @@ Any two vertices in an SCC can reach each other, so the component can be treated
 Consider this graph again:
 
 ![A directed DFS tree with discovery numbers](img/oneTree-dfn.png)
-
-*Figure 12: A directed DFS tree with discovery numbers*
 
 Let us examine the role of an edge $e(u \to v)$ in each case.
 
@@ -434,8 +410,6 @@ At this point, we have just entered $C$ and have not yet examined its edge to $A
 
 ![dfn and low after visiting A, B, and C](img/tarjan-low-01.png)
 
-*Figure 13: dfn and low after visiting A, B, and C*
-
 ##### 2. Examine C → A and update C's low
 
 $A$ has already been visited and is still on the stack, so use $dfn_A$ to update $low_C$:
@@ -447,8 +421,6 @@ $$
 This means that $C$ can follow this edge back to the earlier-discovered vertex $A$. We have not yet returned to $B$, so $low_B$ is still $2$. The stack remains $[A,B,C]$.
 
 ![C's low decreases to 1 after examining C to A](img/tarjan-low-02.png)
-
-*Figure 14: C's low decreases to 1 after examining C to A*
 
 ##### 3. Return to B, then visit D and E
 
@@ -466,8 +438,6 @@ Notice that although the recursive call for $C$ has finished, $C$ remains on Tar
 
 ![dfn and low after returning to B and visiting D and E](img/tarjan-low-03.png)
 
-*Figure 15: dfn and low after returning to B and visiting D and E*
-
 ##### 4. Examine E → D and update E's low
 
 $D$ has already been visited and is still on the stack, so:
@@ -479,8 +449,6 @@ $$
 Since $low_E=4\ne dfn_E=5$, $E$ is not the vertex of minimum depth in an SCC. The stack remains $[A,B,C,D,E]$.
 
 ![E's low decreases to 4 after examining E to D](img/tarjan-low-04.png)
-
-*Figure 16: E's low decreases to 4 after examining E to D*
 
 ##### 5. Return to D and pop the first SCC
 
@@ -496,8 +464,6 @@ Next, return to $B$ and update $low_B=\min(1,4)=1$, which leaves the value uncha
 
 ![D and E are popped as the first SCC](img/tarjan-low-05.png)
 
-*Figure 17: D and E are popped as the first SCC*
-
 ##### 6. Return to A and pop the second SCC
 
 The search from $B$ finishes. Since $low_B=1\ne dfn_B=2$, $B$ stays on the stack. After returning to $A$:
@@ -510,8 +476,6 @@ All outgoing edges of $A$ have been processed, and $low_A=dfn_A=1$. Pop $C,B,A$ 
 
 ![A, B, and C are popped; both SCCs are identified](img/tarjan-low-06.png)
 
-*Figure 18: A, B, and C are popped; both SCCs are identified*
-
 Throughout this process, dfn values never change; only low values are updated. The two update rules must be kept distinct: after recursively searching a child, use that child's low; when encountering an already-visited vertex that is still on the stack, use its dfn. Only after processing all outgoing edges of the current vertex do we check whether $low_u=dfn_u$ and decide whether to pop an SCC.
 
 We now know how to find every SCC. When we compress an SCC into a single vertex, how can we preserve the important reachability information in the original graph?
@@ -521,8 +485,6 @@ We now know how to find every SCC. When we compress an SCC into a single vertex,
 Replace each SCC with a new vertex, discard all edges whose endpoints belong to the same SCC, and retain the edges between different SCCs. The resulting graph is called the condensation graph.
 
 ![The DAG obtained by condensing strongly connected components](img/tarjan-condensed.png)
-
-*Figure 19: The DAG obtained by condensing strongly connected components*
 
 The condensation graph has an important property: it is always a **directed acyclic graph** (DAG).
 
