@@ -2,13 +2,15 @@
 
 ## 1. DFS Trees
 
-Before introducing DFS trees, let us first review DFS itself.
+Before introducing DFS trees, let us start with DFS and see how it explores a graph one edge at a time.
 
 Depth-first search (DFS) is a graph traversal method. Starting from a vertex, it selects an unvisited adjacent vertex and continues exploring deeper. When no unvisited adjacent vertices remain, it backtracks to the previous vertex and explores other branches. This continues until every vertex reachable from the starting vertex has been visited.
 
-Consider the following graph:
+Let us look at a concrete example:
 
-![DFS traversal example](img/DFSshow.png)
+![DFS traversal starting at vertex 1](img/DFSshow.png)
+
+*Figure 1: DFS traversal starting at vertex 1*
 
 Starting from vertex 1, we visit vertices 3, 5, and 7 in order. All neighbors of vertex 7 have already been visited, so we backtrack through vertex 5 to vertex 3, then visit vertex 6. We continue in this way until all vertices have been visited. The traversal order in this example is 1-3-5-7-6-2-8-4-10-9-11-12.
 
@@ -16,11 +18,15 @@ Starting from vertex 1, we visit vertices 3, 5, and 7 in order. All neighbors of
 
 If we highlight each edge used to visit a new vertex for the first time during DFS, we obtain the following graph:
 
-![DFS tree with highlighted tree edges](img/dfs_tree_no_dfn.png)
+![An undirected DFS tree with tree edges highlighted](img/dfs_tree_no_dfn.png)
 
-This is the DFS tree.
+*Figure 2: An undirected DFS tree with tree edges highlighted*
+
+This is the DFS tree mentioned in the title.
 
 #### Tree Edges and Back Edges
+
+Let us first classify the edges in an undirected DFS tree.
 
 Tree edges are the edges that form the DFS tree, shown as thick lines.
 
@@ -32,13 +38,17 @@ In an undirected graph, a back edge always connects an ancestor and a descendant
 
 DFS trees in directed graphs are constructed similarly to those in undirected graphs, but a search starting from a single vertex may not reach every vertex. For example, in the following graph, starting from vertex 1 reaches only vertices 1, 2, and 3. We then start another search from the unvisited vertex 4. The trees produced by these two searches together form a DFS forest.
 
-![A weakly connected directed graph and its DFS forest](img/weakly_connected_dfs_forest.png)
+![A DFS forest of a directed graph](img/weakly_connected_dfs_forest.png)
+
+*Figure 3: A DFS forest of a directed graph*
 
 #### Forward Edges, Back Edges, and Cross Edges
 
 The following directed graph illustrates a DFS tree and the different types of non-tree edges:
 
-![Types of edges in a directed DFS tree](img/oneTree.png)
+![Types of non-tree edges in a directed DFS tree](img/oneTree.png)
+
+*Figure 4: Types of non-tree edges in a directed DFS tree*
 
 * A non-tree edge directed from an ancestor to a descendant is called a **forward edge**.
 
@@ -53,11 +63,13 @@ Whenever we visit a vertex for the first time, we increment a counter and record
 
 For the undirected DFS tree above, each vertex receives the following dfn value:
 
-![DFS discovery numbers and back edges](img/dfn_tree_with_back_edges.png)
+![Discovery numbers and back edges in a DFS tree](img/dfn_tree_with_back_edges.png)
+
+*Figure 5: Discovery numbers and back edges in a DFS tree*
 
 ## 2. Connectivity in Undirected Graphs
 
-Having introduced DFS trees, we now turn to their applications.
+Now that we have a DFS tree, let us see how it helps us analyze graph connectivity.
 
 ### Articulation Points
 
@@ -65,7 +77,9 @@ Definition: In an undirected graph, a vertex whose removal increases the number 
 
 A connected component is a maximal connected subgraph.
 
-![Removing an articulation point splits a connected component](img/articulation-point-diagrams.png)
+![Connected components before and after removing an articulation point](img/articulation-point-diagrams.png)
+
+*Figure 6: Connected components before and after removing an articulation point*
 
 Vertex V in the diagram is an articulation point. Removing it splits the original connected component into two connected components.
 
@@ -83,7 +97,9 @@ After removing $x$, each of its child subtrees remains internally connected, and
 
 In the diagram below, $y$ is a child of $x$, $u\in T(y)$, and $v\in T'(x)$. If $T(y)$ can reach $T'(x)$ without passing through $x$, there must be a back edge $(u,v)$ connecting these two parts. By the properties of back edges in undirected graphs, $v$ must be a strict ancestor of $x$, meaning an ancestor other than $x$ itself.
 
-![A back edge from a child subtree to a strict ancestor](img/Alex_Wei.png)
+![A child subtree connecting to a strict ancestor through a back edge](img/Alex_Wei.png)
+
+*Figure 7: A child subtree connecting to a strict ancestor through a back edge*
 
 Thus, $x$ is an articulation point whenever there is a child subtree $T(y)$ with no back edge from any of its vertices to a strict ancestor of $x$. Whether other child subtrees can connect to strict ancestors of $x$ does not affect this conclusion.
 
@@ -123,22 +139,27 @@ int dfn[N],low[N],buc[N],tim;
 // buc[i] indicates whether vertex i is an articulation point.
 void tarjan(int u,int fa)
 {
+    // On first visit, dfn records discovery order; low initially reaches only u.
     dfn[u]=low[u]=++tim;
+    // Count DFS children separately to handle the root criterion.
     int son=0;
     for(auto v : e[u])
     {
+        // This example has no parallel edges, so skip the parent tree edge.
         if(v==fa)   continue;
         if(!dfn[v])
         {
             son++;
             tarjan(v,u);
             low[u]=min(low[u],low[v]);
-            // Propagate the child's low value after returning from DFS.
+            // A child subtree cannot bypass u to reach a strict ancestor.
             if(low[v]>=dfn[u]&&fa!=0)
                 buc[u]=1;
         }
+        // A back edge to an ancestor can lower low[u].
         else low[u]=min(low[u],dfn[v]);
     }
+    // The root is an articulation point only with at least two DFS children.
     if(son>=2&&fa==0)
         buc[u]=1;
 }
@@ -173,7 +194,9 @@ int main()
 
 Definition: In an undirected graph, an edge whose removal increases the number of connected components is called a **bridge**, or a **cut edge**.
 
-![Removing a bridge splits the graph into two components](img/bridge-diagrams.png)
+![Connected components before and after removing a bridge](img/bridge-diagrams.png)
+
+*Figure 8: Connected components before and after removing a bridge*
 
 As shown above, removing edge C-D splits the original graph into two connected components.
 
@@ -183,7 +206,7 @@ Once again, we use Tarjan's algorithm.
 
 #### Finding Bridges with Tarjan's Algorithm
 
-The idea is similar to finding articulation points.
+The idea is similar to finding articulation points ~~(which explains why Tarjan gets another mention)~~.
 
 First, observe that if an edge $e$ is a bridge, it must be a tree edge. Removing a non-tree edge preserves the original connectivity, because the tree edges still provide paths between the vertices.
 
@@ -206,17 +229,23 @@ int n,m,ans;
 int dfn[N],low[N],tim;
 void tarjan(int u,int fa)
 {
+    // low[u] is the earliest dfn reachable from u's subtree via a back edge.
     dfn[u]=low[u]=++tim;
     int son=0;
     for(auto v : e[u])
     {
+        // Skipping the parent by vertex works only without parallel edges.
         if(v==fa)   continue;
         if(!dfn[v])
         {
-            son++,tarjan(v,u);
+            son++;
+            tarjan(v,u);
             low[u]=min(low[u],low[v]);
-            if(low[v]>dfn[u])   ans++;
+            // The child subtree cannot reach u or any ancestor: this edge is a bridge.
+            if(low[v]>dfn[u])
+                ans++;
         }
+        // An edge to an ancestor offers a route around the tree edge.
         else low[u]=min(low[u],dfn[v]);
     }
 }
@@ -227,11 +256,13 @@ int main()
     {
         int u,v;
         scanf("%d%d",&u,&v);
-        e[u].push_back(v),e[v].push_back(u);
+        e[u].push_back(v);
+        e[v].push_back(u);
     }
     for(int i=1;i<=n;i++)
     {
-        if(!dfn[i]) tarjan(i,0);
+        if(!dfn[i])
+            tarjan(i,0);
     }
     printf("%d\n",ans);
     return 0;
@@ -247,58 +278,58 @@ The solution is to assign an ID to each edge and store it in the adjacency vecto
 The revised implementation is:
 
 ```cpp
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-const int N = 1e5 + 10;
-struct Edge {
-    int v, id;
-};
-vector<Edge> e[N];
-int n, m, ans;
-int dfn[N], low[N], tim;
-
-void tarjan(int u, int in_edge)
+const int N=1e5+10;
+struct Edge
 {
-    dfn[u] = low[u] = ++tim;
-    for (auto edge : e[u])
+    int v,id;
+};
+vector<Edge>e[N];
+int n,m,ans;
+int dfn[N],low[N],tim;
+void tarjan(int u,int in_edge)
+{
+    dfn[u]=low[u]=++tim;
+    for(auto edge : e[u])
     {
-        int v = edge.v;
-        int id = edge.id;
+        int v=edge.v;
+        int id=edge.id;
         // Skip only the incoming edge, not other edges to the parent.
-        if (id == in_edge) continue;
-
-        if (!dfn[v])
+        if(id==in_edge)
+            continue;
+        if(!dfn[v])
         {
-            tarjan(v, id);
-            low[u] = min(low[u], low[v]);
-
-            if (low[v] > dfn[u]) ans++;
+            tarjan(v,id);
+            low[u]=min(low[u],low[v]);
+            // Strict inequality means the tree edge with this ID is a bridge.
+            if(low[v]>dfn[u])
+                ans++;
         }
         else
         {
-            low[u] = min(low[u], dfn[v]);
+            // A parallel edge may still act as a back edge and lower low[u].
+            low[u]=min(low[u],dfn[v]);
         }
     }
 }
 int main()
 {
-    scanf("%d%d", &n, &m);
-
-    for (int i = 1; i <= m; i++)
+    scanf("%d%d",&n,&m);
+    for(int i=1;i<=m;i++)
     {
-        int u, v;
-        scanf("%d%d", &u, &v);
-
+        int u,v;
+        scanf("%d%d",&u,&v);
         // Both directions of an undirected edge share the same ID.
-        e[u].push_back({v, i});
-        e[v].push_back({u, i});
+        e[u].push_back({v,i});
+        e[v].push_back({u,i});
     }
-    for (int i = 1; i <= n; i++)
+    for(int i=1;i<=n;i++)
     {
-        if (!dfn[i]) tarjan(i, 0);
+        if(!dfn[i])
+            tarjan(i,0);
     }
-
-    printf("%d\n", ans);
+    printf("%d\n",ans);
     return 0;
 }
 ```
@@ -329,15 +360,21 @@ From weakest to strongest, these levels are called weak connectivity, unilateral
 
 1. Weak connectivity: The graph is connected when every directed edge is treated as undirected. Direction is ignored; we ask only whether a path exists.
 
-   ![Weak connectivity](img/weak-connectivity.png)
+   ![An example of weak connectivity](img/weak-connectivity.png)
+
+   *Figure 9: An example of weak connectivity*
 
 2. Unilateral connectivity: For any two vertices $u,v$, at least one direction is reachable ($u \to v$ or $v \to u$). This adds a requirement beyond weak connectivity: the path must follow the edge directions. A weakly connected graph is not necessarily unilaterally connected.
 
-   ![Unilateral connectivity](img/unilateral-connectivity.png)
+   ![An example of unilateral connectivity](img/unilateral-connectivity.png)
+
+   *Figure 10: An example of unilateral connectivity*
 
 3. Strong connectivity: For any two vertices $u,v$, both $u \to v$ and $v \to u$ hold. In other words, every pair of vertices must be mutually reachable.
 
-   ![Strong connectivity](img/strong-connectivity.png)
+   ![An example of strong connectivity](img/strong-connectivity.png)
+
+   *Figure 11: An example of strong connectivity*
 
 When studying a graph, it is useful to simplify its structure. Mutual reachability among strongly connected vertices allows us to compress this information. We will therefore focus on strong connectivity next.
 
@@ -354,6 +391,8 @@ Any two vertices in an SCC can reach each other, so the component can be treated
 Consider this graph again:
 
 ![A directed DFS tree with discovery numbers](img/oneTree-dfn.png)
+
+*Figure 12: A directed DFS tree with discovery numbers*
 
 Let us examine the role of an edge $e(u \to v)$ in each case.
 
@@ -395,6 +434,8 @@ At this point, we have just entered $C$ and have not yet examined its edge to $A
 
 ![dfn and low after visiting A, B, and C](img/tarjan-low-01.png)
 
+*Figure 13: dfn and low after visiting A, B, and C*
+
 ##### 2. Examine C → A and update C's low
 
 $A$ has already been visited and is still on the stack, so use $dfn_A$ to update $low_C$:
@@ -405,7 +446,9 @@ $$
 
 This means that $C$ can follow this edge back to the earlier-discovered vertex $A$. We have not yet returned to $B$, so $low_B$ is still $2$. The stack remains $[A,B,C]$.
 
-![C's low decreases to 1 after examining the edge to A](img/tarjan-low-02.png)
+![C's low decreases to 1 after examining C to A](img/tarjan-low-02.png)
+
+*Figure 14: C's low decreases to 1 after examining C to A*
 
 ##### 3. Return to B, then visit D and E
 
@@ -423,6 +466,8 @@ Notice that although the recursive call for $C$ has finished, $C$ remains on Tar
 
 ![dfn and low after returning to B and visiting D and E](img/tarjan-low-03.png)
 
+*Figure 15: dfn and low after returning to B and visiting D and E*
+
 ##### 4. Examine E → D and update E's low
 
 $D$ has already been visited and is still on the stack, so:
@@ -433,7 +478,9 @@ $$
 
 Since $low_E=4\ne dfn_E=5$, $E$ is not the vertex of minimum depth in an SCC. The stack remains $[A,B,C,D,E]$.
 
-![E's low decreases to 4 after examining the edge to D](img/tarjan-low-04.png)
+![E's low decreases to 4 after examining E to D](img/tarjan-low-04.png)
+
+*Figure 16: E's low decreases to 4 after examining E to D*
 
 ##### 5. Return to D and pop the first SCC
 
@@ -447,7 +494,9 @@ All outgoing edges of $D$ have been processed, and $low_D=dfn_D=4$. Pop $E$ and 
 
 Next, return to $B$ and update $low_B=\min(1,4)=1$, which leaves the value unchanged. $B$ can reach $D$, but $D,E$ cannot reach $A,B,C$, so the two cycles do not merge into a single SCC. Only $[A,B,C]$ remains on the stack.
 
-![D and E are popped and identified as an SCC](img/tarjan-low-05.png)
+![D and E are popped as the first SCC](img/tarjan-low-05.png)
+
+*Figure 17: D and E are popped as the first SCC*
 
 ##### 6. Return to A and pop the second SCC
 
@@ -459,7 +508,9 @@ $$
 
 All outgoing edges of $A$ have been processed, and $low_A=dfn_A=1$. Pop $C,B,A$ in order to obtain the second SCC: $\{A,B,C\}$. The stack is now empty, and this search is complete.
 
-![A, B, and C are popped, and both SCCs have been identified](img/tarjan-low-06.png)
+![A, B, and C are popped; both SCCs are identified](img/tarjan-low-06.png)
+
+*Figure 18: A, B, and C are popped; both SCCs are identified*
 
 Throughout this process, dfn values never change; only low values are updated. The two update rules must be kept distinct: after recursively searching a child, use that child's low; when encountering an already-visited vertex that is still on the stack, use its dfn. Only after processing all outgoing edges of the current vertex do we check whether $low_u=dfn_u$ and decide whether to pop an SCC.
 
@@ -469,7 +520,9 @@ We now know how to find every SCC. When we compress an SCC into a single vertex,
 
 Replace each SCC with a new vertex, discard all edges whose endpoints belong to the same SCC, and retain the edges between different SCCs. The resulting graph is called the condensation graph.
 
-![The condensation graph](img/tarjan-condensed.png)
+![The DAG obtained by condensing strongly connected components](img/tarjan-condensed.png)
+
+*Figure 19: The DAG obtained by condensing strongly connected components*
 
 The condensation graph has an important property: it is always a **directed acyclic graph** (DAG).
 
@@ -486,97 +539,109 @@ Tarjan's SCC algorithm runs in $O(N+M)$ time, and building the condensation grap
 ```cpp
 #include<bits/stdc++.h>
 using namespace std;
-vector<int> stk;
-int top = 0;
-vector<vector<int>> graph;
-vector<int> dfn, low, belong;
-vector<bool> inStack;
-int timer = 0;
-int sccCount = 0;
-void tarjan(int u) {
-    dfn[u] = low[u] = ++timer;
-    stk[top++] = u;
-    inStack[u] = true;
-    for (int v : graph[u]) {
-        if (dfn[v] == 0) {
+vector<int>stk;
+int top=0;
+vector<vector<int>>graph;
+vector<int>dfn,low,belong;
+vector<bool>inStack;
+int timer=0;
+int sccCount=0;
+void tarjan(int u)
+{
+    // Assign a discovery number and push u onto the unresolved-vertex stack.
+    dfn[u]=low[u]=++timer;
+    stk[top++]=u;
+    inStack[u]=true;
+    for(int v : graph[u])
+    {
+        if(dfn[v]==0)
+        {
+            // Tree edge: recurse first, then propagate the child's low value.
             tarjan(v);
-            low[u] = min(low[u], low[v]);
-        } else if (inStack[v]) {
-            low[u] = min(low[u], dfn[v]);
+            low[u]=min(low[u],low[v]);
+        }
+        else if(inStack[v])
+        {
+            // Edge to a vertex still on the stack: use its dfn, not its low.
+            low[u]=min(low[u],dfn[v]);
         }
     }
-    // Identify the root of an SCC in the DFS tree.
-    if (low[u] == dfn[u]) {
+    // This equality identifies the shallowest DFS-tree vertex of an SCC.
+    if(low[u]==dfn[u])
+    {
         ++sccCount;
-        while (true) {
-            int v = stk[--top];
-            inStack[v] = false;
-            belong[v] = sccCount;
-
-            if (v == u) {
+        // Pop through u; every popped vertex belongs to this SCC.
+        while(true)
+        {
+            int v=stk[--top];
+            inStack[v]=false;
+            belong[v]=sccCount;
+            if(v==u)
                 break;
-            }
         }
     }
 }
-int main() {
-    int n, m;
-    cin >> n >> m;
-    graph.resize(n + 1);
-    dfn.assign(n + 1, 0);
-    low.assign(n + 1, 0);
-    belong.assign(n + 1, 0);
-    inStack.assign(n + 1, false);
-    stk.resize(n + 1);
-    for (int i = 0; i < m; ++i) {
-        int u, v;
-        cin >> u >> v;
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    graph.resize(n+1);
+    dfn.assign(n+1,0);
+    low.assign(n+1,0);
+    belong.assign(n+1,0);
+    inStack.assign(n+1,false);
+    stk.resize(n+1);
+    for(int i=0;i<m;i++)
+    {
+        int u,v;
+        cin>>u>>v;
         graph[u].push_back(v);
     }
     // Find all strongly connected components.
-    for (int u = 1; u <= n; ++u) {
-        if (dfn[u] == 0) {
+    for(int u=1;u<=n;u++)
+    {
+        if(dfn[u]==0)
             tarjan(u);
-        }
     }
     // Build the condensation graph.
-    vector<vector<int>> dag(sccCount + 1);
-    vector<int> sccSize(sccCount + 1, 0);
-    vector<int> indegree(sccCount + 1, 0);
-    for (int u = 1; u <= n; ++u) {
-        int a = belong[u];
+    vector<vector<int>>dag(sccCount+1);
+    vector<int>sccSize(sccCount+1,0);
+    vector<int>indegree(sccCount+1,0);
+    for(int u=1;u<=n;u++)
+    {
+        int a=belong[u];
         ++sccSize[a];
-        for (int v : graph[u]) {
-            int b = belong[v];
-
-            if (a != b) {
+        for(int v : graph[u])
+        {
+            int b=belong[v];
+            // Internal edges disappear; edges between SCCs keep their direction.
+            if(a!=b)
                 dag[a].push_back(b);
-            }
         }
     }
     // Remove duplicate edges, then compute indegrees.
-    int edgeCount = 0;
-    for (int a = 1; a <= sccCount; ++a) {
-        auto& edges = dag[a];
-        sort(edges.begin(), edges.end());
-        edges.erase(unique(edges.begin(), edges.end()), edges.end());
-        edgeCount += static_cast<int>(edges.size());
-        for (int b : edges) {
+    int edgeCount=0;
+    for(int a=1;a<=sccCount;a++)
+    {
+        auto&edges=dag[a];
+        // Keep each outgoing SCC edge once before computing indegrees.
+        sort(edges.begin(),edges.end());
+        edges.erase(unique(edges.begin(),edges.end()),edges.end());
+        edgeCount+=static_cast<int>(edges.size());
+        for(int b : edges)
             ++indegree[b];
-        }
     }
     // Print the number of SCCs.
-    cout << sccCount << '\n';
+    cout<<sccCount<<'\n';
     // Print the SCC ID of each vertex in the original graph.
-    for (int u = 1; u <= n; ++u) {
-        cout << belong[u] << (u == n ? '\n' : ' ');
-    }
+    for(int u=1;u<=n;u++)
+        cout<<belong[u]<<(u==n ? '\n' : ' ');
     // Print the edge count and all edges of the condensation graph.
-    cout << edgeCount << '\n';
-    for (int a = 1; a <= sccCount; ++a) {
-        for (int b : dag[a]) {
-            cout << a << ' ' << b << '\n';
-        }
+    cout<<edgeCount<<'\n';
+    for(int a=1;a<=sccCount;a++)
+    {
+        for(int b : dag[a])
+            cout<<a<<' '<<b<<'\n';
     }
     return 0;
 }

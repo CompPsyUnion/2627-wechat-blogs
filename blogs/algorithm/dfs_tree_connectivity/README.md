@@ -2,13 +2,15 @@
 
 ## 一、DFS 树
 
-在介绍 DFS 树之前，先介绍一下 DFS 是什么。
+在介绍 DFS 树之前，我们先从 DFS 说起，看看它怎样沿着图中的边逐步探索。
 
 深度优先搜索（DFS）是一种遍历图的方法，具体来说，从一个顶点出发，选择尚未访问的相邻顶点继续深入；当没有未访问的相邻顶点时，就回退到上一个顶点，继续探索其他分支，直到本次搜索能够到达的顶点都被访问。
 
-以下图为例：
+我们先看一个具体例子：
 
-![img](img/DFSshow.png)
+![DFS 从节点 1 出发的遍历过程](img/DFSshow.png)
+
+*图 1：DFS 从节点 1 出发的遍历过程*
 
 从节点 1 开始，依次访问节点 3、5、7。节点 7 的相邻节点都已访问，因此依次回退到节点 5、3，再访问节点 6。以此类推，直到遍历完所有节点。本次遍历的顺序为：1-3-5-7-6-2-8-4-10-9-11-12。
 
@@ -16,11 +18,15 @@
 
 当我们把 DFS 时首次访问新节点的边加粗记录下来，可以得到这张图：
 
-![image](img/dfs_tree_no_dfn.png)
+![无向图的 DFS 树：粗线为树边](img/dfs_tree_no_dfn.png)
 
-这就是 DFS 树。
+*图 2：无向图的 DFS 树：粗线为树边*
+
+这就是标题中的 DFS 树。
 
 #### 树边和回边
+
+我们先看一下无向图的 DFS 树的边的分类。
 
 树边：构成 DFS 树的边，即图中的粗线。
 
@@ -32,19 +38,23 @@
 
 有向图的 DFS 树的构造方式与无向图类似，但从一个节点出发不一定能访问所有节点。例如，图中从 1 出发只能访问 1、2、3。此时需要从尚未访问的顶点 4 继续搜索，两次搜索形成的 DFS 树共同组成一片 DFS 森林。
 
-![image](img/weakly_connected_dfs_forest.png)
+![有向图的 DFS 森林](img/weakly_connected_dfs_forest.png)
+
+*图 3：有向图的 DFS 森林*
 
 #### 前向边、后向边（返祖边）和横叉边
 
 下面用另一张有向图展示 DFS 树和各类非树边：
 
-![image](img/oneTree.png)
+![有向图 DFS 树中的非树边类型](img/oneTree.png)
 
-* 从祖先指向后代的非树边，称为 **前向边**。
+*图 4：有向图 DFS 树中的非树边类型*
 
-* 从后代指向祖先的非树边，称为 **后向边（返祖边）**。
+* 从祖先指向后代的非树边，称为 **前向边** 。
 
-* 两端无祖先后代关系的非树边，称为 **横叉边**。
+* 从后代指向祖先的非树边，称为 **后向边（返祖边）** 。
+
+* 两端无祖先后代关系的非树边，称为 **横叉边** 。
 
 ### DFN
 
@@ -53,25 +63,29 @@ DFN（Depth-First Number）是深度优先搜索（DFS）中，顶点首次被�
 
 以上面的无向图 DFS 树为例，可以求出每个节点对应的 dfn 值：
 
-![image](img/dfn_tree_with_back_edges.png)
+![DFS 树的发现时间与回边](img/dfn_tree_with_back_edges.png)
+
+*图 5：DFS 树的发现时间与回边*
 
 ## 二、无向图的连通性
 
-介绍完 DFS 树后，从本节开始讨论它的具体应用。
+有了 DFS 树，接下来看看它怎样帮助我们判断图的连通性。
 
 ### 割点
 
-定义：在无向图中，删去后使得连通分量数增加的点称为**割点**。
+定义：在无向图中，删去后使得连通分量数增加的点称为 **割点** 。
 
 定义中的连通分量是指极大连通子图。
 
-![image](img/articulation-point-diagrams.png)
+![删除割点前后的连通分量](img/articulation-point-diagrams.png)
+
+*图 6：删除割点前后的连通分量*
 
 图中的 V 就是一个割点。去除节点 V 后，原来的一个连通分量分成了两个连通分量。
 
 如何利用 DFS 树快速求出一张图的割点呢？
 
-有一个强大的算法：**Tarjan**。
+有一个强大的算法： **Tarjan** 。
 
 #### Tarjan 求割点
 
@@ -83,7 +97,9 @@ DFN（Depth-First Number）是深度优先搜索（DFS）中，顶点首次被�
 
 以下图为例，$y$ 是 $x$ 的一个子节点，$u\in T(y)$，$v\in T'(x)$。如果 $T(y)$ 能绕过 $x$ 到达 $T'(x)$，就必然存在一条跨越这两部分的回边 $(u,v)$。根据无向图回边的性质，$v$ 一定是 $x$ 的严格祖先，也就是不包括 $x$ 自身的祖先。
 
-![image](img/Alex_Wei.png)
+![子树经回边连接到割点的严格祖先](img/Alex_Wei.png)
+
+*图 7：子树经回边连接到割点的严格祖先*
 
 因此，只要存在一棵子树 $T(y)$，其中没有节点通过回边连接到 $x$ 的严格祖先，$x$ 就是割点。其他子树是否能连接到 $x$ 的严格祖先，并不影响这个结论。
 
@@ -120,25 +136,30 @@ const int N=1e5+10;
 vector<int>e[N];
 int n,m;
 int dfn[N],low[N],buc[N],tim;
-// buc[i] 代表是否是割点
+// buc[i] indicates whether vertex i is an articulation point.
 void tarjan(int u,int fa)
 {
+    // On first visit, dfn records discovery order; low initially reaches only u.
     dfn[u]=low[u]=++tim;
+    // Count DFS children separately to handle the root criterion.
     int son=0;
     for(auto v : e[u])
     {
+        // This example has no parallel edges, so skip the parent tree edge.
         if(v==fa)   continue;
         if(!dfn[v])
         {
             son++;
             tarjan(v,u);
             low[u]=min(low[u],low[v]);
-            // Propagate the child's low value after returning from DFS.
+            // A child subtree cannot bypass u to reach a strict ancestor.
             if(low[v]>=dfn[u]&&fa!=0)
                 buc[u]=1;
         }
+        // A back edge to an ancestor can lower low[u].
         else low[u]=min(low[u],dfn[v]);
     }
+    // The root is an articulation point only with at least two DFS children.
     if(son>=2&&fa==0)
         buc[u]=1;
 }
@@ -154,36 +175,38 @@ int main()
     }
     for(int i=1;i<=n;i++)
     {
-        // 可能不是连通图
+        // The graph may be disconnected.
         if(!dfn[i])
             tarjan(i,0);
     }
     int ans=0;
     for(int i=1;i<=n;i++)
         ans+=buc[i];
-    printf("%d\n",ans);//输出割点个数
+    printf("%d\n",ans);// Print the number of articulation points.
     for(int i=1;i<=n;i++)
         if(buc[i])  printf("%d ",i);
-    //分别输出割点
+    // Print each articulation point.
     return 0;
 }
 ```
 
 ### 割边
 
-定义：在无向图中，删去后使连通分量数增加的边称为**割边**，也称为**桥**。
+定义：在无向图中，删去后使连通分量数增加的边称为 **割边** ，也称为 **桥** 。
 
-![image](img/bridge-diagrams.png)
+![删除割边前后的连通分量](img/bridge-diagrams.png)
+
+*图 8：删除割边前后的连通分量*
 
 如上图所示，去除 C-D 这条边后，原图分成两个连通分量。
 
-如何求割边？
+那我们如何求解割边呢？
 
 仍然是 Tarjan 算法。
 
 #### Tarjan 求割边
 
-求割边的思路与求割点相似。
+求割边的思路与求割点相似 ~~（不然为什么也叫 Tarjan）~~。
 
 首先，有一个比较显然的事实：如果一条边 $e$ 是割边，那么它一定是树边。除去一条非树边，仍然可以通过树边保持原有的连通性。
 
@@ -195,7 +218,7 @@ int main()
 
 下面是代码实现：
 
-时间复杂度：$O(N+M)$
+时间复杂度： $O(N+M)$
 
 ```cpp
 #include<bits/stdc++.h>
@@ -206,17 +229,23 @@ int n,m,ans;
 int dfn[N],low[N],tim;
 void tarjan(int u,int fa)
 {
+    // low[u] is the earliest dfn reachable from u's subtree via a back edge.
     dfn[u]=low[u]=++tim;
     int son=0;
     for(auto v : e[u])
     {
+        // Skipping the parent by vertex works only without parallel edges.
         if(v==fa)   continue;
         if(!dfn[v])
         {
-            son++,tarjan(v,u);
+            son++;
+            tarjan(v,u);
             low[u]=min(low[u],low[v]);
-            if(low[v]>dfn[u])   ans++;
+            // The child subtree cannot reach u or any ancestor: this edge is a bridge.
+            if(low[v]>dfn[u])
+                ans++;
         }
+        // An edge to an ancestor offers a route around the tree edge.
         else low[u]=min(low[u],dfn[v]);
     }
 }
@@ -227,11 +256,13 @@ int main()
     {
         int u,v;
         scanf("%d%d",&u,&v);
-        e[u].push_back(v),e[v].push_back(u);
+        e[u].push_back(v);
+        e[v].push_back(u);
     }
     for(int i=1;i<=n;i++)
     {
-        if(!dfn[i]) tarjan(i,0);
+        if(!dfn[i])
+            tarjan(i,0);
     }
     printf("%d\n",ans);
     return 0;
@@ -242,63 +273,63 @@ int main()
 
 当这张图出现重边时，这些重边一定不是割边。但此时代码并没有考虑到这件事情。
 
-解决方法：记录边的编号。建图时，在 vector 中存入边的编号。这样把**不用父节点更新**改为**不用来时的边更新**。
+解决方法：记录边的编号。建图时，在 vector 中存入边的编号。这样把 **不用父节点更新** 改为 **不用来时的边更新** 。
 
 修改后的代码：
 
 ```cpp
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-const int N = 1e5 + 10;
-struct Edge {
-    int v, id;
-};
-vector<Edge> e[N];
-int n, m, ans;
-int dfn[N], low[N], tim;
-
-void tarjan(int u, int in_edge)
+const int N=1e5+10;
+struct Edge
 {
-    dfn[u] = low[u] = ++tim;
-    for (auto edge : e[u])
+    int v,id;
+};
+vector<Edge>e[N];
+int n,m,ans;
+int dfn[N],low[N],tim;
+void tarjan(int u,int in_edge)
+{
+    dfn[u]=low[u]=++tim;
+    for(auto edge : e[u])
     {
-        int v = edge.v;
-        int id = edge.id;
-        // 只跳过进入 u 的那条边，不跳过其他连接父节点的边
-        if (id == in_edge) continue;
-
-        if (!dfn[v])
+        int v=edge.v;
+        int id=edge.id;
+        // Skip only the incoming edge, not other edges to the parent.
+        if(id==in_edge)
+            continue;
+        if(!dfn[v])
         {
-            tarjan(v, id);
-            low[u] = min(low[u], low[v]);
-
-            if (low[v] > dfn[u]) ans++;
+            tarjan(v,id);
+            low[u]=min(low[u],low[v]);
+            // Strict inequality means the tree edge with this ID is a bridge.
+            if(low[v]>dfn[u])
+                ans++;
         }
         else
         {
-            low[u] = min(low[u], dfn[v]);
+            // A parallel edge may still act as a back edge and lower low[u].
+            low[u]=min(low[u],dfn[v]);
         }
     }
 }
 int main()
 {
-    scanf("%d%d", &n, &m);
-
-    for (int i = 1; i <= m; i++)
+    scanf("%d%d",&n,&m);
+    for(int i=1;i<=m;i++)
     {
-        int u, v;
-        scanf("%d%d", &u, &v);
-
-        // 同一条无向边的两个方向使用相同编号
-        e[u].push_back({v, i});
-        e[v].push_back({u, i});
+        int u,v;
+        scanf("%d%d",&u,&v);
+        // Both directions of an undirected edge share the same ID.
+        e[u].push_back({v,i});
+        e[v].push_back({u,i});
     }
-    for (int i = 1; i <= n; i++)
+    for(int i=1;i<=n;i++)
     {
-        if (!dfn[i]) tarjan(i, 0);
+        if(!dfn[i])
+            tarjan(i,0);
     }
-
-    printf("%d\n", ans);
+    printf("%d\n",ans);
     return 0;
 }
 ```
@@ -315,9 +346,9 @@ int main()
 
 2. 对每一条树边 $(u,v)$，寻找是否有一条回边跨越 $(u,v)$，如果没有，它就是割边。
 
-对于第二步，对每条从后代 $x$ 连向祖先 $y$ 的回边，令 $d[x]$ 加一、$d[y]$ 减一，再自底向上累加子树内的 $d$ 值。非根节点 $v$ 的子树和，就是连接它与父节点的树边被跨越的次数；若为零，则该树边是桥。
+对于第二步，对每条从后代 $x$ 连向祖先 $y$ 的回边，令 $d[x]$ 加一，令 $d[y]$ 减一，再自底向上累加子树内的 $d$ 值。非根节点 $v$ 的子树和，就是连接它与父节点的树边被跨越的次数；若为零，则该树边是桥。
 
-时间复杂度：$O(N+M)$
+时间复杂度： $O(N+M)$
 
 ## 三、有向图的连通性
 
@@ -329,31 +360,39 @@ int main()
 
 1. 弱连通：把所有有向边当成无向边之后，图是连通的。方向信息全部抛弃，只探究“有没有路”。
 
-   ![image](img/weak-connectivity.png)
+   ![弱连通示例](img/weak-connectivity.png)
+
+   *图 9：弱连通示例*
 
 2. 单向连通：任意两点 $u,v$，至少有一个方向可达（$u \to v$ 或 $v \to u$）。比第一层多要了一样东西：不光要有路，还得顺着箭头走得到。所以它是弱连通的加强：弱连通的图未必单向连通。
 
-   ![image](img/unilateral-connectivity.png)
+   ![单向连通示例](img/unilateral-connectivity.png)
+
+   *图 10：单向连通示例*
 
 3. 强连通：任意两点 $u,v$，都有 $u \to v$ 且 $v \to u$。到这一层，要求变成双向的：任意两点之间必须能“来回走通”。
 
-   ![image](img/strong-connectivity.png)
+   ![强连通示例](img/strong-connectivity.png)
+
+   *图 11：强连通示例*
 
 当研究一张图时，希望尽可能简化信息，而强连通节点之间相互可达的性质，正好可以用来压缩信息。所以接下来我们重点关注强连通相关的性质。
 
 ### 强连通分量
 
-强连通图：满足任意两点强连通的有向图称为**强连通图**。它等价于图中任意一个节点都能到达其他所有节点。
+强连通图：满足任意两点强连通的有向图称为 **强连通图** 。它等价于图中任意一个节点都能到达其他所有节点。
 
-强连通分量：有向图的极大强连通子图称为**强连通分量**（Strongly Connected Component，SCC）。
+强连通分量：有向图的极大强连通子图称为 **强连通分量** （Strongly Connected Component，SCC）。
 
 一个强连通分量中的任意两点可以相互到达，构成一个整体。本节先介绍如何找到一张有向图中的所有 SCC，随后再介绍缩点。
 
 #### Tarjan 求 SCC
 
-仍以这张图为例。
+我们回到刚才的有向图，看看不同类型的边会怎样影响 SCC 的识别。
 
-![image](img/oneTree-dfn.png)
+![有向图 DFS 树及其发现时间](img/oneTree-dfn.png)
+
+*图 12：有向图 DFS 树及其发现时间*
 
 分别讨论一条边 $e(u \to v)$ 在不同情况下的作用。
 
@@ -395,6 +434,8 @@ $$
 
 ![访问 A、B、C 后的 dfn 和 low](img/tarjan-low-01.png)
 
+*图 13：访问 A、B、C 后的 dfn 和 low*
+
 ##### 2. 检查 C → A，更新 C 的 low
 
 $A$ 已经访问，并且仍在栈中，因此用 $dfn_A$ 更新 $low_C$：
@@ -406,6 +447,8 @@ $$
 这说明 $C$ 可以沿这条边回到更早访问的 $A$。此刻尚未回溯到 $B$，所以 $low_B$ 仍然为 $2$，栈仍为 $[A,B,C]$。
 
 ![检查 C 到 A 的边后，C 的 low 降为 1](img/tarjan-low-02.png)
+
+*图 14：检查 C 到 A 的边后，C 的 low 降为 1*
 
 ##### 3. 返回 B，再访问 D、E
 
@@ -423,6 +466,8 @@ $$
 
 ![返回 B 并访问 D、E 后的 dfn 和 low](img/tarjan-low-03.png)
 
+*图 15：返回 B 并访问 D、E 后的 dfn 和 low*
+
 ##### 4. 检查 E → D，更新 E 的 low
 
 $D$ 已经访问，并且仍在栈中，因此：
@@ -434,6 +479,8 @@ $$
 此时 $low_E=4\ne dfn_E=5$，所以 $E$ 还不能作为一个 SCC 的最浅节点。栈仍为 $[A,B,C,D,E]$。
 
 ![检查 E 到 D 的边后，E 的 low 降为 4](img/tarjan-low-04.png)
+
+*图 16：检查 E 到 D 的边后，E 的 low 降为 4*
 
 ##### 5. 返回 D，弹出第一个 SCC
 
@@ -447,7 +494,9 @@ $D$ 的所有出边已经处理完毕，并且 $low_D=dfn_D=4$，因此从栈顶
 
 接着返回 $B$，更新 $low_B=\min(1,4)=1$，数值保持不变。$B$ 能到达 $D$，但 $D,E$ 无法返回 $A,B,C$，所以两个环不会合并为同一个 SCC。此时栈中只剩下 $[A,B,C]$。
 
-![D、E 出栈并被确定为一个 SCC](img/tarjan-low-05.png)
+![D、E 出栈并确定为第一个 SCC](img/tarjan-low-05.png)
+
+*图 17：D、E 出栈并确定为第一个 SCC*
 
 ##### 6. 返回 A，弹出第二个 SCC
 
@@ -461,6 +510,8 @@ $A$ 的所有出边已经处理完毕，并且 $low_A=dfn_A=1$。从栈顶依次
 
 ![A、B、C 出栈，两个 SCC 均已确定](img/tarjan-low-06.png)
 
+*图 18：A、B、C 出栈，两个 SCC 均已确定*
+
 整个过程中，$dfn$ 始终不变，发生变化的是 $low$。两种更新方式也要区分：递归搜索子节点后，使用子节点的 $low$；遇到已访问且仍在栈中的节点，使用该节点的 $dfn$。只有处理完当前节点的所有出边，才检查 $low_u=dfn_u$ 是否成立，并决定是否弹出一个 SCC。
 
 至此，我们已经学会如何求出每一个 SCC 了。当我们把一个 SCC 缩成一个点后，如何保留原图中重要的连通性信息呢？
@@ -469,9 +520,11 @@ $A$ 的所有出边已经处理完毕，并且 $low_A=dfn_A=1$。从栈顶依次
 
 缩点时，将每一个 SCC 替换为一个新的点，同一个 SCC 中的边全部删除，保留原来两端在不同 SCC 的边，这样就得到缩点图。
 
-![image](img/tarjan-condensed.png)
+![将强连通分量缩成节点后的有向无环图](img/tarjan-condensed.png)
 
-缩点图有一个重要的性质：它一定是**有向无环图**（DAG）。
+*图 19：将强连通分量缩成节点后的有向无环图*
+
+缩点图有一个重要的性质：它一定是 **有向无环图** （DAG）。
 
 更通俗来说，DAG 是“只能顺着箭头走，而且怎么走都绕不回原点”的图。
 
@@ -486,97 +539,109 @@ Tarjan 求 SCC 的时间复杂度为 $O(N+M)$，构建未去重的缩点图也�
 ```cpp
 #include<bits/stdc++.h>
 using namespace std;
-vector<int> stk;
-int top = 0;
-vector<vector<int>> graph;
-vector<int> dfn, low, belong;
-vector<bool> inStack;
-int timer = 0;
-int sccCount = 0;
-void tarjan(int u) {
-    dfn[u] = low[u] = ++timer;
-    stk[top++] = u;
-    inStack[u] = true;
-    for (int v : graph[u]) {
-        if (dfn[v] == 0) {
+vector<int>stk;
+int top=0;
+vector<vector<int>>graph;
+vector<int>dfn,low,belong;
+vector<bool>inStack;
+int timer=0;
+int sccCount=0;
+void tarjan(int u)
+{
+    // Assign a discovery number and push u onto the unresolved-vertex stack.
+    dfn[u]=low[u]=++timer;
+    stk[top++]=u;
+    inStack[u]=true;
+    for(int v : graph[u])
+    {
+        if(dfn[v]==0)
+        {
+            // Tree edge: recurse first, then propagate the child's low value.
             tarjan(v);
-            low[u] = min(low[u], low[v]);
-        } else if (inStack[v]) {
-            low[u] = min(low[u], dfn[v]);
+            low[u]=min(low[u],low[v]);
+        }
+        else if(inStack[v])
+        {
+            // Edge to a vertex still on the stack: use its dfn, not its low.
+            low[u]=min(low[u],dfn[v]);
         }
     }
-    //找到最浅节点。
-    if (low[u] == dfn[u]) {
+    // This equality identifies the shallowest DFS-tree vertex of an SCC.
+    if(low[u]==dfn[u])
+    {
         ++sccCount;
-        while (true) {
-            int v = stk[--top];
-            inStack[v] = false;
-            belong[v] = sccCount;
-
-            if (v == u) {
+        // Pop through u; every popped vertex belongs to this SCC.
+        while(true)
+        {
+            int v=stk[--top];
+            inStack[v]=false;
+            belong[v]=sccCount;
+            if(v==u)
                 break;
-            }
         }
     }
 }
-int main() {
-    int n, m;
-    cin >> n >> m;
-    graph.resize(n + 1);
-    dfn.assign(n + 1, 0);
-    low.assign(n + 1, 0);
-    belong.assign(n + 1, 0);
-    inStack.assign(n + 1, false);
-    stk.resize(n + 1);
-    for (int i = 0; i < m; ++i) {
-        int u, v;
-        cin >> u >> v;
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    graph.resize(n+1);
+    dfn.assign(n+1,0);
+    low.assign(n+1,0);
+    belong.assign(n+1,0);
+    inStack.assign(n+1,false);
+    stk.resize(n+1);
+    for(int i=0;i<m;i++)
+    {
+        int u,v;
+        cin>>u>>v;
         graph[u].push_back(v);
     }
-    // 求所有强连通分量。
-    for (int u = 1; u <= n; ++u) {
-        if (dfn[u] == 0) {
+    // Find all strongly connected components.
+    for(int u=1;u<=n;u++)
+    {
+        if(dfn[u]==0)
             tarjan(u);
-        }
     }
-    // 构建缩点图。
-    vector<vector<int>> dag(sccCount + 1);
-    vector<int> sccSize(sccCount + 1, 0);
-    vector<int> indegree(sccCount + 1, 0);
-    for (int u = 1; u <= n; ++u) {
-        int a = belong[u];
+    // Build the condensation graph.
+    vector<vector<int>>dag(sccCount+1);
+    vector<int>sccSize(sccCount+1,0);
+    vector<int>indegree(sccCount+1,0);
+    for(int u=1;u<=n;u++)
+    {
+        int a=belong[u];
         ++sccSize[a];
-        for (int v : graph[u]) {
-            int b = belong[v];
-
-            if (a != b) {
+        for(int v : graph[u])
+        {
+            int b=belong[v];
+            // Internal edges disappear; edges between SCCs keep their direction.
+            if(a!=b)
                 dag[a].push_back(b);
-            }
         }
     }
-    // 去除重边，然后统计入度。
-    int edgeCount = 0;
-    for (int a = 1; a <= sccCount; ++a) {
-        auto& edges = dag[a];
-        sort(edges.begin(), edges.end());
-        edges.erase(unique(edges.begin(), edges.end()), edges.end());
-        edgeCount += static_cast<int>(edges.size());
-        for (int b : edges) {
+    // Remove duplicate edges, then compute indegrees.
+    int edgeCount=0;
+    for(int a=1;a<=sccCount;a++)
+    {
+        auto&edges=dag[a];
+        // Keep each outgoing SCC edge once before computing indegrees.
+        sort(edges.begin(),edges.end());
+        edges.erase(unique(edges.begin(),edges.end()),edges.end());
+        edgeCount+=static_cast<int>(edges.size());
+        for(int b : edges)
             ++indegree[b];
-        }
     }
-    // 输出 SCC 数量。
-    cout << sccCount << '\n';
-    // 输出原图每个节点所属的 SCC。
-    for (int u = 1; u <= n; ++u) {
-        cout << belong[u] << (u == n ? '\n' : ' ');
-    }
-    // 输出缩点图的边数及所有边。
-    cout << edgeCount << '\n';
-    for (int a = 1; a <= sccCount; ++a) {
-        for (int b : dag[a]) {
-            cout << a << ' ' << b << '\n';
-        }
+    // Print the number of SCCs.
+    cout<<sccCount<<'\n';
+    // Print the SCC ID of each vertex in the original graph.
+    for(int u=1;u<=n;u++)
+        cout<<belong[u]<<(u==n ? '\n' : ' ');
+    // Print the edge count and all edges of the condensation graph.
+    cout<<edgeCount<<'\n';
+    for(int a=1;a<=sccCount;a++)
+    {
+        for(int b : dag[a])
+            cout<<a<<' '<<b<<'\n';
     }
     return 0;
 }
