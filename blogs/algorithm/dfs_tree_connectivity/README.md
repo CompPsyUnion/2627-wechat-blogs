@@ -122,30 +122,30 @@ const int N=1e5+10;
 vector<int>e[N];
 int n,m;
 int dfn[N],low[N],buc[N],tim;
-// buc[i] indicates whether vertex i is an articulation point.
+// buc[i] 代表是否是割点
 void tarjan(int u,int fa)
 {
-    // On first visit, dfn records discovery order; low initially reaches only u.
+    // 首次访问 u：dfn 记录访问顺序，low 初始只能到达自己。
     dfn[u]=low[u]=++tim;
-    // Count DFS children separately to handle the root criterion.
+    // son 只统计 DFS 树中的子节点，用于单独判断根节点。
     int son=0;
     for(auto v : e[u])
     {
-        // This example has no parallel edges, so skip the parent tree edge.
+        // 当前示例不含重边，跳过通向父节点的树边。
         if(v==fa)   continue;
         if(!dfn[v])
         {
             son++;
             tarjan(v,u);
             low[u]=min(low[u],low[v]);
-            // A child subtree cannot bypass u to reach a strict ancestor.
+            // 子树无法绕过 u 到达其严格祖先时，非根节点 u 是割点。
             if(low[v]>=dfn[u]&&fa!=0)
                 buc[u]=1;
         }
-        // A back edge to an ancestor can lower low[u].
+        // 遇到通向祖先的回边，用祖先的 dfn 更新 low。
         else low[u]=min(low[u],dfn[v]);
     }
-    // The root is an articulation point only with at least two DFS children.
+    // 根节点有至少两棵 DFS 子树时才是割点。
     if(son>=2&&fa==0)
         buc[u]=1;
 }
@@ -161,17 +161,17 @@ int main()
     }
     for(int i=1;i<=n;i++)
     {
-        // The graph may be disconnected.
+        // 可能不是连通图
         if(!dfn[i])
             tarjan(i,0);
     }
     int ans=0;
     for(int i=1;i<=n;i++)
         ans+=buc[i];
-    printf("%d\n",ans);// Print the number of articulation points.
+    printf("%d\n",ans);//输出割点个数
     for(int i=1;i<=n;i++)
         if(buc[i])  printf("%d ",i);
-    // Print each articulation point.
+    //分别输出割点
     return 0;
 }
 ```
@@ -213,23 +213,23 @@ int n,m,ans;
 int dfn[N],low[N],tim;
 void tarjan(int u,int fa)
 {
-    // low[u] is the earliest dfn reachable from u's subtree via a back edge.
+    // low[u] 是 u 的子树经至多一条回边能到达的最小 dfn。
     dfn[u]=low[u]=++tim;
     int son=0;
     for(auto v : e[u])
     {
-        // Skipping the parent by vertex works only without parallel edges.
+        // 此版本假设没有重边，因此可按父节点跳过来时的边。
         if(v==fa)   continue;
         if(!dfn[v])
         {
             son++;
             tarjan(v,u);
             low[u]=min(low[u],low[v]);
-            // The child subtree cannot reach u or any ancestor: this edge is a bridge.
+            // 子树无法经回边到达 u 或其祖先，这条树边就是桥。
             if(low[v]>dfn[u])
                 ans++;
         }
-        // An edge to an ancestor offers a route around the tree edge.
+        // 已访问的祖先提供一条绕开树边的回边。
         else low[u]=min(low[u],dfn[v]);
     }
 }
@@ -279,20 +279,20 @@ void tarjan(int u,int in_edge)
     {
         int v=edge.v;
         int id=edge.id;
-        // Skip only the incoming edge, not other edges to the parent.
+        // 只跳过进入 u 的那条边，不跳过其他连接父节点的边
         if(id==in_edge)
             continue;
         if(!dfn[v])
         {
             tarjan(v,id);
             low[u]=min(low[u],low[v]);
-            // Strict inequality means the tree edge with this ID is a bridge.
+            // 只有严格大于 dfn[u]，这条编号为 id 的树边才是桥。
             if(low[v]>dfn[u])
                 ans++;
         }
         else
         {
-            // A parallel edge may still act as a back edge and lower low[u].
+            // 其他平行边仍可作为回边，降低 low[u]。
             low[u]=min(low[u],dfn[v]);
         }
     }
@@ -304,7 +304,7 @@ int main()
     {
         int u,v;
         scanf("%d%d",&u,&v);
-        // Both directions of an undirected edge share the same ID.
+        // 同一条无向边的两个方向使用相同编号
         e[u].push_back({v,i});
         e[v].push_back({u,i});
     }
@@ -510,7 +510,7 @@ int timer=0;
 int sccCount=0;
 void tarjan(int u)
 {
-    // Assign a discovery number and push u onto the unresolved-vertex stack.
+    // 首次访问 u：分配发现时间，并把它压入待确定 SCC 的节点栈。
     dfn[u]=low[u]=++timer;
     stk[top++]=u;
     inStack[u]=true;
@@ -518,21 +518,21 @@ void tarjan(int u)
     {
         if(dfn[v]==0)
         {
-            // Tree edge: recurse first, then propagate the child's low value.
+            // 树边：先搜索子节点，再用子节点的 low 更新 u。
             tarjan(v);
             low[u]=min(low[u],low[v]);
         }
         else if(inStack[v])
         {
-            // Edge to a vertex still on the stack: use its dfn, not its low.
+            // 指向栈中节点的边：只能用该节点的 dfn 更新。
             low[u]=min(low[u],dfn[v]);
         }
     }
-    // This equality identifies the shallowest DFS-tree vertex of an SCC.
+    // low[u] == dfn[u] 表示 u 是一个 SCC 在 DFS 树中的最浅节点。
     if(low[u]==dfn[u])
     {
         ++sccCount;
-        // Pop through u; every popped vertex belongs to this SCC.
+        // 从栈顶弹到 u 为止，弹出的节点属于同一个 SCC。
         while(true)
         {
             int v=stk[--top];
@@ -559,13 +559,13 @@ int main()
         cin>>u>>v;
         graph[u].push_back(v);
     }
-    // Find all strongly connected components.
+    // 求所有强连通分量。
     for(int u=1;u<=n;u++)
     {
         if(dfn[u]==0)
             tarjan(u);
     }
-    // Build the condensation graph.
+    // 构建缩点图。
     vector<vector<int>>dag(sccCount+1);
     vector<int>sccSize(sccCount+1,0);
     vector<int>indegree(sccCount+1,0);
@@ -576,29 +576,29 @@ int main()
         for(int v : graph[u])
         {
             int b=belong[v];
-            // Internal edges disappear; edges between SCCs keep their direction.
+            // 分量内部的边被压缩；不同分量之间保留有向边。
             if(a!=b)
                 dag[a].push_back(b);
         }
     }
-    // Remove duplicate edges, then compute indegrees.
+    // 去除重边，然后统计入度。
     int edgeCount=0;
     for(int a=1;a<=sccCount;a++)
     {
         auto&edges=dag[a];
-        // Keep each outgoing SCC edge once before computing indegrees.
+        // 平行边只保留一条，随后统计缩点图中的入度。
         sort(edges.begin(),edges.end());
         edges.erase(unique(edges.begin(),edges.end()),edges.end());
         edgeCount+=static_cast<int>(edges.size());
         for(int b : edges)
             ++indegree[b];
     }
-    // Print the number of SCCs.
+    // 输出 SCC 数量。
     cout<<sccCount<<'\n';
-    // Print the SCC ID of each vertex in the original graph.
+    // 输出原图每个节点所属的 SCC。
     for(int u=1;u<=n;u++)
         cout<<belong[u]<<(u==n ? '\n' : ' ');
-    // Print the edge count and all edges of the condensation graph.
+    // 输出缩点图的边数及所有边。
     cout<<edgeCount<<'\n';
     for(int a=1;a<=sccCount;a++)
     {
