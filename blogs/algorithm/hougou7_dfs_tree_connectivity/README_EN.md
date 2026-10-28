@@ -16,7 +16,7 @@ Starting from vertex 1, we visit vertices 3, 5, and 7 in order. All neighbors of
 
 If we highlight each edge used to visit a new vertex for the first time during DFS, we obtain the following graph:
 
-![An undirected DFS tree with tree edges highlighted](img/dfs_tree_no_dfn.png)
+![An undirected DFS tree with tree edges highlighted](img/dfs_tree_no_dfn_en.png)
 
 This is the DFS tree mentioned in the title.
 
@@ -34,13 +34,13 @@ In an undirected graph, a back edge always connects an ancestor and a descendant
 
 DFS trees in directed graphs are constructed similarly to those in undirected graphs, but a search starting from a single vertex may not reach every vertex. For example, in the following graph, starting from vertex 1 reaches only vertices 1, 2, and 3. We then start another search from the unvisited vertex 4. The trees produced by these two searches together form a DFS forest.
 
-![A DFS forest of a directed graph](img/weakly_connected_dfs_forest.png)
+![A DFS forest of a directed graph](img/weakly_connected_dfs_forest_en.png)
 
 #### Forward Edges, Back Edges, and Cross Edges
 
 The following directed graph illustrates a DFS tree and the different types of non-tree edges:
 
-![Types of non-tree edges in a directed DFS tree](img/oneTree.png)
+![Types of non-tree edges in a directed DFS tree](img/oneTree_en.png)
 
 * A non-tree edge directed from an ancestor to a descendant is called a **forward edge**.
 
@@ -55,7 +55,7 @@ Whenever we visit a vertex for the first time, we increment a counter and record
 
 For the undirected DFS tree above, each vertex receives the following dfn value:
 
-![Discovery numbers and back edges in a DFS tree](img/dfn_tree_with_back_edges.png)
+![Discovery numbers and back edges in a DFS tree](img/dfn_tree_with_back_edges_en.png)
 
 ## 2. Connectivity in Undirected Graphs
 
@@ -368,7 +368,7 @@ Any two vertices in an SCC can reach each other, so the component can be treated
 
 Consider this graph again:
 
-![A directed DFS tree with discovery numbers](img/oneTree-dfn.png)
+![A directed DFS tree with discovery numbers](img/oneTree-dfn_en.png)
 
 Let us examine the role of an edge $e(u \to v)$ in each case.
 
