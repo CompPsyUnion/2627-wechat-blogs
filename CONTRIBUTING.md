@@ -54,6 +54,8 @@
 
 - 如果你只是想给文章提出一个建议，走到这一步就可以，我们可以在征得你的同意后将这个内容 assign 给我们 CPU 技术部的其他成员来完成。
 - **如果你是想自己完成这个内容，请在这个 issue 创建后，把自己 assign 给自己（self-assign）**，这样我们就知道你会负责这个内容的后续工作。
+- **如果你想认领一个别人提出的 issue，只能 self-assign 带有 `implement-pending` 标签的 issue**；是否已被认领，直接看 issue 的 `Assignee` 即可。
+- 一篇推文也可以有多个 assignee：如果协商合适（例如多人合作完成），可以共同 assign，分工与积分见下方[积分制度](#积分制度)中的「合作完成」。
 
 **被动 Assignment：**
 
@@ -61,16 +63,16 @@
 
 #### 2. 文章标题和大纲审核
 
-我们会在 3 个工作日内对你的文章标题和大纲进行审核。
+issue 提出后，如果我们认为它有通过的可能，会先为它添加 `in-review` 标签，表示进入审核流程。我们会在 3 个工作日内对你的文章标题和大纲进行审核。
 
 **审核通过：**
 
-- 我们会为这个 issue 添加上一个 `Task` 的 Type，一个 `in-review` 的标签（label）
-- 我们会使用 milestone 给你排期
+- 我们会为这个 issue 添加 `implement-pending` 标签，表示其他成员可以 self-assign 认领实现（已有 `Assignee` 时同样会打上此标签）
+- 我们会在合适的时候使用 milestone 给你的推文排期，此时才会出现 DDL
 - 在 issue 下方留言告知你审核通过，例如："不错，请继续完成"
 - 如果你被 assign 到了这个任务，你就可以 fork 并创建分支，并继续进行下一步的操作了
 
-**重要提醒：** 只有你的 issue 被标注为了 `Task` 的 Type，你才能放心开始写完整内容（否则如果你的推文提议被拒绝，你可能面临工作白干的风险）。
+**重要提醒：** 只有在你的 issue 通过标题和大纲的审核（收到审核通过的留言、被添加 `implement-pending` 标签）后，你才能放心开始写完整内容（否则如果你的推文提议被拒绝，你可能面临工作白干的风险）。
 
 **需要修改：**
 
@@ -93,14 +95,16 @@
 
 **注意时间节点：**
 
-- 请在上方我们给你标注的 milestone 的 due date 之前完成你的推文
-- 如果长时间没给你标注 milestone，你也可以直接开始编写完整的推文内容，并通过 Pull Request 提交
+- 提出 issue 并通过我们的 review 之后，你可以在任何时间慢慢完成它，此阶段没有硬性的完成期限
+- DDL 只会出现在我们给你的推文排期的时候：被标注 milestone 之后，请在 milestone 的 due date 之前完成你的推文
 - 越是完善的内容，我们越可能给你更早排期到位
 - 如果超期未完成，你将面临被扣积分的风险
 
 **编写建议：**
 
 - 请在本地编辑器中撰写 Markdown 稿件，并通过 Pull Request 提交文件。
+- Markdown 在不同渲染器下的渲染效果可能存在差异，提交前请在 GitHub 上 preview 一下你的稿件，检查渲染是否有问题。
+- 敏感话题提醒：文章内容需要符合微信公众号平台规范，请避免敏感话题，投稿前注意自查。
 
 **提交步骤：**
 
@@ -126,7 +130,7 @@ GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库
 
    ![创建并切换到新分支](docs/images/switch_step3.png)
 
-3. **创建并编辑文章文件夹：** 在文件资源管理器中打开本地仓库，根据文章类别创建目录 `blogs/software/<article_folder>/`、`blogs/hardware/<article_folder>/`、`blogs/algorithm/<article_folder>/` 或 `blogs/story/<article_folder>/`。文件夹名使用小写 snake_case。文件夹中应有中文稿 `README.md`、英文稿 `README_EN.md` 和图片目录 `img/`。英文稿需由投稿者翻译并通读确认；图片放入 `img/`，正文使用相对路径引用。格式、翻译及内容要求详见下方“Markdown 文章内容要求”部分。
+3. **创建并编辑文章文件夹：** 在文件资源管理器中打开本地仓库，根据文章类别创建目录 `blogs/software/<article_folder>/`、`blogs/hardware/<article_folder>/`、`blogs/algorithm/<article_folder>/` 或 `blogs/story/<article_folder>/`。文件夹名使用「小写 GitHub 用户名 + `_` + 英文文章标题（小写 snake_case）」的格式，例如 `hnrobert_show_your_coding_status_on_discord_via_proxy_webhook_and_a_simple_vscode_plugin`。文件夹中应有中文稿 `README.md`、英文稿 `README_EN.md` 和图片目录 `img/`。英文稿需由投稿者翻译并通读确认；图片放入 `img/`，正文使用相对路径引用。格式、翻译及内容要求详见下方“Markdown 文章内容要求”部分。
 
 4. **检查并 Commit：** 保存后返回 GitHub Desktop，在 **Changes** 中检查文件清单和 diff，确认只包含本次稿件及相关图片。填写 **Summary**（例如 `docs(blog): add article on cognitive biases`），可选填写 **Description**；遵守[提交信息规范](#提交信息规范)，不要添加 AI 署名 footer。确认当前分支不是 `main`，点击 **Commit to current branch**。
 
@@ -158,20 +162,20 @@ GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库
     git switch -c <branch-name> # Replace with your branch name
     ```
 
-4. **创建并编辑文本：** 根据文章类别，在对应的 `blogs/` 子目录中创建一个文章文件夹：软件类放在 `blogs/software/`，硬件类放在 `blogs/hardware/`，算法类放在 `blogs/algorithm/`，故事类放在 `blogs/story/`。文件夹使用小写蛇形命名法描述文章标题，例如 `a_good_article_name/`。文件夹中需要包含中英文稿件 `README.md`、`README_EN.md`，以及存放文章图片的 `img/` 目录。图片应放在 `img/` 中，并在正文使用相对路径引用。结构如下：
+4. **创建并编辑文本：** 根据文章类别，在对应的 `blogs/` 子目录中创建一个文章文件夹：软件类放在 `blogs/software/`，硬件类放在 `blogs/hardware/`，算法类放在 `blogs/algorithm/`，故事类放在 `blogs/story/`。文件夹使用「小写 GitHub 用户名 + `_` + 英文文章标题（小写蛇形）」命名，例如 `hnrobert_a_quick_look_at_git_rebase/`。文件夹中需要包含中英文稿件 `README.md`、`README_EN.md`，以及存放文章图片的 `img/` 目录。图片应放在 `img/` 中，并在正文使用相对路径引用。结构如下：
 
     ```bash
     2627-wechat-blogs/
     └── blogs/
         └── algorithm/
-            └── a_good_article_name/
+            └── hnrobert_a_quick_look_at_git_rebase/
                 ├── README.md       # 中文稿件
                 ├── README_EN.md    # 英文稿件
                 └── img/            # 文章需要用到的图片
                     └── example_image.png
     ```
 
-    请将新文件夹放入与文章类别对应的目录，例如算法类文章放在 `blogs/algorithm/a_good_article_name/`。使用本地编辑器编写中英文稿件，并用 VSCode Markdownlint 插件检查。图片请放入该文章文件夹下的 `img/` 目录，正文中使用相对路径引用。
+    请将新文件夹放入与文章类别对应的目录，例如算法类文章放在 `blogs/algorithm/hnrobert_a_quick_look_at_git_rebase/`。使用本地编辑器编写中英文稿件，并用 VSCode Markdownlint 插件检查。图片请放入该文章文件夹下的 `img/` 或者类似的单独的目录，正文中使用相对路径引用。
 
 5. **Commit：** 检查并提交变更：
 
@@ -223,7 +227,7 @@ GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库
 
 **审核通过：**
 
-- 维护者会在 Pull Request 中留言确认，例如："好的，收到" 或类似内容
+- 维护者会为对应的 issue 打上 `publish-pending` 标签，表示稿件审核通过、进入排期发布
 - 你的文案将移交宣传部
 - 维护者会 close 这个 issue，你的任务就算彻底完成了
 
@@ -235,15 +239,15 @@ GitHub Desktop 是 GitHub 官方桌面应用，可通过图形界面管理仓库
 
 ### 仓库进度管理
 
-所有已经处于稳态的仓库禁止直接向 `main` 分支提交修改，请创建分支并使用 Pull Request 来提交修改。
+禁止直接向 `main` 分支提交修改，请创建分支并使用 Pull Request 来提交修改。
 
 ### 分支命名规范
 
 分支名统一使用小写字母，单词间使用 dash（`-`）分隔，不使用中文、空格、大写字母或下划线。
 
-- 修复 bug：使用 `fix/[小写负责人用户名]-` 开头，按照 bug 名称命名，如 `fix/hnrobert-target-tracking`；多人参与时可以省略用户名，如 `fix/arm-control-error`。
-- 新增功能：使用 `feature/[小写负责人用户名]-` 开头，按照功能名称命名，如 `feature/gentle-lijie-lidar-mapping`；多人参与时可以省略用户名，如 `feature/arm-control`。
-- 其他修改：参考 commit message 规范，按照修改部分命名，如 `refactor/gimbal-control`、`docs/chassis-control`。
+- 新增推文：使用 `feature/[小写负责人用户名]-` 开头，按照文章主题命名，如 `feature/hnrobert-vscode-github`；多人参与时可以省略用户名，如 `feature/cognitive-biases`。
+- 修改现有内容：使用 `fix/[小写负责人用户名]-` 开头，按照修改对象命名（如推文订正、图片更新、guideline 修正），如 `fix/calcury-credit-detail`、`fix/hnrobert-dfs-illustrations`。
+- guideline、CI 等仓库自身的更新：参考 commit message 规范的 type 命名，如 `docs/update-contributing-rules`、`chore/ci`。
 
 ### 提交信息规范
 
@@ -283,7 +287,7 @@ PR 标题使用大写字母开头的自然语句，不需要遵循 commit messag
 ### 积分制度
 
 - **主动提出推文提议：** 如果是你主动提出一个 issue，并且后续被采纳，你会得到 **1 点积分**
-- **主动认领并完成：** 如果是你主动在 issue 区认领了一个已有的，没有被认领过的 issue，self-assign 并最后完成 pull request，你也可以得到 **3 点积分**
+- **主动认领并完成：** 如果是你主动在 issue 区 self-assign 认领了一个带有 `implement-pending` 标签的 issue，并最后完成 pull request，你也可以得到 **3 点积分**
 - **被动完成任务：** 如果开始时是我们 assign 给你一个 issue 对应的 pull request（不管 issue 初始是否为空），且你在最后完成，你可以得到 **2 点积分**
 - **合作完成** 如果是多人合作完成一个 pull request，每人可以得到 **1-2 点积分（取决于是否为主动完成）**
 - **逾期未完成：** 如果你长时间没有完成 milestone 的 due date，你将面临被扣积分的风险
@@ -296,7 +300,9 @@ PR 标题使用大写字母开头的自然语句，不需要遵循 commit messag
 ### 关于 Issue 标签 (Labels) 和 种类 (Types)
 
 - **种类**
-   - `Task` 表示这个 issue 已经通过了标题和大纲的审核，可以开始写完整内容
+   - `Task`：为公众号推文提出的 issue 一律使用 `Task` 类型，通过标题和大纲的审核后即可开始写完整内容
+   - `Feature`：仓库内容的新增或更新（非推文类改动）使用 `Feature` 类型
+   - `Bug`：修复仓库现有内容的问题使用 `Bug` 类型
 - **标签**
    - 你可以自己添加的
       - `blogs-software` 软件类技术推文，如开发工具或者插件的介绍等
@@ -306,8 +312,9 @@ PR 标题使用大写字母开头的自然语句，不需要遵循 commit messag
    - 由组织管理者添加的
       - `duplicate` 表示这个 issue 是重复的，已经被关闭
       - `invalid` 表示这个 issue 的标题和大纲审核不通过，已经被关闭
+      - `implement-pending` 表示该推文任务已通过审核、开放认领，可被其他成员 self-assign 实现；是否已被认领以 assignee 为准
       - `published` 表示这个 issue 的文章已经发布
-      - `in-review` 表示这个 issue 的文章正在审核中
+      - `in-review` 表示该 issue 的标题和大纲提议正在审核中（提出后如果有通过的可能就会添加）
       - `publish-pending` 表示这个 issue 的文章正在排期发布
 
 ### 在你开始前
@@ -370,6 +377,8 @@ The title and outline you propose determine whether we will adopt your proposal.
 
 - If you just want to suggest an article idea, you can stop here. With your consent, we can assign this to other members of CPU's technical department to complete.
 - **If you want to complete this content yourself, please self-assign yourself to this issue after creating it**. This way we know you'll be responsible for the subsequent work.
+- **If you want to claim an issue proposed by someone else, you may only self-assign issues labeled `implement-pending`**; whether an issue is already claimed is simply indicated by its assignee.
+- An article may also have multiple assignees: if this is agreed upon through discussion (for example, for collaborative completion), it can be co-assigned; see **Collaborative completion** under the Credits System for how the credits are split.
 
 **Passive Assignment:**
 
@@ -377,16 +386,16 @@ We may also create an issue and assign it to you to delegate tasks. In this case
 
 #### 2. Title and Outline Review
 
-We will review your article title and outline within 3 working days.
+After an issue is proposed, if we see it has a chance of passing, we will first add the `in-review` label to indicate that it has entered the review process. We will review your article title and outline within 3 working days.
 
 **Review Approved:**
 
-- We will add a `Task` Type and an `in-review` label to this issue
-- We will schedule you using a milestone
+- We will add the `implement-pending` label to this issue, indicating that other members may self-assign it for implementation (the label is added even if an assignee already exists)
+- We will schedule your article with a milestone at an appropriate time — the DDL only appears once it is scheduled
 - We'll comment below the issue to inform you of approval, e.g., "Great, please continue to complete it"
 - If you're assigned to this task, fork the repository, create a branch, and proceed to the next step
 
-**Important Reminder:** Only when your issue is typed with the `Task` tag can you confidently start writing the complete content (otherwise, if your article proposal is rejected, you may risk wasting your work).
+**Important Reminder:** Only after your issue passes the title & outline review (an approval comment on the issue and the `implement-pending` label) can you confidently start writing the complete content (otherwise, if your article proposal is rejected, you may risk wasting your work).
 
 **Needs Revision:**
 
@@ -409,14 +418,16 @@ We will review your article title and outline within 3 working days.
 
 **Note on Timeline:**
 
-- Please complete your article before the due date of the milestone we assigned to you
-- If you haven't been assigned a milestone for a long time, you can still start writing the complete article and submit it through a Pull Request
+- After your issue is proposed and passes our review, you can take your time and complete it at any pace — there is no hard deadline at this stage
+- The DDL only appears when we schedule your article for publication: once a milestone is assigned, please complete your article before the milestone's due date
 - The more complete your content, the more likely we'll schedule you earlier
 - If you fail to complete on time, you risk having credits deducted
 
 **Writing Recommendations:**
 
 - Write and edit your Markdown manuscripts locally, then add them to your branch and submit them through a Pull Request.
+- Markdown may render differently across renderers; before submitting, preview your manuscript on GitHub and check for rendering issues.
+- Sensitive content alarm: article content must comply with the WeChat Official Account platform rules. Please avoid sensitive topics and self-check before submitting.
 
 **Submission Steps:**
 
@@ -442,7 +453,7 @@ GitHub Desktop is GitHub's official desktop application for managing repositorie
 
    ![Create and switch to the new branch](docs/images/switch_step3.png)
 
-3. **Create and edit the article folder:** Open the local repository in File Explorer and create a folder under the category directory: `blogs/software/<article_folder>/`, `blogs/hardware/<article_folder>/`, `blogs/algorithm/<article_folder>/`, or `blogs/story/<article_folder>/`. Use lowercase snake_case for the folder name. Include the Chinese manuscript `README.md`, English manuscript `README_EN.md`, and an `img/` directory. Contributors must translate and review the English manuscript; place images in `img/` and reference them using relative paths. See the **Markdown Article Content Requirements** section below for content, translation, and formatting rules.
+3. **Create and edit the article folder:** Open the local repository in File Explorer and create a folder under the category directory: `blogs/software/<article_folder>/`, `blogs/hardware/<article_folder>/`, `blogs/algorithm/<article_folder>/`, or `blogs/story/<article_folder>/`. Name the folder as your lowercase GitHub username, an underscore, and the article title in English (lowercase snake_case), for example `hnrobert_show_your_coding_status_on_discord_via_proxy_webhook_and_a_simple_vscode_plugin`. Include the Chinese manuscript `README.md`, English manuscript `README_EN.md`, and an `img/` directory. Contributors must translate and review the English manuscript; place images in `img/` and reference them using relative paths. See the **Markdown Article Content Requirements** section below for content, translation, and formatting rules.
 
 4. **Review changes and commit:** Save your files and return to GitHub Desktop. Review the **Changes** list and diff, confirming that only the manuscript and relevant images are included. Enter a **Summary** (for example, `docs(blog): add article on cognitive biases`) and an optional **Description**. Follow the [commit message conventions](#commit-message-conventions) and do not add AI attribution footers. Confirm you are not on `main`, then click **Commit to current branch**.
 
@@ -474,20 +485,20 @@ GitHub Desktop is GitHub's official desktop application for managing repositorie
     git switch -c <branch-name> # Replace with your branch name
     ```
 
-4. **Create and edit the text:** Create an article folder in the `blogs/` subdirectory matching the article category: software in `blogs/software/`, hardware in `blogs/hardware/`, algorithms in `blogs/algorithm/`, and stories in `blogs/story/`. Name the folder in lowercase snake_case based on the article title, for example `a_good_article_name/`. It must contain the Chinese manuscript `README.md`, the English manuscript `README_EN.md`, and an `img/` directory for article images. The structure is:
+4. **Create and edit the text:** Create an article folder in the `blogs/` subdirectory matching the article category: software in `blogs/software/`, hardware in `blogs/hardware/`, algorithms in `blogs/algorithm/`, and stories in `blogs/story/`. Name the folder as your lowercase GitHub username, an underscore, and the article title in English (lowercase snake_case), for example `hnrobert_a_quick_look_at_git_rebase/`. It must contain the Chinese manuscript `README.md`, the English manuscript `README_EN.md`, and an `img/` directory for article images. The structure is:
 
     ```bash
     2627-wechat-blogs/
     └── blogs/
         └── algorithm/
-            └── a_good_article_name/
+            └── hnrobert_a_quick_look_at_git_rebase/
                 ├── README.md       # Chinese manuscript
                 ├── README_EN.md    # English manuscript
                 └── img/            # Images that used in your article
                     └── example_image.png
     ```
 
-    For example, create an algorithm article at `blogs/algorithm/a_good_article_name/`. Write both manuscripts locally, then check them with the VS Code Markdownlint extension. Place images in that article's `img/` directory and reference them using relative paths.
+    For example, create an algorithm article at `blogs/algorithm/hnrobert_a_quick_look_at_git_rebase/`. Write both manuscripts locally, then check them with the VS Code Markdownlint extension. Place images in that article's `img/` directory and reference them using relative paths.
 
 5. **Commit:** Check and commit the change:
 
@@ -543,7 +554,7 @@ We will review your complete manuscript within 3 working days. Please follow the
 
 **Review Approved:**
 
-- Maintainers will confirm approval in the Pull Request with a comment such as "OK, received"
+- Maintainers will add the `publish-pending` label to the corresponding issue, indicating the manuscript has passed review and is pending publication
 - Your content will be handed over to the publicity department
 - Maintainers will close this issue, and your task is completely finished
 
@@ -561,9 +572,9 @@ Stable repositories must not receive direct commits to the `main` branch. Create
 
 Use lowercase letters only and separate words with dashes (`-`). Do not use Chinese characters, spaces, uppercase letters, or underscores.
 
-- Bug fixes: start with `fix/[lowercase-owner-username]-`, such as `fix/hnrobert-target-tracking`; when several people participate, the username may be omitted, such as `fix/arm-control-error`.
-- New features: start with `feature/[lowercase-owner-username]-`, such as `feature/gentle-lijie-lidar-mapping`; when several people participate, the username may be omitted, such as `feature/arm-control`.
-- Other changes: follow the commit message type and name the modified area, such as `refactor/gimbal-control` or `docs/chassis-control`.
+- New articles: start with `feature/[lowercase-owner-username]-` and name the branch after the article topic, such as `feature/hnrobert-vscode-github`; when several people participate, the username may be omitted, such as `feature/cognitive-biases`.
+- Fixing existing content: start with `fix/[lowercase-owner-username]-` and name it after what is being fixed (article corrections, image updates, guideline fixes, etc.), such as `fix/calcury-credit-detail` or `fix/hnrobert-dfs-illustrations`.
+- Repo-side updates (guidelines, CI, structure, etc.): follow the commit message type, such as `docs/update-contributing-rules` or `chore/ci`.
 
 ### Commit Message Conventions
 
@@ -599,7 +610,7 @@ PR titles should be natural sentences starting with a capital letter. They do no
 ### Credits System
 
 - **Proposal adopted:** If you voluntarily raise an issue that is later adopted, you will receive **1 credit**
-- **Proactive claim and completion:** If you claim an existing, unclaimed Issue, self-assign, and complete its Pull Request, you will receive **3 credits**
+- **Proactive claim and completion:** If you proactively self-assign an issue labeled `implement-pending` and complete its Pull Request, you will receive **3 credits**
 - **Assigned task completion:** If we assign you an Issue and you complete its corresponding Pull Request, you will receive **2 credits**
 - **Collaborative completion:** If multiple people collaborate on a Pull Request, each contributor will receive **1–2 credits**, depending on whether they completed it proactively
 - **Overdue incompletion:** If you fail to complete the milestone by its due date for a long time, you risk having credits deducted
@@ -612,7 +623,9 @@ PR titles should be natural sentences starting with a capital letter. They do no
 ### About Issue Types and Labels
 
 - **Types**
-   - `Task`: indicates the issue has passed title & outline review — you may start writing the full manuscript
+   - `Task`: any issue proposed for a WeChat article should be typed `Task` — once it passes title & outline review, you may start writing the full manuscript
+   - `Feature`: for new repo content updates (non-article changes)
+   - `Bug`: for fixing existing repo content
 - **Labels**
    - User-assignable labels (you can add these when appropriate):
       - `blogs-software` — software/tool oriented posts
@@ -622,8 +635,9 @@ PR titles should be natural sentences starting with a capital letter. They do no
    - Maintainer-controlled labels
       - `duplicate` — this issue duplicates an existing one (will be closed)
       - `invalid` — title & outline did not pass review (will be closed)
+      - `implement-pending` — the task has passed review and is open for other members to self-assign and implement; whether it has been claimed is indicated by the assignee
       - `published` — the article from this issue has been published
-      - `in-review` — the article is currently under review
+      - `in-review` — the proposal (title & outline) is currently under review (added shortly after the issue is proposed if it looks likely to pass)
       - `publish-pending` — the article is scheduled / pending publication
 
 ### Before You Start
