@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="360" rx="28" fill="#f8fafc"/>
+  <text x="600" y="55" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
+        font-size="30" font-weight="700" fill="#0f172a">0.1 在计算机中的存储过程</text>
+
+  <rect x="55" y="120" width="220" height="130" rx="20" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="165" y="170" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#1e3a8a">十进制输入</text>
+  <text x="165" y="215" text-anchor="middle" font-family="Consolas, monospace" font-size="32" font-weight="700" fill="#1e3a8a">0.1</text>
+
+  <line x1="290" y1="185" x2="365" y2="185" stroke="#64748b" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <rect x="385" y="105" width="320" height="160" rx="20" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="545" y="153" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#4c1d95">转换为二进制</text>
+  <text x="545" y="200" text-anchor="middle" font-family="Consolas, monospace" font-size="23" font-weight="700" fill="#4c1d95">0.0001100110011...</text>
+  <text x="545" y="238" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#6d28d9">无限循环，无法完整保存</text>
+
+  <line x1="720" y1="185" x2="795" y2="185" stroke="#64748b" stroke-width="5" marker-end="url(#arrow)"/>
+
+  <rect x="815" y="120" width="330" height="130" rx="20" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="980" y="168" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#14532d">有限精度舍入</text>
+  <text x="980" y="211" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#14532d">保存一个非常接近 0.1 的值</text>
+
+  <text x="600" y="320" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#475569">近似误差来自数字的表示方式，而不是加法规则出错</text>
+</svg>
