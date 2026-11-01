@@ -358,11 +358,7 @@ When studying a graph, it is useful to simplify its structure. Mutual reachabili
 
 ### Strongly Connected Components
 
-A **strongly connected graph** is a directed graph in which every pair of vertices is mutually reachable. Equivalently, every vertex can reach every other vertex.
-
-A **strongly connected component** (SCC) is a maximal strongly connected subgraph of a directed graph.
-
-Any two vertices in an SCC can reach each other, so the component can be treated as a single unit. We will first find all SCCs in a directed graph, then introduce graph condensation.
+A **strongly connected component** (SCC) is a maximal strongly connected subgraph of a directed graph. Any two vertices within it can reach each other.
 
 #### Finding SCCs with Tarjan's Algorithm
 
@@ -429,9 +425,7 @@ All outgoing edges of $A$ have been processed, and $low_A=dfn_A$. Pop $C,B,A$ in
 
 ![A, B, and C are popped; both SCCs are identified](img/tarjan-low-06.png)
 
-Throughout this process, dfn values never change; only low values are updated. The two update rules must be kept distinct: after recursively searching a child, use that child's low; when encountering an already-visited vertex that is still on the stack, use its dfn. Only after processing all outgoing edges of the current vertex do we check whether $low_u=dfn_u$ and decide whether to pop an SCC.
-
-We now know how to find every SCC. When we compress an SCC into a single vertex, how can we preserve the important reachability information in the original graph?
+After finding all SCCs, we can condense each component into a single vertex.
 
 #### Graph Condensation
 
