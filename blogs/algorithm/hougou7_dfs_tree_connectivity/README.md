@@ -397,82 +397,35 @@ int main()
 
 图中橙色突出正在处理或更新的位置，浅色节点尚未访问，背景色块标出已经确定的 SCC。下文写出的栈均从左到右表示栈底到栈顶；这是 Tarjan 维护的节点栈，不是递归调用栈。
 
-##### 1. 访问 A、B、C，初始化 low
+##### 1. 访问 A、B、C，处理回边 C → A
 
-沿树边依次访问 $A,B,C$，首次访问每个节点时，都令它的 $low$ 等于自己的 $dfn$：
-
-$$
-(dfn_A,dfn_B,dfn_C)=(1,2,3),\qquad
-(low_A,low_B,low_C)=(1,2,3)
-$$
-
-此时刚进入 $C$，尚未检查它指向 $A$ 的边，栈为 $[A,B,C]$。
-
-![访问 A、B、C 后的 dfn 和 low](img/tarjan-low-01.png)
-
-##### 2. 检查 C → A，更新 C 的 low
-
-$A$ 已经访问，并且仍在栈中，因此用 $dfn_A$ 更新 $low_C$：
+依次访问 $A,B,C$，令各节点的 $dfn$ 和 $low$ 初值分别为 $1,2,3$，栈为 $[A,B,C]$。检查 $C \to A$ 时，$A$ 仍在栈中，因此：
 
 $$
-low_C=\min(low_C,dfn_A)=\min(3,1)=1
+low_C=\min(low_C,dfn_A)=1
 $$
 
-这说明 $C$ 可以沿这条边回到更早访问的 $A$。此刻尚未回溯到 $B$，所以 $low_B$ 仍然为 $2$，栈仍为 $[A,B,C]$。
+此时尚未回溯到 $B$，所以 $low_B$ 仍为 $2$。
 
 ![检查 C 到 A 的边后，C 的 low 降为 1](img/tarjan-low-02.png)
 
-##### 3. 返回 B，再访问 D、E
+##### 2. 访问 D、E，弹出第一个 SCC
 
-$C$ 的出边已经检查完毕。因为 $low_C=1\ne dfn_C=3$，不能在 $C$ 处弹出一个 SCC，$C$ 继续留在节点栈中。
+$C$ 返回 $B$ 后，令 $low_B=\min(low_B,low_C)=1$。由于 $low_C\ne dfn_C$，$C$ 虽已结束递归，仍留在节点栈中。
 
-递归返回 $B$ 后，用子节点的 $low$ 更新父节点：
+接着访问 $D,E$，令其 $dfn$ 和 $low$ 初值分别为 $4,5$，栈变为 $[A,B,C,D,E]$。检查 $E \to D$ 时，$D$ 仍在栈中，因此 $low_E=\min(low_E,dfn_D)=4$。
 
-$$
-low_B=\min(low_B,low_C)=\min(2,1)=1
-$$
+返回 $D$，令 $low_D=\min(low_D,low_E)=4$。此时 $D$ 的出边已处理完毕，且 $low_D=dfn_D$，依次弹出 $E,D$，得到 SCC $\{D,E\}$。
 
-接着沿 $B \to D \to E$ 继续搜索，初始化 $dfn_D=low_D=4$、$dfn_E=low_E=5$。栈变为 $[A,B,C,D,E]$。
-
-这里可以看到，虽然 $C$ 的递归调用已经结束，但它仍在 Tarjan 的节点栈中，等待所属的 SCC 被确定。
-
-![返回 B 并访问 D、E 后的 dfn 和 low](img/tarjan-low-03.png)
-
-##### 4. 检查 E → D，更新 E 的 low
-
-$D$ 已经访问，并且仍在栈中，因此：
-
-$$
-low_E=\min(low_E,dfn_D)=\min(5,4)=4
-$$
-
-此时 $low_E=4\ne dfn_E=5$，所以 $E$ 还不能作为一个 SCC 的最浅节点。栈仍为 $[A,B,C,D,E]$。
-
-![检查 E 到 D 的边后，E 的 low 降为 4](img/tarjan-low-04.png)
-
-##### 5. 返回 D，弹出第一个 SCC
-
-$E$ 返回 $D$，更新：
-
-$$
-low_D=\min(low_D,low_E)=\min(4,4)=4
-$$
-
-$D$ 的所有出边已经处理完毕，并且 $low_D=dfn_D=4$，因此从栈顶依次弹出 $E,D$，得到第一个 SCC：$\{D,E\}$。
-
-接着返回 $B$，更新 $low_B=\min(1,4)=1$，数值保持不变。$B$ 能到达 $D$，但 $D,E$ 无法返回 $A,B,C$，所以两个环不会合并为同一个 SCC。此时栈中只剩下 $[A,B,C]$。
+返回 $B$ 后，$low_B=\min(1,4)=1$，栈剩 $[A,B,C]$。$B$ 能到达 $D$，但 $D,E$ 无法返回 $A,B,C$，因此两个环不会合并。
 
 ![D、E 出栈并确定为第一个 SCC](img/tarjan-low-05.png)
 
-##### 6. 返回 A，弹出第二个 SCC
+##### 3. 返回 A，弹出第二个 SCC
 
-$B$ 的搜索结束，因为 $low_B=1\ne dfn_B=2$，它继续留在栈中。返回 $A$ 后：
+$B$ 的搜索结束，因 $low_B\ne dfn_B$ 而继续留栈。返回 $A$ 后，令 $low_A=\min(low_A,low_B)=1$。
 
-$$
-low_A=\min(low_A,low_B)=\min(1,1)=1
-$$
-
-$A$ 的所有出边已经处理完毕，并且 $low_A=dfn_A=1$。从栈顶依次弹出 $C,B,A$，得到第二个 SCC：$\{A,B,C\}$。此时栈为空，本次搜索结束。
+$A$ 的出边已处理完毕，且 $low_A=dfn_A$，依次弹出 $C,B,A$，得到 SCC $\{A,B,C\}$。此时栈为空，搜索结束。
 
 ![A、B、C 出栈，两个 SCC 均已确定](img/tarjan-low-06.png)
 
@@ -494,45 +447,43 @@ $A$ 的所有出边已经处理完毕，并且 $low_A=dfn_A=1$。从栈顶依次
 
 这样的图逻辑清晰，可以和拓扑排序、动态规划等算法相结合，有很多的应用方向。
 
-以下是求 SCC 并缩点的代码。
+以下是求 SCC 并缩点的代码。原图和缩点图均使用 `vector<int>` 邻接表，`dfn`、`low`、节点栈等辅助数据使用数组。示例支持最多 $10^5$ 个节点，使用时请按题目限制调整数组容量 `N`。
 
-Tarjan 求 SCC 的时间复杂度为 $O(N+M)$，构建未去重的缩点图也需要 $O(N+M)$。下面的代码还会对各节点的出边排序去重，因此整体最坏时间复杂度为 $O(N+M\log M)$，空间复杂度为 $O(N+M)$。其中 $N$ 为原图的节点数，$M$ 为原图的边数。
+Tarjan 求 SCC 的时间复杂度为 $O(N+M)$，构建未去重的缩点图也需要 $O(N+M)$。下面的代码还会对缩点图中各节点的出边排序去重，因此整体最坏时间复杂度为 $O(N+M\log M)$，空间复杂度为 $O(N+M)$。其中 $N$ 为原图的节点数，$M$ 为原图的边数。
 
 ```cpp
-#include<bits/stdc++.h>
+#include<algorithm>
+#include<iostream>
+#include<vector>
 using namespace std;
-vector<int>stk;
-int top=0;
-vector<vector<int>>graph;
-vector<int>dfn,low,belong;
-vector<bool>inStack;
-int timer=0;
-int sccCount=0;
+const int N=1e5+10;
+vector<int>e[N],dag[N];
+int stk[N],dfn[N],low[N],belong[N];
+bool inStack[N];
+int timer=0,top=0,sccCount=0;
 void tarjan(int u)
 {
-    // 首次访问 u：分配发现时间，并把它压入待确定 SCC 的节点栈。
     dfn[u]=low[u]=++timer;
     stk[top++]=u;
     inStack[u]=true;
-    for(int v : graph[u])
+    for(int v : e[u])
     {
         if(dfn[v]==0)
         {
-            // 树边：先搜索子节点，再用子节点的 low 更新 u。
             tarjan(v);
+            // 子节点搜索结束后，用其 low 更新父节点。
             low[u]=min(low[u],low[v]);
         }
         else if(inStack[v])
         {
-            // 指向栈中节点的边：只能用该节点的 dfn 更新。
+            // 已访问且仍在栈中的节点，用其 dfn 更新 low。
             low[u]=min(low[u],dfn[v]);
         }
     }
-    // low[u] == dfn[u] 表示 u 是一个 SCC 在 DFS 树中的最浅节点。
+    // 所有出边处理完毕后，此条件表示 u 是一个 SCC 的根。
     if(low[u]==dfn[u])
     {
         ++sccCount;
-        // 从栈顶弹到 u 为止，弹出的节点属于同一个 SCC。
         while(true)
         {
             int v=stk[--top];
@@ -547,64 +498,33 @@ int main()
 {
     int n,m;
     cin>>n>>m;
-    graph.resize(n+1);
-    dfn.assign(n+1,0);
-    low.assign(n+1,0);
-    belong.assign(n+1,0);
-    inStack.assign(n+1,false);
-    stk.resize(n+1);
-    for(int i=0;i<m;i++)
+    for(int i=1;i<=m;i++)
     {
         int u,v;
         cin>>u>>v;
-        graph[u].push_back(v);
+        e[u].push_back(v);
     }
-    // 求所有强连通分量。
     for(int u=1;u<=n;u++)
     {
         if(dfn[u]==0)
             tarjan(u);
     }
-    // 构建缩点图。
-    vector<vector<int>>dag(sccCount+1);
-    vector<int>sccSize(sccCount+1,0);
-    vector<int>indegree(sccCount+1,0);
     for(int u=1;u<=n;u++)
     {
-        int a=belong[u];
-        ++sccSize[a];
-        for(int v : graph[u])
+        for(int v : e[u])
         {
-            int b=belong[v];
-            // 分量内部的边被压缩；不同分量之间保留有向边。
+            int a=belong[u],b=belong[v];
             if(a!=b)
                 dag[a].push_back(b);
         }
     }
-    // 去除重边，然后统计入度。
-    int edgeCount=0;
     for(int a=1;a<=sccCount;a++)
     {
-        auto&edges=dag[a];
-        // 平行边只保留一条，随后统计缩点图中的入度。
-        sort(edges.begin(),edges.end());
-        edges.erase(unique(edges.begin(),edges.end()),edges.end());
-        edgeCount+=static_cast<int>(edges.size());
-        for(int b : edges)
-            ++indegree[b];
+        // 同一对分量之间只保留一条有向边。
+        sort(dag[a].begin(),dag[a].end());
+        dag[a].erase(unique(dag[a].begin(),dag[a].end()),dag[a].end());
     }
-    // 输出 SCC 数量。
     cout<<sccCount<<'\n';
-    // 输出原图每个节点所属的 SCC。
-    for(int u=1;u<=n;u++)
-        cout<<belong[u]<<(u==n ? '\n' : ' ');
-    // 输出缩点图的边数及所有边。
-    cout<<edgeCount<<'\n';
-    for(int a=1;a<=sccCount;a++)
-    {
-        for(int b : dag[a])
-            cout<<a<<' '<<b<<'\n';
-    }
     return 0;
 }
 ```

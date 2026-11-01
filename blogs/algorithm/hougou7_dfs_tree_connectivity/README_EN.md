@@ -397,82 +397,35 @@ The example graph contains two cycles, $A \to B \to C \to A$ and $D \to E \to D$
 
 Orange highlights the vertex or edge currently being processed or updated. Pale vertices have not yet been visited, and colored background regions indicate SCCs that have already been identified. In the stack notation below, the bottom is on the left and the top is on the right. This is Tarjan's vertex stack, not the recursive call stack.
 
-##### 1. Visit A, B, and C, initializing low
+##### 1. Visit A, B, and C, then process the back edge C → A
 
-Follow the tree edges to visit $A,B,C$ in order. When each vertex is first visited, initialize its low value to its own dfn:
-
-$$
-(dfn_A,dfn_B,dfn_C)=(1,2,3),\qquad
-(low_A,low_B,low_C)=(1,2,3)
-$$
-
-At this point, we have just entered $C$ and have not yet examined its edge to $A$. The stack is $[A,B,C]$.
-
-![dfn and low after visiting A, B, and C](img/tarjan-low-01.png)
-
-##### 2. Examine C → A and update C's low
-
-$A$ has already been visited and is still on the stack, so use $dfn_A$ to update $low_C$:
+Visit $A,B,C$ in order, initializing each vertex's dfn and low to $1,2,3$, respectively. The stack is $[A,B,C]$. When examining $C \to A$, $A$ is still on the stack, so:
 
 $$
-low_C=\min(low_C,dfn_A)=\min(3,1)=1
+low_C=\min(low_C,dfn_A)=1
 $$
 
-This means that $C$ can follow this edge back to the earlier-discovered vertex $A$. We have not yet returned to $B$, so $low_B$ is still $2$. The stack remains $[A,B,C]$.
+We have not yet returned to $B$, so $low_B$ is still $2$.
 
 ![C's low decreases to 1 after examining C to A](img/tarjan-low-02.png)
 
-##### 3. Return to B, then visit D and E
+##### 2. Visit D and E, then pop the first SCC
 
-All outgoing edges of $C$ have been examined. Since $low_C=1\ne dfn_C=3$, we cannot pop an SCC at $C$, so $C$ stays on the vertex stack.
+After $C$ returns to $B$, set $low_B=\min(low_B,low_C)=1$. Since $low_C\ne dfn_C$, $C$ remains on the vertex stack even though its recursive call has finished.
 
-After the recursive call returns to $B$, update the parent's low using the child's low:
+Next, visit $D,E$, initializing their dfn and low values to $4,5$, respectively. The stack becomes $[A,B,C,D,E]$. When examining $E \to D$, $D$ is still on the stack, so $low_E=\min(low_E,dfn_D)=4$.
 
-$$
-low_B=\min(low_B,low_C)=\min(2,1)=1
-$$
+Return to $D$ and set $low_D=\min(low_D,low_E)=4$. All outgoing edges of $D$ have now been processed, and $low_D=dfn_D$. Pop $E,D$ in order to obtain the SCC $\{D,E\}$.
 
-Then continue along $B \to D \to E$, initializing $dfn_D=low_D=4$ and $dfn_E=low_E=5$. The stack becomes $[A,B,C,D,E]$.
-
-Notice that although the recursive call for $C$ has finished, $C$ remains on Tarjan's vertex stack, waiting for its SCC to be determined.
-
-![dfn and low after returning to B and visiting D and E](img/tarjan-low-03.png)
-
-##### 4. Examine E → D and update E's low
-
-$D$ has already been visited and is still on the stack, so:
-
-$$
-low_E=\min(low_E,dfn_D)=\min(5,4)=4
-$$
-
-Since $low_E=4\ne dfn_E=5$, $E$ is not the vertex of minimum depth in an SCC. The stack remains $[A,B,C,D,E]$.
-
-![E's low decreases to 4 after examining E to D](img/tarjan-low-04.png)
-
-##### 5. Return to D and pop the first SCC
-
-When the recursive call for $E$ returns to $D$, update:
-
-$$
-low_D=\min(low_D,low_E)=\min(4,4)=4
-$$
-
-All outgoing edges of $D$ have been processed, and $low_D=dfn_D=4$. Pop $E$ and then $D$ from the stack to obtain the first SCC: $\{D,E\}$.
-
-Next, return to $B$ and update $low_B=\min(1,4)=1$, which leaves the value unchanged. $B$ can reach $D$, but $D,E$ cannot reach $A,B,C$, so the two cycles do not merge into a single SCC. Only $[A,B,C]$ remains on the stack.
+After returning to $B$, $low_B=\min(1,4)=1$, and the stack is $[A,B,C]$. $B$ can reach $D$, but $D,E$ cannot reach $A,B,C$, so the two cycles do not merge.
 
 ![D and E are popped as the first SCC](img/tarjan-low-05.png)
 
-##### 6. Return to A and pop the second SCC
+##### 3. Return to A and pop the second SCC
 
-The search from $B$ finishes. Since $low_B=1\ne dfn_B=2$, $B$ stays on the stack. After returning to $A$:
+The search from $B$ finishes. Since $low_B\ne dfn_B$, $B$ stays on the stack. Return to $A$ and set $low_A=\min(low_A,low_B)=1$.
 
-$$
-low_A=\min(low_A,low_B)=\min(1,1)=1
-$$
-
-All outgoing edges of $A$ have been processed, and $low_A=dfn_A=1$. Pop $C,B,A$ in order to obtain the second SCC: $\{A,B,C\}$. The stack is now empty, and this search is complete.
+All outgoing edges of $A$ have been processed, and $low_A=dfn_A$. Pop $C,B,A$ in order to obtain the SCC $\{A,B,C\}$. The stack is now empty, and the search is complete.
 
 ![A, B, and C are popped; both SCCs are identified](img/tarjan-low-06.png)
 
@@ -494,45 +447,43 @@ You can think of it as a set of precedence constraints between tasks: one task m
 
 Such graphs can be combined with algorithms such as topological sorting and dynamic programming and have many applications.
 
-The following code finds SCCs and builds the condensation graph.
+The following code finds SCCs and builds the condensation graph. Both graphs use `vector<int>` adjacency lists, while auxiliary data such as `dfn`, `low`, and the vertex stack use arrays. The example supports up to $10^5$ vertices; adjust the array capacity `N` to match the problem's limits.
 
-Tarjan's SCC algorithm runs in $O(N+M)$ time, and building the condensation graph before removing duplicate edges also takes $O(N+M)$ time. The implementation below additionally sorts each vertex's outgoing edges to remove duplicates, so its overall worst-case time complexity is $O(N+M\log M)$. Its space complexity is $O(N+M)$. Here, $N$ and $M$ are the numbers of vertices and edges in the original graph.
+Tarjan's SCC algorithm runs in $O(N+M)$ time, and building the condensation graph before removing duplicate edges also takes $O(N+M)$ time. The implementation below additionally sorts each condensation vertex's outgoing edges to remove duplicates, so its overall worst-case time complexity is $O(N+M\log M)$. Its space complexity is $O(N+M)$. Here, $N$ and $M$ are the numbers of vertices and edges in the original graph.
 
 ```cpp
-#include<bits/stdc++.h>
+#include<algorithm>
+#include<iostream>
+#include<vector>
 using namespace std;
-vector<int>stk;
-int top=0;
-vector<vector<int>>graph;
-vector<int>dfn,low,belong;
-vector<bool>inStack;
-int timer=0;
-int sccCount=0;
+const int N=1e5+10;
+vector<int>e[N],dag[N];
+int stk[N],dfn[N],low[N],belong[N];
+bool inStack[N];
+int timer=0,top=0,sccCount=0;
 void tarjan(int u)
 {
-    // Assign a discovery number and push u onto the unresolved-vertex stack.
     dfn[u]=low[u]=++timer;
     stk[top++]=u;
     inStack[u]=true;
-    for(int v : graph[u])
+    for(int v : e[u])
     {
         if(dfn[v]==0)
         {
-            // Tree edge: recurse first, then propagate the child's low value.
             tarjan(v);
+            // A completed DFS child contributes its low value to its parent.
             low[u]=min(low[u],low[v]);
         }
         else if(inStack[v])
         {
-            // Edge to a vertex still on the stack: use its dfn, not its low.
+            // A visited vertex still on the stack contributes its discovery number.
             low[u]=min(low[u],dfn[v]);
         }
     }
-    // This equality identifies the shallowest DFS-tree vertex of an SCC.
+    // After all outgoing edges are processed, this condition identifies an SCC root.
     if(low[u]==dfn[u])
     {
         ++sccCount;
-        // Pop through u; every popped vertex belongs to this SCC.
         while(true)
         {
             int v=stk[--top];
@@ -547,64 +498,33 @@ int main()
 {
     int n,m;
     cin>>n>>m;
-    graph.resize(n+1);
-    dfn.assign(n+1,0);
-    low.assign(n+1,0);
-    belong.assign(n+1,0);
-    inStack.assign(n+1,false);
-    stk.resize(n+1);
-    for(int i=0;i<m;i++)
+    for(int i=1;i<=m;i++)
     {
         int u,v;
         cin>>u>>v;
-        graph[u].push_back(v);
+        e[u].push_back(v);
     }
-    // Find all strongly connected components.
     for(int u=1;u<=n;u++)
     {
         if(dfn[u]==0)
             tarjan(u);
     }
-    // Build the condensation graph.
-    vector<vector<int>>dag(sccCount+1);
-    vector<int>sccSize(sccCount+1,0);
-    vector<int>indegree(sccCount+1,0);
     for(int u=1;u<=n;u++)
     {
-        int a=belong[u];
-        ++sccSize[a];
-        for(int v : graph[u])
+        for(int v : e[u])
         {
-            int b=belong[v];
-            // Internal edges disappear; edges between SCCs keep their direction.
+            int a=belong[u],b=belong[v];
             if(a!=b)
                 dag[a].push_back(b);
         }
     }
-    // Remove duplicate edges, then compute indegrees.
-    int edgeCount=0;
     for(int a=1;a<=sccCount;a++)
     {
-        auto&edges=dag[a];
-        // Keep each outgoing SCC edge once before computing indegrees.
-        sort(edges.begin(),edges.end());
-        edges.erase(unique(edges.begin(),edges.end()),edges.end());
-        edgeCount+=static_cast<int>(edges.size());
-        for(int b : edges)
-            ++indegree[b];
+        // Each ordered pair of SCCs contributes one directed edge.
+        sort(dag[a].begin(),dag[a].end());
+        dag[a].erase(unique(dag[a].begin(),dag[a].end()),dag[a].end());
     }
-    // Print the number of SCCs.
     cout<<sccCount<<'\n';
-    // Print the SCC ID of each vertex in the original graph.
-    for(int u=1;u<=n;u++)
-        cout<<belong[u]<<(u==n ? '\n' : ' ');
-    // Print the edge count and all edges of the condensation graph.
-    cout<<edgeCount<<'\n';
-    for(int a=1;a<=sccCount;a++)
-    {
-        for(int b : dag[a])
-            cout<<a<<' '<<b<<'\n';
-    }
     return 0;
 }
 ```
