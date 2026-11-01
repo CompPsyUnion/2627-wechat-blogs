@@ -22,7 +22,7 @@ This is the DFS tree mentioned in the title.
 
 #### Tree Edges and Back Edges
 
-Let us first classify the edges in an undirected DFS tree.
+Let us first classify the edges of the original undirected graph during DFS traversal.
 
 Tree edges are the edges that form the DFS tree, shown as thick lines.
 
@@ -326,11 +326,11 @@ A detailed explanation of tree difference updates is beyond the scope of this ar
 
 The method for finding bridges is therefore:
 
-1. Build a DFS tree of the graph.
+1. Run DFS from each unvisited vertex to build a DFS forest covering all vertices of the original graph.
 
 2. For each tree edge $(u,v)$, check whether any back edge crosses it. If no back edge does, it is a bridge.
 
-For the second step, process each back edge from a descendant $x$ to an ancestor $y$ by incrementing $d[x]$ and decrementing $d[y]$. Then accumulate the $d$ values within each subtree from the bottom up. For a non-root vertex $v$, its subtree sum is the number of back edges crossing the tree edge between $v$ and its parent. If the sum is zero, that tree edge is a bridge.
+For the second step, process each back edge from a descendant $x$ to an ancestor $y$ by incrementing $d[x]$ and decrementing $d[y]$. Then, for each tree in the DFS forest, accumulate the $d$ values within each subtree from the bottom up. For a non-root vertex $v$, its subtree sum is the number of back edges crossing the tree edge between $v$ and its parent. If the sum is zero, that tree edge is a bridge.
 
 Time complexity: $O(N+M)$
 
