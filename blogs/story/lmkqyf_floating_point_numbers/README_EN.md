@@ -18,7 +18,7 @@ This is not a Python bug. It happens because many decimal fractions cannot be re
 
 The conversion process is illustrated below:
 
-![Converting 0.1 into a binary floating-point value](img/floating_point_conversion.svg)
+![Converting 0.1 into a binary floating-point value](img/floating_point_conversion_en.svg)
 
 Values such as `0.5`, `0.25`, and `0.125` can be represented exactly in binary. However, decimal `0.1` becomes a repeating binary fraction:
 
@@ -34,7 +34,7 @@ The binary expansions of `0.1`, `0.2`, and `0.3` all contain the repeating patte
 
 By contrast, `0.5 = 2⁻¹` can be represented exactly in binary, with all of its fraction bits equal to zero. The value `0.4` is still an approximation, but `0.2 + 0.2` happens to produce the same floating-point value as the literal `0.4`, so their equality comparison returns `True`.
 
-![Comparison of 0.1 + 0.2 ≠ 0.3, the lucky 0.4, and the exact 0.5](img/floating_point_binary64.svg)
+![Comparison of 0.1 + 0.2 ≠ 0.3, the lucky 0.4, and the exact 0.5](img/floating_point_binary64_en.svg)
 
 ## Comparing Floating-Point Values
 
