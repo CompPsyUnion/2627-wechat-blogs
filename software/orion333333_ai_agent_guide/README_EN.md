@@ -107,7 +107,7 @@ However capable AI may be, it still outputs existing information. After all, it 
 
 Weak models and agents can make this process an ordeal.
 
-### Agents Write Poorly: You Can Tell at a Glance Whether a PPT, PDF, or Article Was Made by AI, and With Enough Exposure You Can Even Tell Which Agent Made It. The Results Are Readable, but Seeing Too Many Gets Sickening, So Put the Human Brain First When You Want to Create Something Beautiful.
+### Agents Write Poorly: You Can Tell at a Glance Whether a PPT, PDF, or Article Was Made by AI, and With Enough Exposure You Can Even Tell Which Agent Made It. The Results Are Readable, but Seeing Too Many Gets Sickening, So Put the Human Brain First When You Want to Create Something Beautiful
 
 I have already discussed how to make AI writing more palatable. Let me emphasize it again: please use AI less often to churn out unreadable rubbish. We already spend enough time talking to AI every day. I really do not want to open a WeChat post only to find another article written by AI; I am worn out from reading them. By now, you should be able to tell that I wrote this article myself. In this age of AI everywhere, can you feel the effort I have put into it?
 
@@ -125,8 +125,8 @@ This keeps the context focused, again helping prevent the AI from becoming less 
 
 Another point worth emphasizing: a higher cache hit rate can save money. Those of you using DSH may already be familiar with this.
 
-### Respect the Boundaries of AI Use in Academic Work: Do Not Have It Write Your Work for You. An LLM May Have Been Trained on Other People's Work, So Watch Out for Their Material Appearing in Your Writing (citation).
+### Respect the Boundaries of AI Use in Academic Work: Do Not Have It Write Your Work for You. An LLM May Have Been Trained on Other People's Work, So Watch Out for Their Material Appearing in Your Writing (citation)
 
-### Although LLMs Are Unprecedentedly Capable, They Only Output Existing Content. Do Not Let Their Output Undermine Your Creativity.
+### Although LLMs Are Unprecedentedly Capable, They Only Output Existing Content. Do Not Let Their Output Undermine Your Creativity
 
 ### Rely More on Your Own Reading Skills, and Be Wary of Becoming Overdependent on AI to Read Texts for You
