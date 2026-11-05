@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="250" viewBox="0 0 960 250" role="img" aria-labelledby="title desc">
+  <title id="title">A simple DNS lookup</title>
+  <desc id="desc">The browser asks DNS for an address, DNS replies, and the browser connects to the website.</desc>
+  <rect width="960" height="250" rx="18" fill="#f8fafc"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="45" y="57" width="210" height="108" rx="15" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="150" y="103" font-size="24" font-weight="700" fill="#0f172a">Browser</text>
+    <text x="150" y="136" font-size="18" fill="#334155">浏览器</text>
+    <rect x="375" y="57" width="210" height="108" rx="15" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+    <text x="480" y="103" font-size="24" font-weight="700" fill="#0f172a">DNS</text>
+    <text x="480" y="136" font-size="18" fill="#334155">地址查询</text>
+    <rect x="705" y="57" width="210" height="108" rx="15" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="810" y="103" font-size="24" font-weight="700" fill="#0f172a">Website</text>
+    <text x="810" y="136" font-size="18" fill="#334155">网站服务器</text>
+    <text x="315" y="79" font-size="14" fill="#334155">1. Ask / 问</text>
+    <text x="315" y="155" font-size="14" fill="#334155">2. Reply / 答</text>
+    <text x="480" y="199" font-size="16" fill="#334155">3. Connect / 连接网站</text>
+    <text x="480" y="237" font-size="15" fill="#475569">DNS gives directions; the website must still respond / DNS 负责指路，网站仍需正常工作</text>
+  </g>
+  <g fill="none" stroke="#334155" stroke-width="3">
+    <path d="M260 98H365"/>
+    <path d="M370 127H265"/>
+    <path d="M150 169V211H810V169"/>
+  </g>
+  <g fill="#334155">
+    <path d="M365 98L353 91V105Z"/>
+    <path d="M265 127L277 120V134Z"/>
+    <path d="M810 169L803 181H817Z"/>
+  </g>
+</svg>

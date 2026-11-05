@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="310" viewBox="0 0 960 310" role="img" aria-labelledby="title desc">
+  <title id="title">Example A and CNAME records</title>
+  <desc id="desc">The main domain example.com has an A record to 192.0.2.10. The www subdomain has a CNAME to example.com, so its lookup can lead to that A record.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="960" height="310" rx="18" fill="#f8fafc"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="480" y="37" font-size="22" font-weight="700" fill="#0f172a">两条记录，两个名字 / Two records, two names</text>
+    <rect x="45" y="76" width="234" height="68" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="162" y="105" font-size="20" font-weight="700" fill="#1e293b">example.com</text>
+    <text x="162" y="131" font-size="16" fill="#475569">主域名 / Main domain</text>
+    <rect x="382" y="76" width="196" height="68" rx="12" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+    <text x="480" y="118" font-size="23" font-weight="700" fill="#312e81">A</text>
+    <rect x="681" y="76" width="234" height="68" rx="12" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="798" y="118" font-size="22" font-weight="700" fill="#14532d">192.0.2.10</text>
+    <rect x="45" y="176" width="234" height="68" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+    <text x="162" y="205" font-size="20" font-weight="700" fill="#1e293b">www.example.com</text>
+    <text x="162" y="231" font-size="16" fill="#475569">子域名 / Subdomain</text>
+    <rect x="382" y="176" width="196" height="68" rx="12" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+    <text x="480" y="218" font-size="23" font-weight="700" fill="#312e81">CNAME</text>
+    <rect x="681" y="176" width="234" height="68" rx="12" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+    <text x="798" y="218" font-size="20" font-weight="700" fill="#7c2d12">example.com</text>
+    <text x="480" y="282" font-size="16" fill="#475569">example.com 和 192.0.2.10 仅用于演示 / Values shown are placeholders</text>
+  </g>
+  <g fill="none" stroke="#475569" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M285 110H370"/>
+    <path d="M584 110H669"/>
+    <path d="M285 210H370"/>
+    <path d="M584 210H669"/>
+  </g>
+  <g fill="#475569">
+    <path d="M370 110L358 103V117Z"/>
+    <path d="M669 110L657 103V117Z"/>
+    <path d="M370 210L358 203V217Z"/>
+    <path d="M669 210L657 203V217Z"/>
+  </g>
+</svg>
