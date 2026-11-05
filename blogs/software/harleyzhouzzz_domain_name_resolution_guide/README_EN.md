@@ -1,70 +1,70 @@
-# Website Not Loading? Understand DNS Resolution Over a Cup of Coffee
+# Website Not Loading? Let's Talk About DNS Over Coffee
 
-You’ve built a personal website and bought an easy-to-remember web address. Yet after sending the link to a friend, they tell you: "It won't load." Before rushing to fix your web pages, remember this: just because your website is built doesn't mean others know where to find it. **DNS resolution** (Domain Name System resolution) is what helps everyone locate it.
+Imagine you've just finished building a personal website and picked a memorable address for it. You happily send it to a friend, only to hear, “Why won't it open?” Don't worry just yet. The address might not be taking your friend to the right place. That's where **DNS resolution** helps point the way.
 
-## Websites Need an "Address" Too
+## Websites Need an Address Too
 
-Imagine inviting a friend to a newly opened coffee shop. If you only give them the shop's name, they still need to look up the street address to get there. Visiting a website works much the same way: `example.com` is a human-friendly name, while the server's IP address is the information a device uses to locate the destination. The system that helps devices look up this information is called DNS.
+Imagine you've invited a friend to a new coffee shop. If you only tell him the shop's name, he'll still need to look up its address. Visiting a website works much the same way. `example.com` is a name that's easy to remember, while a server's IP address gives a device the information it needs to find its destination. The system that helps look up this information is called DNS.
 
-![A domain name is like a shop name; an IP address is like a street address](img/domain-and-address.png)
+![A domain name is like a shop name, and an IP address is like its address](img/domain-and-address.png)
 
-This analogy has a limit: DNS is only responsible for answering "What records exist for this domain name?"—it does not build or host the website itself. Knowing a coffee shop's address doesn't guarantee it's open for business; similarly, resolving a website's IP address doesn't guarantee the webpage will load.
+Finding the address is only the first step, though. You might know where the coffee shop is, but it still needs to be open when you arrive. In the same way, DNS helps look up the records, and the website itself needs to be running too.
 
-## What Happens After You Type a URL?
+## What Happens When You Enter an Address?
 
-When you enter a web address into your browser, your device asks DNS: "What is the IP address mapped to this domain name?" DNS returns the answer to your device, which then attempts to connect to the web server. If your device or its DNS resolver has cached (saved) the answer previously, the lookup may be faster.
+When you type an address into your browser, your device asks DNS, “What's the address for this name?” DNS returns an answer, and your device then tries to connect to the website. If your device or the service helping it has saved the answer from an earlier lookup, the process may be quicker.
 
-![After entering a URL, the device queries the address first, then connects to the website](img/dns-resolution.png)
+![The device asks for an address before connecting to the website](img/dns-resolution.png)
 
-You don't need to memorize all the servers working behind the scenes. As a website owner, just keep two things in mind: **your domain name must have the correct DNS records, and your web server itself must be running properly.** Next, let's walk through an example to configure these records.
+You don't have to memorize all the servers working behind the scenes. For now, it's enough to know that the address needs to point to the right place and the website needs to be running. Let's walk through an example and see how to fill in the records.
 
-## Before You Start, Prepare Two Things
+## Two Things to Have Ready
 
-First, you need the domain name you purchased; second, you need the "connection details" provided by your web hosting platform. If you manage your own server, the platform will typically give you a server IP address; if you use a managed website builder or hosting service, the platform may ask you to point your domain to another hostname it provides. Always check your hosting platform's custom domain documentation first to confirm what values are required, and then go to your DNS management console to configure them. **Do not copy addresses from someone else's tutorial into your own DNS records.**
+Before we start, have two things handy: the domain you've registered and the connection details from your website provider. If you manage your own server, your provider will usually give you its IP address. If you use a hosted website service, it might instead ask you to point your domain to another name it provides. Check your provider's domain setup instructions first, then enter the details in your DNS dashboard. **The addresses in a tutorial are only examples—remember to use your own.**
 
-You also need to decide which URL format your visitors will type: the main domain `example.com`, or the `www` address `www.example.com`? Although they look similar, DNS treats them as two distinct hostnames. If you want both to work, you must configure DNS records for each one separately and verify that both are bound in your hosting platform. You can choose one as your preferred address; whether the other redirects to it is a separate setting configured within your web hosting platform.
+You'll also want to think about which address your friend might type: `example.com` or `www.example.com`? They look similar, but DNS treats them as two different names. If you want both to work, set up a record for each and make sure your website provider has both names configured. You can pick one as the address you usually share; redirecting the other to it is a separate setting on your website platform.
 
-## Add Two DNS Records for Your Domain
+## Add Two Records to Your Domain
 
-Suppose your domain name is `example.com` and your web server's IP address is `192.0.2.10`. **These are reserved for documentation and educational purposes only—do not use them for your actual website.** When configuring your own site, replace them with your actual domain name and the real address provided by your hosting provider.
+Let's say your domain is `example.com` and your website server's address is `192.0.2.10`. **These are examples for documentation, so you can't use them for your own website.** Replace them with your actual domain and the address given to you by your provider.
 
-Open the management console of your DNS provider and navigate to "DNS Management" or "DNS Records". If you bought your domain from one company but another company manages its DNS, add the records at the company managing DNS. If you're unsure, check the "DNS Management" instructions at your domain registrar to verify where your records should be configured.
+Open the dashboard that manages your domain's DNS and look for “DNS” or “DNS records.” You may have bought your domain from one company and chosen another to manage DNS. If so, add the records where DNS is actually managed. If you're unsure, check the DNS management instructions from the company where you registered the domain.
 
-First, configure your main domain. This is called an **A record**, which maps a domain name to an IP address like `192.0.2.10`—technically known as an IPv4 address. Most DNS consoles use `@` to represent the main domain `example.com`:
+Let's start with the main domain. An **A record** points a name to an address like `192.0.2.10`, known as an IPv4 address. Many dashboards use `@` to represent the main domain, `example.com`:
 
-- **Type**: A
-- **Name / Host**: `@`
-- **Value / Points to**: Your own server's IPv4 address
+- Type: A
+- Name: `@`
+- Value: your own server's IPv4 address
 
-Next, consider whether visitors might type `www.example.com`. Because `www.example.com` and `example.com` are two separate names, if you want the `www` address to work as well, you can add a **CNAME record**. A CNAME record essentially says, "Please look up the records of this other hostname instead":
+Now, what if your friend types `www.example.com`? It's a different name from `example.com`. To make the address with `www` work too, you can add a **CNAME record**. It says, in effect, “Please look up this other name first”:
 
-- **Type**: CNAME
-- **Name / Host**: `www`
-- **Target / Value**: `example.com`
+- Type: CNAME
+- Name: `www`
+- Target: `example.com`
 
-![Use an A record for the main domain, and a CNAME record for www pointing to the main domain](img/record-example.png)
+![An A record for the main domain and a CNAME pointing www to it](img/record-example.png)
 
-Now let's trace the resolution path for your friend: he types `www.example.com`, and DNS sees the CNAME record for `www`, knowing it needs to look up `example.com` next; the main domain's A record then returns the server's IP address. His device uses that IP address to connect to the web server, and the page can load if the website responds properly. If he types `example.com` directly, the lookup starts right at the main domain's A record. The arrows in the diagram illustrate these two resolution paths.
+Let's put those two records together and follow your friend. He types `www.example.com`, and DNS finds the CNAME for `www`, which points it to `example.com`. The main domain's A record then provides the server address. His device uses that address to reach the website, and the page can load if the website responds properly. If he types `example.com` directly, the lookup starts with the main domain's record. The arrows in the picture show these two routes.
 
-Some DNS consoles require you to enter the full domain name rather than shorthand like `@` or `www`; follow the prompts on your provider's interface. Also, if `www` already has an A record, do not add a CNAME record for `www` alongside it—the two record types will conflict.
+Some dashboards ask for the full domain name instead of `@` or `www`, so follow the instructions on your screen. Also, if `www` already has an A record, don't add a CNAME with the same name alongside it—the two will conflict.
 
-## Still Not Loading After Saving? Here's How to Troubleshoot
+## Still Not Loading After Saving?
 
-**1. Check if both hostnames are configured.** Configuring only `example.com` does not automatically make `www.example.com` work, and vice versa. Return to your DNS console and verify the records for both the main domain and `www`.
+**Start by checking both names.** Setting up `example.com` alone doesn't automatically make `www.example.com` work, or the other way around. Take another look at the records for both names in your dashboard.
 
-**2. Give cached DNS records time to expire.** DNS lookup results are temporarily cached, much like a friend keeping an old coffee shop address saved on their phone. Even after you update your records, the DNS resolvers others use might still be serving the old cached answer. In your DNS console, there is a "cache duration" setting called **TTL (Time to Live)**—for initial setup, you can leave it at its default value; note that TTL is not a synchronized alarm clock that refreshes everyone's cache at the exact same moment. Once you've confirmed your records are accurate, waiting a little while before retrying is far more effective than repeatedly clicking "Save".
+**Just changed a record? Give it a little time.** DNS answers are saved temporarily, a bit like your friend keeping the coffee shop's old address on his phone. Even after you update a record, someone else's lookup service might still have the old answer. Your dashboard may have a cache-time setting called TTL; leaving it at its default is fine when you're starting out. It's not an alarm that makes everyone's old answer refresh at exactly the same time. Once you've checked the record, waiting a little before trying again is more useful than repeatedly hitting “Save.”
 
-**3. Check the website and server itself.** If your domain already resolves to the correct IP address but the page still won't load, the problem may be with your web server or web application. If the browser displays a "Connection is not secure" warning, you also need to check your website's HTTPS (SSL/TLS) certificate. DNS only gives directions; once you arrive at the street address, someone still has to open the door.
+**If the address looks right, check the website itself.** When the domain points to the correct address but the page still won't load, the server or website software may be the issue. If your browser says the connection isn't secure, check the site's HTTPS certificate too. DNS helps with directions; once someone finds the door, the website still needs to open it.
 
-To narrow down the issue, try visiting both the `www` and non-`www` URLs separately to see if only one of them fails; you can also test accessing the site via mobile data versus Wi-Fi to see if the results differ. While these tests alone won't pinpoint the exact root cause, they will help you decide whether to double-check a specific DNS record, wait for old cached answers to expire, or inspect your web hosting platform. Writing down the exact symptoms and error messages makes troubleshooting much easier than simply saying "it won't load".
+You can also try both addresses, with and without `www`, to see if only one has a problem. Try mobile data and Wi-Fi too, and see whether the results differ. These checks won't tell you the cause on their own, but they can help you decide whether to revisit a record, wait for an old answer to expire, or check your website platform. Writing down what you see makes it easier to troubleshoot than simply saying “it won't open.”
 
-Next time you encounter a "website not loading" issue, troubleshoot in this order: **Is the domain name spelled right? Are the DNS records configured properly? Has the DNS cache updated? Is the web server itself up and running?** Checking step by step spares you from blaming everything on a "broken domain."
+The next time an address doesn't work, you can take it one question at a time: **Is the name right? Are the records right? Has the old answer updated? Is the website itself working?** Each answer brings you a little closer to finding the problem.
 
 ## References
 
-1. ICANN, *Authoritative Name Server*: https://www.icann.org/en/icann-acronyms-and-terms/authoritative-name-server-en
-2. Cloudflare, *DNS record types*: https://developers.cloudflare.com/dns/manage-dns-records/reference/dns-record-types/
-3. Cloudflare, *Manage DNS records*: https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/
-4. Cloudflare, *Time to Live (TTL)*: https://developers.cloudflare.com/dns/manage-dns-records/reference/ttl/
-5. IANA, *Example Domains*: https://www.iana.org/help/example-domains
-6. IETF, *RFC 5737: IPv4 Address Blocks Reserved for Documentation*: https://www.rfc-editor.org/info/rfc5737/
+1. ICANN, “Authoritative Name Server”: https://www.icann.org/en/icann-acronyms-and-terms/authoritative-name-server-en
+2. Cloudflare, “DNS record types”: https://developers.cloudflare.com/dns/manage-dns-records/reference/dns-record-types/
+3. Cloudflare, “Manage DNS records”: https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/
+4. Cloudflare, “Time to Live (TTL)”: https://developers.cloudflare.com/dns/manage-dns-records/reference/ttl/
+5. IANA, “Example Domains”: https://www.iana.org/help/example-domains
+6. IETF, “RFC 5737: IPv4 Address Blocks Reserved for Documentation”: https://www.rfc-editor.org/info/rfc5737/
