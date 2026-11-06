@@ -194,10 +194,10 @@ Examples: $O(n)$; $O(n²)$; $O(logn)$; $O(1)$ ...
 
 ## 5. Summary
 
-| Complexity Type | Meaning                                  | Calculation Focus                   | Example                   |
-| :-------------- | :--------------------------------------- | :---------------------------------- | :------------------------ |
-| Time Complexity | Growth trend of algorithm running time   | Number of basic operation executions | Number of loop iterations |
-| Space Complexity | Growth trend of algorithm memory usage  | Additionally allocated memory space | Array size                |
+| Complexity Type  | Meaning                                 | Calculation Focus                    | Example                   |
+| :--------------- | :-------------------------------------- | :----------------------------------- | :------------------------ |
+| Time Complexity  | Growth trend of algorithm running time  | Number of basic operation executions | Number of loop iterations |
+| Space Complexity | Growth trend of algorithm memory usage  | Additionally allocated memory space  | Array size                |
 
 ---
 
