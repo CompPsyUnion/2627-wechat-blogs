@@ -201,16 +201,16 @@ Examples: $O(n)$; $O(n²)$; $O(logn)$; $O(1)$ ...
 
 ---
 
-#### When calculating complexity,remember to “**focus on the big and ignore the small**.”  
+### When calculating complexity,remember to “**focus on the big and ignore the small**.”  
 
 - When calculating time complexity, identify the basic operations (such as comparisons and assignments within loops).  
 
 - When calculating space complexity, calculate the space occupied by variables (including input data, auxiliary variables, recursion stacks, etc.).
 
-#### Understanding time and space complexity helps us write efficient and resource-saving programs. 
+### Understanding time and space complexity helps us write efficient and resource-saving programs
 
-#### A reminder once again:
+### A reminder once again
 
 - Big O notation represents the growth trend of an algorithm, not its specific execution time or memory size.
 
-### ***That’s All!!! Hope Everyone Learned Something!!!***
+## ***That’s All!!! Hope Everyone Learned Something!!!***
