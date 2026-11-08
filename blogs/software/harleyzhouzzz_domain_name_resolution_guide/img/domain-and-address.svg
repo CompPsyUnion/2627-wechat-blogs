@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="270" viewBox="0 0 960 270" role="img" aria-labelledby="title desc">
+  <title id="title">A domain name leads visitors to a server address</title>
+  <desc id="desc">A browser with www.example.com asks DNS for an address and receives the example IP address 192.0.2.10.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect width="960" height="270" rx="18" fill="#fffaf0"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="38" y="53" width="258" height="140" rx="16" fill="#ffffff" stroke="#f59e0b" stroke-width="3"/>
+    <rect x="54" y="70" width="226" height="42" rx="10" fill="#fef3c7"/>
+    <circle cx="70" cy="91" r="5" fill="#ef4444"/>
+    <circle cx="86" cy="91" r="5" fill="#f59e0b"/>
+    <circle cx="102" cy="91" r="5" fill="#22c55e"/>
+    <text x="167" y="145" font-size="22" font-weight="700" fill="#1e293b">www.example.com</text>
+    <text x="167" y="174" font-size="17" fill="#475569">网站名字 / Domain</text>
+    <rect x="378" y="53" width="204" height="140" rx="16" fill="#eef2ff" stroke="#6366f1" stroke-width="3"/>
+    <circle cx="480" cy="97" r="25" fill="#c7d2fe"/>
+    <text x="480" y="105" font-size="25" font-weight="700" fill="#312e81">?</text>
+    <text x="480" y="145" font-size="24" font-weight="700" fill="#312e81">DNS</text>
+    <text x="480" y="173" font-size="17" fill="#475569">查询地址 / Lookup</text>
+    <rect x="664" y="53" width="258" height="140" rx="16" fill="#ecfdf5" stroke="#10b981" stroke-width="3"/>
+    <rect x="745" y="74" width="96" height="50" rx="8" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+    <circle cx="758" cy="99" r="5" fill="#059669"/>
+    <path d="M773 94H825M773 104H825" stroke="#059669" stroke-width="3"/>
+    <text x="793" y="150" font-size="24" font-weight="700" fill="#064e3b">192.0.2.10</text>
+    <text x="793" y="178" font-size="17" fill="#475569">示例位置 / Example IP</text>
+    <text x="480" y="235" font-size="17" fill="#475569">名字方便记忆，地址帮助设备找到目标 / Names are memorable; addresses locate servers</text>
+  </g>
+  <g fill="none" stroke="#475569" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M303 124H367"/>
+    <path d="M589 124H653"/>
+  </g>
+  <g fill="#475569">
+    <path d="M367 124L355 117V131Z"/>
+    <path d="M653 124L641 117V131Z"/>
+  </g>
+</svg>
