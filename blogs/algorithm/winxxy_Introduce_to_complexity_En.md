@@ -12,6 +12,7 @@ In computer science, time complexity and space complexity are important metrics 
 
 *Note:  
 It is worth mentioning that an algorithm’s running time is not entirely determined by the input size; it is also related to the contents of the input. Therefore, time complexity is generally divided into:  
+
 1. Worst-case time complexity  
 2. Average-case time complexity  
 3. Best-case time complexity*  
