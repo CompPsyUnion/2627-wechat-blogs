@@ -11,11 +11,11 @@ In computer science, time complexity and space complexity are important metrics 
 **Space Complexity** Represents the growth trend of the additional memory space required during algorithm execution as the input size changes. It tells us how much memory the algorithm occupies.
 
 *Note:  
-It is worth mentioning that an algorithm’s running time is not entirely determined by the input size; it is also related to the contents of the input. Therefore, time complexity is generally divided into:  
+It is worth mentioning that an algorithm’s running time is not entirely determined by the input size; it is also related to the contents of the input. Therefore, time complexity is generally divided into*:  
 
-1. Worst-case time complexity  
-2. Average-case time complexity  
-3. Best-case time complexity*  
+1. *Worst-case time complexity*
+2. *Average-case time complexity*  
+3. *est-case time complexity*  
   
 - In general, time complexity refers to the **worst-case time complexity** by default.
 
