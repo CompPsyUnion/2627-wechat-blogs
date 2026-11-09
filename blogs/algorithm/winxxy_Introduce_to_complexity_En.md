@@ -6,43 +6,38 @@ In computer science, time complexity and space complexity are important metrics 
 
 ## 1. What Are Time Complexity and Space Complexity?
 
-**Time Complexity**
-Represents the growth trend of the time required to execute an algorithm as the input size changes. It tells us how fast or slow the algorithm runs.  
+**Time Complexity** Represents the growth trend of the time required to execute an algorithm as the input size changes. It tells us how fast or slow the algorithm runs.  
 
-**Space Complexity**
-Represents the growth trend of the additional memory space required during algorithm execution as the input size changes. It tells us how much memory the algorithm occupies.
+**Space Complexity** Represents the growth trend of the additional memory space required during algorithm execution as the input size changes. It tells us how much memory the algorithm occupies.
 
 *Note:  
 It is worth mentioning that an algorithm’s running time is not entirely determined by the input size; it is also related to the contents of the input. Therefore, time complexity is generally divided into:  
-1.Worst-case time complexity  
-2.Average-case time complexity  
-3.Best-case time complexity*  
+1. Worst-case time complexity  
+2. Average-case time complexity  
+3. Best-case time complexity*  
   
 - In general, time complexity refers to the **worst-case time complexity** by default.
 
 ## 2. Why Do We Need Complexity?
 
-**Evaluate Efficiency**
-Through complexity analysis, we can predict how an algorithm will perform when processing large amounts of data and avoid choosing inefficient algorithms.
+**Evaluate Efficiency** Through complexity analysis, we can predict how an algorithm will perform when processing large amounts of data and avoid choosing inefficient algorithms.
 
-**Optimize Resources**
-Understanding time and space consumption helps us design more reasonable programs under limited resources.
+**Optimize Resources** Understanding time and space consumption helps us design more reasonable programs under limited resources.
 
-**Compare Algorithms**
-When different algorithms solve the same problem, complexity is an important basis for selecting the optimal algorithm.
+**Compare Algorithms** When different algorithms solve the same problem, complexity is an important basis for selecting the optimal algorithm.
 
 ## 3. How Do We Represent Time & Space Complexity?
 
-### Big O Notation
+### Big $O$ Notation
 
 Q: The same piece of code takes 0.01 seconds to run on your computer but only 0.0001 seconds on a supercomputer. Can we say that its time complexity on the supercomputer is lower than on your computer?  
 
 A: Of course not. The same piece of code should have the same complexity.
 
-In real life, we often encounter situations like this. The so-called “growth trend of execution time as the data size increases” is a vague concept. To make complexity concrete and standardized, we introduce the widely used “**Big O notation**” to uniformly describe the time complexity and space complexity of algorithms.
+In real life, we often encounter situations like this. The so-called “growth trend of execution time as the data size increases” is a vague concept. To make complexity concrete and standardized, we introduce the widely used “**Big $O$ notation**” to uniformly describe the time complexity and space complexity of algorithms.
 
-Examples: $O(n)$; $O(n²)$; $O(logn)$; $O(1)$ ...  
-*Here, “n” represents the data size*
+Examples: $O(n)$ ; $O(n^2)$ ; $O(logn)$ ; $O(1)$ ...  
+*Here, “ $n$ ” represents the data size*
 
 (The meanings and calculation methods will be explained in the next section.)
 
@@ -51,7 +46,7 @@ Examples: $O(n)$; $O(n²)$; $O(logn)$; $O(1)$ ...
 ### ***Core Idea: Focus on the Big and Ignore the Small***
 
 - Identify the **determining factor** that affects complexity; everything else can be ignored.  
-(For example, in the function $y = n^2 + n + 1$, the determining factor is $n^2$, so only $n^2$ needs to be considered when calculating the time complexity.)
+(For example, in the function $y = n^2 + n + 1$ , the determining factor is $n^2$ , so only $n^2$ needs to be considered when calculating the time complexity.)
 
 ---
 
@@ -211,6 +206,6 @@ Examples: $O(n)$; $O(n²)$; $O(logn)$; $O(1)$ ...
 
 ### A reminder once again
 
-- Big O notation represents the growth trend of an algorithm, not its specific execution time or memory size.
+- Big $O$ notation represents the growth trend of an algorithm, not its specific execution time or memory size.
 
 ## ***That’s All!!! Hope Everyone Learned Something!!!***
