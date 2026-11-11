@@ -1,22 +1,22 @@
 # Introduction to Time Complexity and Space Complexity
 
-Hi, everyone! Today, we are going to learn about time complexity and space complexity.  
+Hi, everyone! Today, we are going to learn about time complexity and space complexity.
 
 In computer science, time complexity and space complexity are important metrics for measuring algorithm efficiency. They help us understand the time and space resources required by an algorithm when processing inputs of different sizes.
 
 ## 1. What Are Time Complexity and Space Complexity?
 
-**Time Complexity** Represents the growth trend of the time required to execute an algorithm as the input size changes. It tells us how fast or slow the algorithm runs.  
+**Time Complexity** Represents the growth trend of the time required to execute an algorithm as the input size changes. It tells us how fast or slow the algorithm runs.
 
 **Space Complexity** Represents the growth trend of the additional memory space required during algorithm execution as the input size changes. It tells us how much memory the algorithm occupies.
 
-*Note:  
-It is worth mentioning that an algorithm’s running time is not entirely determined by the input size; it is also related to the contents of the input. Therefore, time complexity is generally divided into*:  
+*Note:
+It is worth mentioning that an algorithm’s running time is not entirely determined by the input size; it is also related to the contents of the input. Therefore, time complexity is generally divided into*:
 
 1. *Worst-case time complexity*
-2. *Average-case time complexity*  
-3. *est-case time complexity*  
-  
+2. *Average-case time complexity*
+3. *est-case time complexity*
+
 - In general, time complexity refers to the **worst-case time complexity** by default.
 
 ## 2. Why Do We Need Complexity?
@@ -31,14 +31,14 @@ It is worth mentioning that an algorithm’s running time is not entirely determ
 
 ### Big $O$ Notation
 
-Q: The same piece of code takes 0.01 seconds to run on your computer but only 0.0001 seconds on a supercomputer. Can we say that its time complexity on the supercomputer is lower than on your computer?  
+Q: The same piece of code takes 0.01 seconds to run on your computer but only 0.0001 seconds on a supercomputer. Can we say that its time complexity on the supercomputer is lower than on your computer?
 
 A: Of course not. The same piece of code should have the same complexity.
 
 In real life, we often encounter situations like this. The so-called “growth trend of execution time as the data size increases” is a vague concept. To make complexity concrete and standardized, we introduce the widely used “**Big $O$ notation**” to uniformly describe the time complexity and space complexity of algorithms.
 
-Examples: $O(n)$ ; $O(n^2)$ ; $O(logn)$ ; $O(1)$ ...  
-*Here, “ $n$ ” represents the data size*
+Examples: $O(n)$ ; $O(n^2)$ ; $O(logn)$ ; $O(1)$ ...
+> Here, $n$ represents the data size
 
 (The meanings and calculation methods will be explained in the next section.)
 
@@ -46,7 +46,7 @@ Examples: $O(n)$ ; $O(n^2)$ ; $O(logn)$ ; $O(1)$ ...
 
 ### ***Core Idea: Focus on the Big and Ignore the Small***
 
-- Identify the **determining factor** that affects complexity; everything else can be ignored.  
+- Identify the **determining factor** that affects complexity; everything else can be ignored.
 (For example, in the function $y = n^2 + n + 1$ , the determining factor is $n^2$ , so only $n^2$ needs to be considered when calculating the time complexity.)
 
 ---
@@ -61,7 +61,7 @@ Examples: $O(n)$ ; $O(n^2)$ ; $O(logn)$ ; $O(1)$ ...
 
   ```python
   def get_first_element(arr):
-      return arr[0]  
+      return arr[0]
       # No matter how long the array is, only the first item is retrieved in one step
   ```
 
@@ -89,7 +89,7 @@ Examples: $O(n)$ ; $O(n^2)$ ; $O(logn)$ ; $O(1)$ ...
 #### ③ $O(n \log n)$ —— Linearithmic Order (Relatively Fast)
 
 - **Meaning**: Combines linear order and logarithmic order. Many efficient sorting algorithms, such as merge sort and quicksort, are at this level.
-- **Simple Analogy**: Divide a large set of data into two halves, sort them separately, and then merge them.  
+- **Simple Analogy**: Divide a large set of data into two halves, sort them separately, and then merge them.
 - **Code Example** (Python):
 
   ```python
@@ -156,7 +156,7 @@ Examples: $O(n)$ ; $O(n^2)$ ; $O(logn)$ ; $O(1)$ ...
 
   ```python
   def sum_two(a, b):
-    c = a + b  
+    c = a + b
     return c
     # Only the fixed variables a, b, and c are used, so the additional memory remains unchanged regardless of the input size
   ```
@@ -197,9 +197,9 @@ Examples: $O(n)$ ; $O(n^2)$ ; $O(logn)$ ; $O(1)$ ...
 
 ---
 
-### When calculating complexity,remember to “**focus on the big and ignore the small**.”  
+### When calculating complexity,remember to “**focus on the big and ignore the small**.”
 
-- When calculating time complexity, identify the basic operations (such as comparisons and assignments within loops).  
+- When calculating time complexity, identify the basic operations (such as comparisons and assignments within loops).
 
 - When calculating space complexity, calculate the space occupied by variables (including input data, auxiliary variables, recursion stacks, etc.).
 
