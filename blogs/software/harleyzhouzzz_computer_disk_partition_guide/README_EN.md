@@ -4,13 +4,13 @@ Have you ever opened “This PC” and found only a C: drive? Photos, coursework
 
 Let’s use Windows 11 to get to know partitions and see how to make a new drive from the space you already have.
 
-The Windows screenshots show a Chinese-language interface; the instructions use the English menu names.
+The Windows UI text in the screenshots has been translated into English.
 
 ## One cabinet, several drawers
 
 Think of a physical disk as a cabinet. A partition is like a separate drawer inside it. The C: and D: drives can be different areas on the same physical disk, giving you places to organize files in a way that suits you.
 
-![A physical disk divided into two areas](img/disk-partitions.png)
+![A physical disk divided into two areas](img/disk-partitions-en.png)
 
 One thing to keep in mind: **partitioning does not create extra storage.** If C: and D: are on the same disk, both may be affected if that disk fails. A D: drive is therefore not a backup: keep important files on an external drive or in another independent location too.
 
@@ -29,7 +29,7 @@ Back up existing files before changing a drive's format: formatting erases files
 
 Let’s open DiskGenius and take a look. The Windows shown here runs in Parallels on a Mac, but you can read the layout in much the same way on a regular Windows PC:
 
-![GPT and the partition list in DiskGenius](img/diskgenius-before-partition.png)
+![GPT and the partition list in DiskGenius](img/diskgenius-before-partition-en.png)
 
 On the left, `HD0` is the whole virtual disk as Windows sees it. The areas listed below each have a job. `C:` is where we keep everyday files; `ESP` holds files needed to start Windows; `MSR` is reserved for Windows; and `MS Recovery` helps with recovery. Some are only a few hundred megabytes and have no drive letter, but they still matter. Leave them as they are.
 
@@ -51,17 +51,17 @@ If your school or workplace manages the computer, check with the administrator f
 
 Search for **Disk Management** in Windows, then choose **Create and format hard disk partitions** from the results. Wait for the window to load, find the area labeled `C:` in the lower part of the window, right-click it, and choose **Shrink Volume**.
 
-![Disk Management showing the C: drive and system partitions](img/windows-disk-management-marked.png)
+![Disk Management showing the C: drive and system partitions](img/windows-disk-management-marked-en.png)
 
 Give Windows a moment to work out how much space it can free. Then enter the amount you want for the new drive. The screenshot uses `51200 MB`, or about `50 GB`; choose a number that works for your computer. This field asks **how much to take from C:**, not how large C: will be afterward. Check the number, then select **Shrink**.
 
-![The Shrink Volume window with 51200 MB entered as an example](img/windows-shrink-volume-marked.png)
+![The Shrink Volume window with 51200 MB entered as an example](img/windows-shrink-volume-marked-en.png)
 
 You will now see an **Unallocated** area. Do not worry if it is missing from “This PC”: we have not made it into a new drive yet.
 
-![An unallocated 50 GB area next to the C: drive](img/windows-unallocated-marked.png)
+![An unallocated 50 GB area next to the C: drive](img/windows-unallocated-marked-en.png)
 
-![Shrink C: to create unallocated space, then create a new volume](img/create-volume.png)
+![Shrink C: to create unallocated space, then create a new volume](img/create-volume-en.png)
 
 ## Step two: give the new space a drive letter
 
@@ -69,21 +69,21 @@ Right-click the **Unallocated** space you just created, choose **New Simple Volu
 
 1. Confirm the size. Keep the default if you want to use all of the space you just freed.
 
-   ![Volume size in the New Simple Volume wizard](img/windows-volume-size-marked.png)
+   ![Volume size in the New Simple Volume wizard](img/windows-volume-size-marked-en.png)
 
 2. Choose an available drive letter. If D: is already in use, another letter is fine.
 
-   ![Drive letter selection with D: edited for illustration](img/drive-letter-d-marked.png)
+   ![Drive letter selection with D: edited for illustration](img/drive-letter-d-marked-en.png)
 
    The D: shown here was edited for illustration. Choose a letter available on your own computer.
 
 3. Use the wizard's default format settings for this **new, empty volume**. Review the summary and select **Finish**.
 
-   ![Format settings for the new volume](img/windows-format-volume-marked.png)
+   ![Format settings for the new volume](img/windows-format-volume-marked-en.png)
 
 At the formatting step, take a few seconds to check that you selected the new space you just made. Once the wizard finishes, open “This PC” to find the new drive.
 
-![The new volume after creation, with D: edited for illustration](img/new-volume-d-example.png)
+![The new volume after creation, with D: edited for illustration](img/new-volume-d-example-en.png)
 
 ## Why can I not free more space?
 
