@@ -10,6 +10,8 @@ After leaving the familiar, predictable world of high school for the diversity o
 
 (I Won't Paste the Official Definitions Here; They're Too Long. Ask an AI If You Want to Read Them.)
 
+![AI agent system overview](img/agent-system-overview.png)
+
 1. Chat is like a smarter search box.
 2. An agent is like an employee. In general, using an agent gives you access to **more advanced models from the same company at higher reasoning effort levels**. Agents can also complete tasks more independently, such as operating your computer through the command line and using tools installed on it. I will go into these capabilities later. **In short, think of an agent as someone who works incredibly hard and is exceptionally capable in certain areas**.
 
@@ -43,24 +45,27 @@ An agent generally consists of a main chat window, connectors, skills, experts, 
 
 ### WorkBuddy
 
-WorkBuddy is very easy to get started with, easy to obtain, and well integrated into China's software ecosystem. **However**, I find this agent poor to use: its output is just too stupid.
+WorkBuddy is easy to access and get started with, and it integrates with many tools in China’s software ecosystem. Its output quality still falls well short of what top models produce. Try it on a small task first to see whether it meets your needs.
 
 ### DSH (DeepSeek Harness)
 
-DSH is just about the best agent available for use in China. Its downside is that it offers no free credits, so you have to pay for all your API usage yourself. Overall, though, you can get good results for very little money. You also need to install suitable plugins yourself; DSH is pretty lousy without them. Its strengths include very fast execution. Although its output is not as good as Codex or Claude Code, it is still among the best Chinese agents, and its value for money is among the best globally.
+DSH requires a model API, and costs depend on the provider and usage. You can install plugins to suit the task, and your plugin setup determines which features are available. In my experience, DSH runs quickly. When choosing a tool, you can compare output quality, runtime, and cost on the same task.
+
+![DSH plugin settings](img/dsh-plugins.png)
 
 ### Codex
 
-Codex has relatively few downsides apart from being expensive and difficult to access. (Of course, that is assuming we are not comparing it with Claude.) Its drawbacks: connections from China are relatively slow, it does not run as fast as DSH, and its value for money is not as good as DSH's. There is not much else to complain about. (Even if its value for money is not the very best, when you are doing something truly important, who would feel comfortable handing it to a less capable model? Let it cost a little more; at least using it gives you peace of mind.)
+I tend to use Codex for more demanding tasks. In my experience, Codex takes longer to connect and run than DSH. When choosing between them, consider the output quality your task requires, along with your network conditions, access, and budget.
 
 ### CC Switch
 
-Strictly speaking, CC Switch is not an agent. It is a platform for coordinating multiple agents, connecting to their APIs and organizing their collaboration. As you know, though, APIs are relatively expensive, so there is a trade-off between multi-agent collaboration and value for money. Multi-agent collaboration is also not particularly useful when you are starting out, so I will not expand on it here. Once you are more familiar with agents, you can experiment with it.
+CC Switch is a desktop configuration tool for managing model providers, API settings, and MCP servers for tools such as Claude Code and Codex. If you are starting with one tool, learn its basic workflow first. Consider CC Switch when you need to switch providers or manage configurations for several tools.
 
 ### PI
 
 1. PI is a minimalist, open-source harness. That means exactly what it sounds like: it has no model of its own, so you need to buy an API key to use it. By default, it only has a few tools for reading, writing, and editing files, plus bash. In other words, when you open it, you get a terminal, with no graphical interface or the other built-in features you may know from agents: plugins, connectors, built-in experts, and so on. Its advantages are a small footprint, both in storage and token usage; extensive customization (you can even use Claude Code); and extremely tight cost control. You need to add plenty of plugins yourself to make it useful.
 2. Still, there is no need to focus on it too much at this stage. You do not need it yet, and it will be easy to learn once you are comfortable with the basics of agents.
+3. This is my roommate's PI setup. As you can see, it runs without a graphical interface to keep memory use as low as possible. You can also see Claude Code in the screenshot. With plugins, PI can use other leading harnesses, which is a nice perk. ![Claude Code terminal interface](img/claude-code-terminal.png)
 
 ## Part Three: Common Uses for AI Agents
 
@@ -104,11 +109,8 @@ The key point: do not dump the entire task on an agent. Pay attention to demos, 
 
 ## Part Four: Understanding Agents' Limitations
 
-### As Mentioned Above, Using an Agent to Browse a Website That Requires a Password Risks Exposing That Password
-
-### An Agent May Not Be Able to Access All the Information on a Website, an LLM May Take Shortcuts and Leave Information Out of Its Summary, and a Website's Anti-Scraping Measures May Block Access
-
-I have already covered this above, but it bears repeating.
+- **Account security.** Using an agent to browse a website that requires a password can expose the password.
+- **Website coverage.** An agent may be unable to read all the content on a page. The LLM may omit information from its summary, and the website’s measures against scraping can restrict access.
 
 ### Agents Struggle to Come Up With Original Research Ideas Independently, but Can Help You Explore Ideas
 
