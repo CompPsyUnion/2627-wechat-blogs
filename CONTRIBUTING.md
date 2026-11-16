@@ -282,16 +282,16 @@ PR 标题使用大写字母开头的自然语句，不需要遵循 commit messag
 
 ### 积分制度
 
-- **主动提出推文提议：** 如果是你主动提出一个 issue，并且后续被采纳，你会得到 **1 点积分**
+- **主动提出推文提议：** 如果是你主动提出一个 issue，并且后续被采纳，在该 Issue 被添加 `implement-pending` 标签时你会得到 **1 点积分**
 - **主动认领并完成：** 如果是你主动在 issue 区认领了一个已有的，没有被认领过的 issue，self-assign 并最后完成 pull request，你也可以得到 **3 点积分**
-- **被动完成任务：** 如果开始时是我们 assign 给你一个 issue 对应的 pull request（不管 issue 初始是否为空），且你在最后完成，你可以得到 **2 点积分**
+- **被动完成任务：** 如果开始时是我们 assign 给你一个 issue 对应的 pull request（不管 issue 初始是否为空），且你在最后完成，在这个 PR 被添加 `publish-pending` 标签时你可以得到 **2 点积分**
 - **合作完成** 如果是多人合作完成一个 pull request，每人可以得到 **1-2 点积分（取决于是否为主动完成）**
 - **逾期未完成：** 如果你长时间没有完成 milestone 的 due date，你将面临被扣积分的风险
 
 > 比如，如果完成一次如下所示的从发起提议到提交投稿的完整流程，你共计可以获得4个技术部Credit:
 >
-> 1. 自己提出了一个提议 -> you.credit += 1
-> 2. 自己认领了自己的 issue (assign yourself) + 提出了 PR + 最终 PR 经过 review 被 merge -> you.credit += 3
+> 1. 自己提出了一个提议 -> 该 Issue 被添加 `implement-pending` 标签 -> you.credit += 1
+> 2. 自己认领了自己的 issue (assign yourself) + 提出了 PR -> 该 PR 通过 review 并且被添加了 `publish-pending` 标签 -> you.credit += 3
 
 ### 关于 Issue 标签 (Labels) 和 种类 (Types)
 
@@ -598,16 +598,16 @@ PR titles should be natural sentences starting with a capital letter. They do no
 
 ### Credits System
 
-- **Proposal adopted:** If you voluntarily raise an issue that is later adopted, you will receive **1 credit**
-- **Proactive claim and completion:** If you claim an existing, unclaimed Issue, self-assign, and complete its Pull Request, you will receive **3 credits**
+- **Propose an article idea proactively:** If you voluntarily propose an Issue and it is later adopted, you will receive **1 credit** when the Issue is given the `implement-pending` label
+- **Proactive claim and completion:** If you claim an existing, unclaimed Issue, self-assign, and complete its Pull Request, you will receive **3 credits** when the PR is given the `publish-pending` label
 - **Assigned task completion:** If we assign you an Issue and you complete its corresponding Pull Request, you will receive **2 credits**
 - **Collaborative completion:** If multiple people collaborate on a Pull Request, each contributor will receive **1–2 credits**, depending on whether they completed it proactively
 - **Overdue incompletion:** If you fail to complete the milestone by its due date for a long time, you risk having credits deducted
 
 > For example, if you successfully complete the entire process from proposing an idea to submitting the manuscript as shown below, you will be awarded a total of 4 credits.
 >
-> 1. When you propose an idea yourself -> you.credit += 1
-> 2. When you claim your own issue (assign yourself) and then propose a PR, and finally the PR is reviewed and merged -> you.credit += 3
+> 1. When you propose an idea yourself -> the Issue is given the `implement-pending` label -> you.credit += 1
+> 2. When you claim your own issue (assign yourself) and then propose a PR, and finally the PR is reviewed -> the PR is given the `publish-pending` label -> you.credit += 3
 
 ### About Issue Types and Labels
 
