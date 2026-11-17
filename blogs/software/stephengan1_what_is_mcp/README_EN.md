@@ -43,6 +43,7 @@ MCP uses JSON-RPC to structure messages exchanged between a Client and a Server.
 **Streamable HTTP** carries messages over HTTP. The Client exchanges messages with an MCP endpoint through HTTP requests, and the Server returns the corresponding responses. This transport can be used with either local or remote Servers.
 
 The difference lies in how messages are transmitted: stdio uses a process's standard input and output streams, while Streamable HTTP uses HTTP. The choice depends on the communication and deployment requirements of the Client and Server.
+
 ## 3. How Is MCP Different from an API?
 
 An API defines what a service can do and how another program can call it. For example, a weather API accepts query parameters and returns forecast data.
