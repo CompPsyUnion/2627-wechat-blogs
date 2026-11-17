@@ -34,15 +34,15 @@ Host 把工具信息提供给模型。用户提问后，模型可能选择天气
 
 除了可以执行操作的 **Tools（工具）**，MCP 还定义了用于提供数据的 **Resources（资源）**，以及可复用的 **Prompts（提示词模板）**。不同 Server 可以按需要提供其中一种或多种能力。
 
-### stdio 和 HTTP 有什么区别？
+### stdio 与 Streamable HTTP 有什么关系？
 
-MCP 使用 JSON-RPC 组织请求与响应，消息还需要通过具体的传输方式送到对方。
+MCP 使用 JSON-RPC 格式组织 Client 与 Server 之间的消息，并通过传输机制发送这些消息。MCP 定义了两种标准传输机制：stdio 和 Streamable HTTP。
 
-**stdio** 指标准输入和标准输出。AI 应用通常在本地启动一个 Server 进程，通过进程的输入、输出流交换消息。
+**stdio** 使用标准输入（stdin）和标准输出（stdout）传递消息。通常由 Client 在本地启动 MCP Server 进程，并通过该进程的输入和输出流交换 JSON-RPC 消息。
 
-**Streamable HTTP** 则通过 HTTP 传递消息，可以连接本机运行的 Server，也可以连接远程 Server。
+**Streamable HTTP** 通过 HTTP 传递消息。Client 通过 HTTP 请求与 MCP endpoint 交换消息，Server 返回相应的响应。这种方式既可以连接本地 Server，也可以连接远程 Server。
 
-容易混淆的是，**通信方式和部署位置不是一回事**。stdio 常见于本地进程通信，但本地 Server 也可以使用 HTTP；HTTP 也不等于一定要连接云端服务。
+两者的区别在于消息传递通道：stdio 使用进程的标准输入和输出流，而 Streamable HTTP 使用 HTTP。具体选择取决于 Client 与 Server 的通信和部署需求。
 
 ## 三、MCP 和 API 有什么不同？
 
