@@ -34,16 +34,15 @@ The Host makes this tool information available to the model. When the user asks 
 
 MCP also defines **Tools**, which allow an application to perform operations; **Resources**, which provide data for an application to read; and **Prompts**, which provide reusable prompt templates. A Server can offer one or more of these capabilities, depending on its purpose.
 
-### How Do stdio and Streamable HTTP Differ?
+### How Are stdio and Streamable HTTP Related?
 
-MCP uses JSON-RPC to structure requests and responses. A transport mechanism is needed to carry those messages between the Client and the Server.
+MCP uses JSON-RPC to structure messages exchanged between a Client and a Server. These messages are carried through a transport mechanism. MCP defines two standard transport mechanisms: stdio and Streamable HTTP.
 
-**stdio** stands for standard input and standard output. An AI application commonly starts a Server process on the local machine and exchanges messages with it through the process's input and output streams.
+**stdio** uses standard input (stdin) and standard output (stdout) to exchange messages. Typically, the Client starts a local MCP Server process and communicates with it through the process's input and output streams.
 
-**Streamable HTTP** carries messages over HTTP. It can connect to a Server running on the same machine or to a remote Server.
+**Streamable HTTP** carries messages over HTTP. The Client exchanges messages with an MCP endpoint through HTTP requests, and the Server returns the corresponding responses. This transport can be used with either local or remote Servers.
 
-The transport method and the Server's deployment location are separate choices. stdio is commonly used for local process communication, but a local Server can also use HTTP. Using HTTP does not necessarily mean connecting to a cloud-hosted service.
-
+The difference lies in how messages are transmitted: stdio uses a process's standard input and output streams, while Streamable HTTP uses HTTP. The choice depends on the communication and deployment requirements of the Client and Server.
 ## 3. How Is MCP Different from an API?
 
 An API defines what a service can do and how another program can call it. For example, a weather API accepts query parameters and returns forecast data.
