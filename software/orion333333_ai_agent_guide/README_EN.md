@@ -10,30 +10,28 @@ After leaving the familiar, predictable world of high school for the diversity o
 
 (I Won't Paste the Official Definitions Here; They're Too Long. Ask an AI If You Want to Read Them.)
 
-![AI agent system overview](img/agent-system-overview.png)
+![AI agent workflow: the roles of the user, agent, and LLM, and the tool call loop](img/agent-system-overview.png)
 
 1. Chat is like a smarter search box.
 2. An agent is like an employee. In general, using an agent gives you access to **more advanced models from the same company at higher reasoning effort levels**. Agents can also complete tasks more independently, such as operating your computer through the command line and using tools installed on it. I will go into these capabilities later. **In short, think of an agent as someone who works incredibly hard and is exceptionally capable in certain areas**.
 
-### Common AI Terms (Items 6, 7, and 8 Are the Most Important)
+### Common AI Terms (Focus on the Harness, the LLM, and How They Work Together)
 
-1. API: Think of it as a tap. In an agent or on a website, you use an "API KEY" to connect to a large language model and access the computing resources its provider offers. Those resources flow into the interface like water. Of course, you need to pay for usage in advance, and your money will flow away just as quickly. Here is a useful rule of thumb: using AI through an API generally offers less value for money than buying a subscription plan for an official agent, so beginners generally do not need APIs, except when using DSH.
-2. MCP: You can think of this as a protocol connecting a large language model to other software or websites. Through MCP, the model can quickly operate that software or those websites. (You will not need it for everyday use; I have not tried it myself yet.)
-3. skill: Rather than "skills," I find **standardized operating rules** a much easier way to understand these. You give a model a set of rules for processing its input, and it follows those rules. For example, feed it a paper and install a skill, and out comes a lovely, digestible summary of the main findings and key data.
-4. Prompts: Exactly what the name suggests: you tell the model what to do and guide it. That said, I have heard that many prompts can now limit a model's performance. It is hard to say, so I usually use less restrictive prompts. (In practice, that means fairly vague directions, because I am not entirely sure what I want either. The model follows my train of thought to help work out what I am really after.)
-5. Experts: This concept is already outdated. You can ask an AI to dig into its history; I will not go into it here.
-6. harness: The control layer around a large language model. It does not do the thinking; it manages tool calls, handles exceptions, and organizes the task loop. A harness has a major influence on how much of a model's capability can be put to use. This is why v4.1 in DSH does not feel like v4.1 elsewhere.
-7. LLM: A large language model.
-8. Oh, and one more important point: Agent = Harness + LLM.
-9. Connectors: These connect an agent to other software, such as WeChat and QQ, and can be implemented through the MCP protocol.
-10. Plugins: An agent has a kernel layer, a plugin layer, and a controller layer.
+1. API (application programming interface): An API defines how one program requests data or functionality from another and what it gets back. For example, a weather app can get forecasts through a weather service's API.
+2. LLM API (large language model API): A type of API for calling an LLM. An agent can send prompts and context to the API and receive the model's response. This usually requires an API key from the provider. Costs depend on the provider's pricing and your usage.
+3. MCP: You can think of this as a protocol connecting a large language model to other software or websites. Through MCP, the model can quickly operate that software or those websites. (You will not need it for everyday use; I have not tried it myself yet.)
+4. skill: Rather than "skills," I find **standardized operating rules** a much easier way to understand these. You give a model a set of rules for processing its input, and it follows those rules. For example, feed it a paper and install a skill, and out comes a lovely, digestible summary of the main findings and key data.
+5. Prompts: Exactly what the name suggests: you tell the model what to do and guide it. That said, I have heard that many prompts can now limit a model's performance. It is hard to say, so I usually use less restrictive prompts. (In practice, that means fairly vague directions, because I am not entirely sure what I want either. The model follows my train of thought to help work out what I am really after.)
+6. Experts: This concept is already outdated. You can ask an AI to dig into its history; I will not go into it here.
+7. harness: The control layer around a large language model. It does not do the thinking; it manages tool calls, handles exceptions, and organizes the task loop. A harness has a major influence on how much of a model's capability can be put to use. This is why v4.1 in DSH does not feel like v4.1 elsewhere.
+8. LLM: A large language model.
+9. Oh, and one more important point: Agent = Harness + LLM.
+10. Connectors: These connect an agent to other software, such as WeChat and QQ, and can be implemented through the MCP protocol.
+11. Plugins: An agent has a kernel layer, a plugin layer, and a controller layer.
 
     - Kernel (kernel layer): A minimal Agent loop that only exposes extension points. It has no knowledge of any plugins and communicates only through Hook interfaces.
     - Plugin (plugin layer): Implements specific Hooks and attaches to an individual session to change the Agent's behavior.
     - Controller (controller layer): Orchestrates multiple sessions and can combine plugins, while the plugins themselves have no knowledge of the controller.
-
-- Jailbreaking: Inducing a model to bypass its safety restrictions.
-- Overfitting: When a model is overly influenced by its training data and its ability to generalize declines.
 
 I cannot think of any other particularly important beginner terms for now. Feel free to look up any terms that catch your interest.
 
@@ -109,20 +107,13 @@ The key point: do not dump the entire task on an agent. Pay attention to demos, 
 
 ## Part Four: Understanding Agents' Limitations
 
-- **Account security.** Using an agent to browse a website that requires a password can expose the password.
-- **Website coverage.** An agent may be unable to read all the content on a page. The LLM may omit information from its summary, and the website’s measures against scraping can restrict access.
+- **Account security:** Using an agent to browse a site that requires a password can expose that password.
+- **Website coverage:** An agent may not be able to read everything on a page, and the LLM may leave information out of its summary. The site's measures against scraping may also limit access.
+- **Research ideas:** It is hard to come up with an original research idea by relying on AI alone, but you can use it to explore ideas of your own. A model's outputs are shaped by its training data. Try installing a skill called ARS-Codex and discussing your idea with it. Like Aristotle, it will probe your thinking and help you clarify it. You can look into this further online.
+- **Computer troubleshooting:** How well troubleshooting goes depends heavily on the LLM and agent you use. With a less capable model or agent, the process can be an ordeal.
+- **Writing and expression:** After seeing enough AI-generated slide decks, PDFs, and articles, I start to spot recurring patterns. Sometimes I can even guess which agent wrote them. If you want to make something that sounds like you, put your own thinking first.
 
-### Agents Struggle to Come Up With Original Research Ideas Independently, but Can Help You Explore Ideas
-
-However capable AI may be, it still outputs existing information. After all, it relies on text-based training and probability. So, if you want to rely entirely on AI to produce an outstanding original idea, that will be difficult. You can install a skill called ARS-Codex. Discuss your idea with it, and it will question your thinking in depth, like Aristotle, until your idea is in excellent shape. You can look into this further online.
-
-### Computer Troubleshooting Depends Heavily on the LLM's Intelligence
-
-Weak models and agents can make this process an ordeal.
-
-### Agents Write Poorly: You Can Tell at a Glance Whether a PPT, PDF, or Article Was Made by AI, and With Enough Exposure You Can Even Tell Which Agent Made It. The Results Are Readable, but Seeing Too Many Gets Sickening, So Put the Human Brain First When You Want to Create Something Beautiful
-
-I have already discussed how to make AI writing more palatable. Let me emphasize it again: please use AI less often to churn out unreadable rubbish. We already spend enough time talking to AI every day. I really do not want to open a WeChat post only to find another article written by AI; I am worn out from reading them. By now, you should be able to tell that I wrote this article myself. In this age of AI everywhere, can you feel the effort I have put into it?
+  I have already discussed how to make AI writing more palatable. Let me emphasize it again: please use AI less often to churn out unreadable rubbish. We already spend enough time talking to AI every day. I really do not want to open a WeChat post only to find another article written by AI; I am worn out from reading them. By now, you should be able to tell that I wrote this article myself. In this age of AI everywhere, can you feel the effort I have put into it?
 
 ## Part Five: Some Pitfalls When Using AI Agents
 
