@@ -63,7 +63,6 @@ CC Switch is a desktop configuration tool for managing model providers, API sett
 
 1. PI is a minimalist, open-source harness. That means exactly what it sounds like: it has no model of its own, so you need to buy an API key to use it. By default, it only has a few tools for reading, writing, and editing files, plus bash. In other words, when you open it, you get a terminal, with no graphical interface or the other built-in features you may know from agents: plugins, connectors, built-in experts, and so on. Its advantages are a small footprint, both in storage and token usage; extensive customization (you can even use Claude Code); and extremely tight cost control. You need to add plenty of plugins yourself to make it useful.
 2. Still, there is no need to focus on it too much at this stage. You do not need it yet, and it will be easy to learn once you are comfortable with the basics of agents.
-3. This is my roommate's PI setup. As you can see, it runs without a graphical interface to keep memory use as low as possible. You can also see Claude Code in the screenshot. With plugins, PI can use other leading harnesses, which is a nice perk. ![Claude Code terminal interface](img/claude-code-terminal.png)
 
 ## Part Three: Common Uses for AI Agents
 
@@ -107,7 +106,7 @@ The key point: do not dump the entire task on an agent. Pay attention to demos, 
 
 ## Part Four: Understanding Agents' Limitations
 
-- **Account security:** Using an agent to browse a site that requires a password can expose that password.
+- **Account security:** Using an agent to browse a site that requires a password can expose that password. Avoid entering your password in the chat. Logging in yourself before handing control back to the agent can reduce the risk, although some risk remains.
 - **Website coverage:** An agent may not be able to read everything on a page, and the LLM may leave information out of its summary. The site's measures against scraping may also limit access.
 - **Research ideas:** It is hard to come up with an original research idea by relying on AI alone, but you can use it to explore ideas of your own. A model's outputs are shaped by its training data. Try installing a skill called ARS-Codex and discussing your idea with it. Like Aristotle, it will probe your thinking and help you clarify it. You can look into this further online.
 - **Computer troubleshooting:** How well troubleshooting goes depends heavily on the LLM and agent you use. With a less capable model or agent, the process can be an ordeal.
