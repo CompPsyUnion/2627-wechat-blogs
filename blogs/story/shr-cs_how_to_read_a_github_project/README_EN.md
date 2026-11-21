@@ -1,65 +1,32 @@
 # You Found a GitHub Project. Which File Do You Read First?
 
-It's one in the morning, and you come across an interesting GitHub project. The description sounds promising, the demo looks good, so you give it a star and clone it to your computer.
+Finding an interesting project on GitHub, watching its demo, giving it a star, and downloading the code usually takes only a few minutes. The harder part often comes when you open the folder. Dozens of files sit in front of you, and even figuring out what one of them calls can take a while.
 
-You open the folder. Dozens of files. You click one: more than three hundred lines. You try another and barely recognize the imports at the top.
+For a first read, it helps to choose a specific goal, such as running an example from the README and then following how one of its parameters is handled. Using Requests, the Python HTTP library, we'll work from the documentation into the source and look at a few details that are easy to overlook along the way.
 
-“I'll look at it tomorrow.”
+## Find a Question to Follow in the README
 
-And there it stays, taking up a little space on your drive.
+The README usually explains what a project does, how to install it, and how to get started. Pay attention to the documentation it links to and the version its examples describe. If you have an older release installed while browsing the latest code on `main`, parameters, directories, or even function names may differ. Use the branch selector to switch to the tag matching your version before continuing.
 
-Reading someone else's project for the first time can feel like this. Every file seems to matter, but none looks like an obvious place to start. Go in thinking “I need to understand this whole thing,” and you'll quickly realize just how much you're asking of yourself.
+It also helps to recognize files by their purpose. `docs/` holds documentation, `src/` contains the implementation, `tests/` holds tests, and `.gitignore` specifies untracked files that Git should ignore. In Requests, entries such as `*.pyc`, `.venv/`, and `.pytest_cache/` give you clues about its use of Python, virtual environments, and pytest. Directory names vary between projects, so check the README for the actual layout.
 
-Try a smaller question: How do I use it? Where does that feature I just tried actually happen?
+![Requests repository homepage showing docs, src/requests, tests, and .gitignore, with documentation and community links in the sidebar](img/requests-repository.jpg)
 
-## Get a Rough Idea of What the Files Are For
+*Figure 1 shows the Requests repository layout. The sidebar also links to its license, contribution guide, and security policy.*
 
-Recognizing a few common names makes things easier later.
+The introductory examples for Requests use `requests.get()`. Suppose you want to understand how the dictionary passed to `params` becomes part of a URL. Start with the relevant section of the Quickstart to check what inputs it accepts, then follow the implementation. You'll have a set of inputs and results to compare with the code as you read.
 
-- `README` and `docs/`: an introduction and instructions for people using the project.
-- `src/` and `tests/`: the implementation and its tests, where you can investigate how things work.
-- `.gitignore` and other configuration files: instructions for Git and the other tools the project uses.
-- `LICENSE`, `CONTRIBUTING.md`, and `CODE_OF_CONDUCT.md`: things to read when reusing code or joining the community.
+## Follow One Parameter Through the Source and Tests
 
-![Requests repository homepage showing docs, src/requests, tests, and .gitignore, with README, license, and contribution links in the sidebar](img/requests-repository.jpg)
+Requests is a library called by other programs, so you can start with the `get()` function you've just used. In `src/requests/api.py`, it passes the parameters to the general-purpose `request()` function, which uses `Session.request()` to continue preparing the request. Following that preparation process eventually leads to `prepare_url()` in `src/requests/models.py`, where the URL is processed.
 
-*Figure 1: The Requests repository on GitHub. Locate the documentation, source, and tests before deciding where to go next. The sidebar also links to the license and contribution guide.*
+To explore edge cases, turn to `tests/test_requests.py`. The test named `test_params_are_added_before_fragment` checks where new parameters belong when the original URL already contains a query string and a fragment identifier. Compare the input `url` with the `expected` result, then read the assertion at the end to see what behavior the test requires.
 
-Real projects won't always follow this layout. Some have no `src/` directory; others keep their documentation on a separate website. Understanding what you're looking for helps even when the names are different.
+![Requests test for the position of new parameters, showing input URLs, expected URLs, and the assertion](img/requests-params-test.jpg)
 
-## You've Read the README. Now What?
+*In Figure 2, the second test case preserves the existing `key=value` and adds `a=b` before `#fragment`.*
 
-Starting with the `README` is usually a safe bet. You don't have to read every word straight away. First, find out what the project does, how to install it, and whether there's a short example you can run.
-
-Take Requests, the Python library. Its README gives you an installation command and an example using `requests.get(...)`. Once you've got an example working, pick something you'd like to understand. For instance: how does the dictionary passed to `params` become the parameters at the end of a URL?
-
-That question gives you a reason to open the next file.
-
-### src/: Start with the Feature You Just Used
-
-Some projects have a startup file such as `main.py` or `index.js`, which can be a useful starting point. Requests is a library called by other programs, though, so looking for `get()` is more useful than hunting for a file named main.
-
-Find `get()` in `src/requests/api.py`, and you'll see that it passes the parameters along rather than building the URL itself. Follow the calls, and you'll find the URL preparation code in `prepare_url()` in `src/requests/models.py`.
-
-If you run into authentication, cookies, or connection management along the way, it's fine to leave those for later. For now, keep track of what happens to `params`.
-
-### docs/: Go Back to the Usage Guide When You Get Stuck
-
-If you're still unsure what `params` accepts, you don't have to work it out from the source. The Requests Quickstart has a section on URL parameters, with examples showing how to pass a dictionary and what the resulting URL looks like.
-
-You don't need to read the documentation from page one, either. Search for the relevant section, read what you need, and carry on. If you only wanted to use the library, solving your problem is a perfectly good place to stop.
-
-### tests/: Some Details Are Easier to Understand Through Examples
-
-Tests often cover cases the documentation doesn't discuss in detail. Search for `params` in `tests/test_requests.py`, and you'll find a very specific one: if a URL already has parameters and a `#fragment`, where should the new parameters go?
-
-The expected result keeps the existing parameters and adds the new ones before `#fragment`.
-
-![Requests parameter test, with highlighted inputs, expected URLs, and an assertion checking that new parameters appear before the fragment](img/requests-params-test.jpg)
-
-*Figure 2: The highlighted test pairs each input `url` with its `expected` result and checks the prepared URL with an `assert`. The screenshot adds `a=b`; the example below uses `page=2`, following the same rule.*
-
-Once you've installed Requests, you can try it yourself. This code only prepares a request; it doesn't actually visit the website:
+Once Requests is installed, you can prepare a request yourself to check the result. This step constructs the URL before any connection to the server is made.
 
 ```python
 import requests
@@ -72,48 +39,64 @@ request = requests.Request(
 print(request.prepare().url)
 ```
 
-The printed URL ends with `?lang=zh&page=2#results`. Now go back to the test's inputs and assertions. Those few lines should make more sense.
+The output ends with `?lang=zh&page=2#results`. Change the values in `params` and try again to get a better feel for how parameters are encoded and how the existing query string is preserved.
 
-### .gitignore: Worth a Quick Look
+## Take Time to Read the License Before Reusing Code
 
-This file tells Git which untracked files to ignore. Local virtual environments, caches, and build output usually don't need to be committed to the repository.
+Before bringing code into your own project, check what its license permits you to modify and distribute, and which notices you need to retain. All seven licenses below allow commercial use, each with its own conditions. The text of the specific license version sets out the full requirements.
 
-It can also give you clues about the tools involved. The Requests `.gitignore` includes `*.pyc`, `.venv/`, and `.pytest_cache/`, leaving fairly clear traces of Python and pytest. It's no substitute for the documentation, but a quick glance can be revealing.
+| License | Requirements to consider when reusing, modifying, or distributing code |
+| --- | --- |
+| MIT | Include the copyright and license notices with copies or substantial portions of the software. Distribution in closed-source products is permitted. |
+| BSD-3-Clause | Preserve the copyright notice, license conditions, and disclaimer. The names of the copyright holder and contributors cannot be used to endorse derived products without permission. |
+| Apache-2.0 | Provide a copy of the license, preserve relevant notices, and identify modified files. It includes an explicit patent grant. If the original project includes a NOTICE file, retain the applicable attribution notices as required by the license. |
+| MPL-2.0 | When distributing the software, make the source for MPL-covered files and their modifications available to recipients. Those files remain covered by the MPL, while independent files may use other licenses. |
+| LGPL-3.0 | Distributing the library and its modifications carries obligations such as providing source code. Applications using the library may have other licenses, but distributing a combined work also requires meeting conditions that allow users to replace or relink the library. |
+| GPL-3.0 | Distribute modified versions or derivative works covered by the GPL under the GPL and provide the corresponding source code. Preserve notices and identify changes. |
+| AGPL-3.0 | Distribution carries obligations such as keeping the same license and providing corresponding source code. When users interact with a modified version over a network, they must also be offered access to the corresponding source for that version. |
 
-## A Few More Files You Shouldn't Keep Skipping
+Requests provides an easy-to-miss example. It uses Apache-2.0 and has both a `LICENSE` file and a `NOTICE` file containing attribution information in its root directory. Check both when reusing it. If a repository has no license, contact the author to clarify permission. GitHub's default rights to view and fork a repository do not grant general permission to reuse its contents.
 
-Before using a piece of the code in your own project, look at **`LICENSE`**. MIT, Apache-2.0, and GPL all allow reuse under certain conditions, but those conditions differ. MIT requires you to preserve copyright and license notices; Apache-2.0 also includes patent provisions; distributing modified versions covered by GPLv3 involves requirements to provide corresponding source code and use the same license. “It's open source” isn't enough information to decide how you can reuse it. If you can't find a license, don't assume the author has granted permission to reuse the code.
+## Look in .github for Contribution Guidelines
 
-If you'd like to submit a pull request, read **`CONTRIBUTING.md`**. It often explains how to set up a development environment, run the tests, and whether you should open an issue before making changes. Sometimes following the README gets the software installed but leaves you unable to run its tests: the README explains how to use it, while the contribution guide fills in what you need for development.
+The Requests contribution guide is at `.github/CONTRIBUTING.md`, and it links to more detailed development documentation. Before submitting a pull request, check the development dependencies, how to run the tests, and what tests you are expected to add. It's also worth checking where to ask usage questions. Requests directs those to Stack Overflow, reserving Issues for bug reports and feature requests.
 
-**`CODE_OF_CONDUCT.md`** sets out expectations for behavior in the community. It may also tell you whom to contact about harassment or other problems. Give it a read before joining the discussion.
+Before joining a discussion, read `CODE_OF_CONDUCT.md` for the community's expectations and reporting channels. Report security vulnerabilities through the process specified in `SECURITY.md`. To review version changes, look for `CHANGELOG.md` or a similar file. In Requests, that file is called `HISTORY.md`.
 
-If these files aren't in the repository root, check the repository sidebar or `.github/`. You'll also often find version changes in `CHANGELOG.md`. If you discover a security issue, follow the reporting instructions in `SECURITY.md`.
+## Trace the History Behind the Code
 
-## There's More to Read on the GitHub Website
+Once you're signed in to GitHub, a code search such as `repo:psf/requests path:tests params` restricts results to files in the Requests repository whose paths contain `tests`. If you get too many results, try a specific function name or exception message to narrow the search.
 
-When you hit an error, take a distinctive part of the message and search **Issues**. Include closed issues, too. Someone may already have asked the same question, with the solution sitting in the replies.
+To investigate why a line was written a certain way, open the file's Blame view and follow the commit messages to related issues and pull requests. One detail can complicate this process. Formatting an entire codebase can leave many lines attributed to the same commit. Requests records its automatic formatting commit in `.git-blame-ignore-revs`. From the root of a local Requests checkout, run the following command to skip the listed commits and trace earlier changes.
 
-If a piece of code seems unnecessarily complicated, look for the relevant **pull request**. The code shows what changed; the discussion may explain why another approach was dropped.
+```bash
+git blame --ignore-revs-file .git-blame-ignore-revs -- src/requests/models.py
+```
 
-Commit history is worth browsing as well, but there's more to learn than how often someone commits. When choosing a version to use, check the **Releases** notes, compatibility information, and known issues. The latest code on `main` may not have gone through the same checks as a release.
+When you find code you want to save for reference, press `y` on its GitHub file page to turn the branch URL into a link to a specific commit. You can then select the line numbers and copy the address. When you return to your notes or share the code with someone, the link will still show the version you were reading, with the same line numbers.
 
-## Try This the Next Time You Open a Project
-
-Read the README, get a small example working, and pick a feature from it that you'd like to investigate. Look for the implementation. When you get stuck, check the docs, browse the tests, or search Issues. Read the license before reusing code and the contribution guide before contributing.
-
-You don't need to finish the whole repository on your first visit. Understanding how one parameter gets passed around, or what happens when you click one button, gives you something useful to write down. Next time you open the project, you'll have somewhere to pick up from.
-
-Which project has been sitting in your starred list the longest without a proper look? You could start there.
+The next time you open a project you've had starred for a while, start by running one example and keep notes linking the function you used, its tests, and the specific version of the code. Along with an understanding of how the feature works, you'll have a place to pick up your reading next time.
 
 ## References
 
-> Requests repository: https://github.com/psf/requests
+> Requests repository and source of Figure 1. The source files, NOTICE, and HISTORY.md discussed in this article are available here. https://github.com/psf/requests
 >
-> Figure 1 was captured from the repository homepage above. Figure 2 shows the parameter test: https://github.com/psf/requests/blob/6f66281a1d6326b1b9c4ac09ca30de0fc4e6ef43/tests/test_requests.py#L150-L165
+> Requests Quickstart. https://requests.readthedocs.io/en/latest/user/quickstart/
 >
-> Requests Quickstart: https://requests.readthedocs.io/en/latest/user/quickstart/
+> Parameter test shown in Figure 2. https://github.com/psf/requests/blob/6f66281a1d6326b1b9c4ac09ca30de0fc4e6ef43/tests/test_requests.py#L150-L165
 >
-> GitHub guide to repository licensing: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository
+> Comparison of common license conditions, with links to the full license texts. https://choosealicense.com/appendix/
 >
-> GNU GPLv3 license text: https://www.gnu.org/licenses/gpl-3.0.html
+> Apache-2.0 license text. Section 4 covers redistribution and NOTICE requirements. https://www.apache.org/licenses/LICENSE-2.0
+>
+> GitHub's guidance on repository licensing and default permissions. https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository
+>
+> Requests contribution guide. https://github.com/psf/requests/blob/main/.github/CONTRIBUTING.md
+>
+> GitHub Code Search syntax. https://docs.github.com/en/search-github/github-code-search/understanding-github-code-search-syntax
+>
+> Requests record of the formatting commit to ignore. https://github.com/psf/requests/blob/main/.git-blame-ignore-revs
+>
+> Git blame options. https://git-scm.com/docs/git-blame
+>
+> GitHub's guide to permanent file links. https://docs.github.com/en/repositories/working-with-files/using-files/getting-permanent-links-to-files

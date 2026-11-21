@@ -1,65 +1,32 @@
 # 拿到一个 GitHub 项目，到底该从哪个文件开始看？
 
-凌晨一点，刷到一个挺有意思的 GitHub 项目。介绍看着不错，演示效果也不错，点个 Star，顺手 clone 到电脑上。
+在 GitHub 上发现一个有意思的项目，看完演示、点下 Star，再把代码下载到电脑上，通常花不了几分钟。真正让人停下来的，往往是打开文件夹之后的那一刻。几十个文件摆在眼前，随便点开一个，光是弄清它调用了哪些东西，就足够花上一阵子。
 
-打开文件夹，几十个文件排在那里。点进一个，三百多行；换一个，连开头的 import 都没认全。
+初次阅读时，可以先给自己一个具体的目标，例如跑通 README 里的示例，再弄明白其中一个参数的处理过程。下面以 Python 的 HTTP 请求库 Requests 为例，看看怎样从使用文档走到源码，以及沿途有哪些容易忽略的细节。
 
-「算了，明天再看。」
+## 从 README 找到一个值得追下去的问题
 
-然后这个项目就在硬盘里住下了。
+README 通常能回答项目的用途、安装方法和基本用法。阅读时可以留意它链接的文档站点，以及示例对应的版本。如果本地装的是旧版，网页上看的却是 `main` 的最新代码，就可能遇到参数、目录甚至函数名对不上的情况，可以在分支选择器里切到对应版本的 tag 再继续。
 
-第一次读别人的项目，容易卡在这里：每个文件好像都有用，又不知道该先点哪个。尤其是带着「我要把它读懂」的想法进去，很快就会发现，这个目标实在有点大。
+仓库里的文件也可以先按用途辨认。`docs/` 放文档，`src/` 放实现，`tests/` 放测试，`.gitignore` 指定 Git 应忽略的未跟踪文件。Requests 的 `.gitignore` 里有 `*.pyc`、`.venv/` 和 `.pytest_cache/`，能看出 Python、虚拟环境和 pytest 的使用痕迹。不同项目的目录名会有差异，实际位置仍要结合 README 确认。
 
-不如先缩小一点：它怎么用？刚才那个功能，是在哪儿实现的？
+![Requests 仓库主页，展示 docs、src/requests、tests 和 .gitignore，以及右侧的文档和社区文件入口](img/requests-repository.jpg)
 
-## 先看看这些文件都是干什么的
+*图 1 展示了 Requests 的仓库目录，右侧还可以找到许可证、贡献指南和安全说明。*
 
-先把常见文件认个大概，后面会省事不少。
+Requests 的入门示例会用到 `requests.get()`。假如我们想知道传入 `params` 的字典怎样变成网址参数，就可以先查快速入门中的相关章节，确认它接受什么输入，再去追实现。这样读源码时，手里已经有一组可以对照的输入和结果。
 
-- `README`、`docs/`：项目介绍和使用文档，给人看。
-- `src/`、`tests/`：程序的实现和测试，看看它怎么工作。
-- `.gitignore` 等配置文件：告诉 Git 或其他工具该怎么处理这个项目。
-- `LICENSE`、`CONTRIBUTING.md`、`CODE_OF_CONDUCT.md`：复用代码、参与贡献时要了解的规矩。
+## 用一个参数串起源码和测试
 
-![Requests 仓库主页：文件列表中有 docs、src/requests、tests 和 .gitignore，右侧可找到 README、许可证和贡献指南](img/requests-repository.jpg)
+Requests 是供其他程序调用的库，可以从刚用过的 `get()` 开始找。在 `src/requests/api.py` 中，它把参数交给通用的 `request()`，后者通过 `Session.request()` 继续准备请求。沿着准备过程，最终能找到 `src/requests/models.py` 中负责处理 URL 的 `prepare_url()`。
 
-*图 1：Requests 仓库的实际页面。先认出文档、源码和测试的位置，再按需要点进去；右侧也能找到许可证和贡献指南。*
+如果想看边界情况，可以转到 `tests/test_requests.py`。其中的 `test_params_are_added_before_fragment` 专门检查原网址带有查询参数和片段标识时，新参数应该放在哪里。先对照 `url` 和 `expected` 中的输入与预期结果，再看最后的断言，就能读出它期待的行为。
 
-真实项目未必长这样：有的没有 `src/`，有的文档放在单独的网站。先认用途，名字对不上也没关系。
+![Requests 中检查新增参数位置的测试，展示输入网址、预期网址以及断言](img/requests-params-test.jpg)
 
-## README 看完，再往哪走？
+*图 2 的第二组数据保留了原来的 `key=value`，并把新增的 `a=b` 放在 `#fragment` 前面。*
 
-先看 `README`，通常没什么争议。但也不用一口气读到底。先找它是做什么的、怎么安装、有没有一段能直接跑的例子。
-
-拿 Python 的 Requests 来说，README 里很快就能找到安装命令和 `requests.get(...)` 的用法。跑通之后，再挑一个你想弄明白的地方。比如：`params` 接收的那个字典，最后怎么变成了网址后面的参数？
-
-有了这个问题，后面的文件就好找了。
-
-### src/：从你刚用过的功能找起
-
-有些项目有 `main.py`、`index.js` 这样的启动文件，可以从那里往下看。但 Requests 是一个供别的程序调用的库，找 `get()` 比找一个叫 main 的文件有用得多。
-
-在 `src/requests/api.py` 里找到 `get()`，会发现它没有直接拼网址，而是把参数继续传了下去。沿着调用找，处理 URL 的代码在 `src/requests/models.py` 的 `prepare_url()` 里。
-
-中间碰到认证、Cookie、连接管理，暂时跳过去也没事。先把 `params` 的去向看明白，其他问题以后再说。
-
-### docs/：源码看不下去，就回来查用法
-
-如果还不清楚 `params` 到底接受什么，先别急着猜源码。Requests 的快速入门就有一节讲 URL 参数，字典怎么传、结果长什么样，都有例子。
-
-读文档也不用从第一页开始。带着问题搜到相关章节，看完继续；如果你只是想把库用起来，问题解决了就可以收工。
-
-### tests/：有些细节，例子比解释好懂
-
-测试里经常藏着文档没展开讲的情况。在 `tests/test_requests.py` 里搜 `params`，就能找到一个很具体的测试：原网址已经有参数，还带着 `#fragment`，新参数应该放在哪儿？
-
-它给出的预期是：保留原参数，把新参数加在 `#fragment` 前面。
-
-![Requests 参数测试：高亮部分给出原网址与预期结果，并用断言检查新增参数位于 fragment 前面](img/requests-params-test.jpg)
-
-*图 2：高亮部分就是这个测试。`url` 是原网址，`expected` 是预期结果，最后的 `assert` 检查两者是否按预期对应。截图中的新增参数是 `a=b`，下面的示例换成了 `page=2`，规则一样。*
-
-装好 Requests 后，可以自己试试。下面这段只准备请求，不会真的访问网站：
+装好 Requests 后，可以自己准备一个请求来验证，这一步只构造网址，尚未访问服务器。
 
 ```python
 import requests
@@ -72,48 +39,64 @@ request = requests.Request(
 print(request.prepare().url)
 ```
 
-输出的网址结尾是 `?lang=zh&page=2#results`。再回头看测试里的输入和断言，刚才那几行就容易懂了。
+输出结尾是 `?lang=zh&page=2#results`。把 `params` 的值换掉再试一次，比单看函数说明更容易理解参数如何被编码、已有查询字符串如何被保留。
 
-### .gitignore：顺手看一眼就行
+## 复用代码前，单独读一读 License
 
-这个文件告诉 Git 哪些文件不用跟踪。像本地虚拟环境、缓存、构建产物，通常不需要提交进仓库。
+准备把代码用进自己的项目时，需要确认许可证允许怎样修改和分发，以及要保留哪些声明。下面七种许可证都允许商业使用，各自附带的条件值得分开看，具体以对应版本的原文为准。
 
-顺便还能猜猜技术栈：Requests 的 `.gitignore` 里有 `*.pyc`、`.venv/` 和 `.pytest_cache/`，Python 和 pytest 的痕迹就很明显。它不能代替文档，不过扫两眼也挺有意思。
+| 许可证 | 复用、修改和分发时值得关注的要求 |
+| --- | --- |
+| MIT | 随代码副本或实质部分保留版权和许可声明，允许闭源分发。 |
+| BSD-3-Clause | 保留版权声明、许可条件和免责声明，未经许可不得借作者或贡献者的名义为衍生产品背书。 |
+| Apache-2.0 | 提供许可证副本、保留相关声明并标明文件修改，包含明确的专利授权。原项目附带 NOTICE 时，还需按条款保留其中适用的归属声明。 |
+| MPL-2.0 | 分发时，需要让接收者能够取得受 MPL 覆盖的文件及其修改的源代码。这些文件继续受 MPL 约束，独立文件可以采用其他许可证。 |
+| LGPL-3.0 | 分发库及其修改时有提供源代码等义务。调用它的应用可采用其他许可证，但组合分发还需满足用户替换、重新链接库等条件。 |
+| GPL-3.0 | 分发受 GPL 约束的修改版或衍生作品时，须按 GPL 授权并提供对应源代码，同时保留声明、标明修改。 |
+| AGPL-3.0 | 分发时有沿用许可证、提供对应源代码等义务。修改后的程序通过网络与用户交互时，还须向这些用户提供取得该版本对应源代码的机会。 |
 
-## 还有几个文件，别一直跳过
+Requests 就有一个容易漏看的例子。它采用 Apache-2.0，根目录除了 `LICENSE`，还有记录归属信息的 `NOTICE`，复用时需要一起核对。遇到没有许可证的仓库，则应先联系作者确认授权，GitHub 默认的查看、fork 权限并未提供一般性的复用许可。
 
-想把一段代码用进自己的项目，先看看 **`LICENSE`**。MIT、Apache-2.0 和 GPL 都允许在一定条件下复用代码，条件却不一样。比如，MIT 要求保留版权和许可声明；Apache-2.0 还有专利许可等条款；分发受 GPLv3 约束的修改版本时，则涉及提供对应源代码和沿用许可证的要求。不能只凭一句「开源的，随便用」就搬走代码。没找到许可证，也别默认作者已经授权复用。
+## 找不到贡献指南，也可以看看 .github
 
-想给作者提 PR，就翻翻 **`CONTRIBUTING.md`**。开发环境怎么装、测试怎么跑、改之前要不要先开 Issue，往往都写在这里。有时候照着 README 装完，还是跑不了测试，因为 README 教的是怎么使用，贡献指南才会补上开发需要的东西。
+Requests 的贡献指南位于 `.github/CONTRIBUTING.md`，其中还链接了更详细的开发文档。准备提 PR 时，应先了解开发依赖、测试方法和补充测试的要求。使用中遇到疑问，也值得先看提问渠道，Requests 就明确把用法问题引导到 Stack Overflow，将 Issues 留给缺陷报告和功能请求。
 
-**`CODE_OF_CONDUCT.md`** 讲的是社区里的行为约定，也可能写着遇到骚扰等问题该联系谁。准备参与讨论的话，可以先扫一遍。
+参与讨论前可以读 `CODE_OF_CONDUCT.md`，了解社区行为约定和问题反馈渠道。报告安全漏洞时，应按 `SECURITY.md` 指定的方式联系维护者。查看版本变化，则可以找 `CHANGELOG.md` 或类似文件，Requests 对应的文件名是 `HISTORY.md`。
 
-根目录找不到这些文件，可以再看仓库侧栏或 `.github/`。另外，`CHANGELOG.md` 常用来查版本变化；发现安全问题时，先按 `SECURITY.md` 的说明联系维护者。
+## 找到代码以后，怎样继续查它的来历
 
-## 别忘了 GitHub 网页上也有东西可看
+在 GitHub 登录后，代码搜索可以加上 `repo:psf/requests path:tests params`，把范围限定到这个仓库路径含 `tests` 的文件。结果过多时，换成更具体的函数名或异常文本，通常比只搜一个宽泛的功能词更容易定位。
 
-报错之后，可以把报错里比较特别的一小段拿去搜 **Issues**。记得也看看已经关闭的：你碰到的问题，可能早就有人问过，解决办法就在下面的回复里。
+想知道某行代码为什么这样写，可以打开文件的 Blame，沿提交信息查相关 Issue 和 PR。这里还有个细节，整库格式化可能让许多行显示同一次修改。Requests 用 `.git-blame-ignore-revs` 记录了自动格式化提交，本地在仓库根目录运行下面的命令，可以跳过这类提交，继续查找此前的修改。
 
-如果你想知道某段代码为什么要绕个弯，可以找相关的 **PR**。改了哪几行，源码里能看到；为什么放弃另一种写法，有时得看讨论才知道。
+```bash
+git blame --ignore-revs-file .git-blame-ignore-revs -- src/requests/models.py
+```
 
-提交历史也值得翻，但别只数提交有多勤。想把项目用起来，还是要看 **Releases** 的说明、兼容性和已知问题，选适合自己的版本。`main` 上最新的代码未必经过了同样的发布检查。
+查到需要保存的代码时，还可以在 GitHub 文件页按 `y`，把分支链接换成固定提交的链接，再选择行号复制地址。这样以后翻笔记或与别人讨论时，打开的仍是当时那一版代码，行号也能对得上。
 
-## 下次打开，可以这样试试
-
-先看 README，跑通一个最小例子，再从例子里挑个感兴趣的功能，去找实现。卡住了，回来查文档、翻测试、搜 Issues。准备复用代码前看许可证，准备贡献前看贡献指南。
-
-不用第一次打开就把整个仓库看完。能弄明白一个参数是怎么传的、一个按钮点下去发生了什么，就已经有东西可记了。下次再打开，也知道自己上次看到哪儿。
-
-你收藏夹里放得最久、还没认真看过的项目是哪个？不妨就从它开始。
+下次再打开收藏已久的项目，可以从跑通一个例子开始，把用到的函数、对应测试和固定版本链接记在一起。读完之后，除了知道某个功能如何实现，也留下了下次继续阅读的起点。
 
 ## 参考资料
 
-> Requests 项目仓库：https://github.com/psf/requests
+> Requests 项目与图 1 来源，文中源码、NOTICE 和 HISTORY.md 均可在仓库中找到。https://github.com/psf/requests
 >
-> 图 1 截自上述仓库主页；图 2 截自参数测试：https://github.com/psf/requests/blob/6f66281a1d6326b1b9c4ac09ca30de0fc4e6ef43/tests/test_requests.py#L150-L165
+> Requests 快速入门。https://requests.readthedocs.io/en/latest/user/quickstart/
 >
-> Requests 快速入门：https://requests.readthedocs.io/en/latest/user/quickstart/
+> 图 2 参数测试源码。https://github.com/psf/requests/blob/6f66281a1d6326b1b9c4ac09ca30de0fc4e6ef43/tests/test_requests.py#L150-L165
 >
-> GitHub 许可证说明：https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository
+> 常见许可证的条件对照及各许可证原文入口。https://choosealicense.com/appendix/
 >
-> GNU GPLv3 正文：https://www.gnu.org/licenses/gpl-3.0.html
+> Apache-2.0 原文，第 4 节说明再分发与 NOTICE 要求。https://www.apache.org/licenses/LICENSE-2.0
+>
+> GitHub 关于仓库许可证和默认权限的说明。https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository
+>
+> Requests 贡献指南。https://github.com/psf/requests/blob/main/.github/CONTRIBUTING.md
+>
+> GitHub 代码搜索语法。https://docs.github.com/en/search-github/github-code-search/understanding-github-code-search-syntax
+>
+> Requests 忽略格式化提交的记录。https://github.com/psf/requests/blob/main/.git-blame-ignore-revs
+>
+> Git blame 参数说明。https://git-scm.com/docs/git-blame
+>
+> GitHub 固定版本链接说明。https://docs.github.com/en/repositories/working-with-files/using-files/getting-permanent-links-to-files
