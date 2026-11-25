@@ -57,9 +57,13 @@ print(request.prepare().url)
 
 Requests 就有一个容易漏看的例子。它采用 Apache-2.0，根目录除了 `LICENSE`，还有记录归属信息的 `NOTICE`，复用时需要一起核对。遇到没有许可证的仓库，则应先联系作者确认授权，GitHub 默认的查看、fork 权限并未提供一般性的复用许可。
 
-## 找不到贡献指南，也可以看看 .github
+## 参与项目之前，先读贡献指南
 
-Requests 的贡献指南位于 `.github/CONTRIBUTING.md`，其中还链接了更详细的开发文档。准备提 PR 时，应先了解开发依赖、测试方法和补充测试的要求。使用中遇到疑问，也值得先看提问渠道，Requests 就明确把用法问题引导到 Stack Overflow，将 Issues 留给缺陷报告和功能请求。
+阅读源码后，如果你想报告发现的问题，或者把自己的修改提交给维护者，可以先找 `CONTRIBUTING.md`。这份文件通常称为贡献指南，会说明如何报告问题、提交 Pull Request，以及参与开发和测试时需要遵守的要求，帮助贡献者了解项目的协作流程。
+
+查找时可以先看仓库根目录，许多项目会把 `CONTRIBUTING.md` 和 `README.md` 放在一起。如果根目录没有找到，再查看 `.github/` 或 `docs/`，也可以从仓库侧栏的 Contributing 入口进入。
+
+以 Requests 为例，它的贡献指南位于 `.github/CONTRIBUTING.md`，并链接了更详细的开发文档。准备提 PR 时，可以从中了解开发依赖、测试方法和补充测试的要求。使用中遇到疑问，也值得先确认提问渠道，Requests 就明确把用法问题引导到 Stack Overflow，将 Issues 留给缺陷报告和功能请求。
 
 参与讨论前可以读 `CODE_OF_CONDUCT.md`，了解社区行为约定和问题反馈渠道。报告安全漏洞时，应按 `SECURITY.md` 指定的方式联系维护者。查看版本变化，则可以找 `CHANGELOG.md` 或类似文件，Requests 对应的文件名是 `HISTORY.md`。
 
@@ -92,6 +96,8 @@ git blame --ignore-revs-file .git-blame-ignore-revs -- src/requests/models.py
 > GitHub 关于仓库许可证和默认权限的说明。https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository
 >
 > Requests 贡献指南。https://github.com/psf/requests/blob/main/.github/CONTRIBUTING.md
+>
+> GitHub 关于贡献指南用途、存放位置及入口的说明。https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors
 >
 > GitHub 代码搜索语法。https://docs.github.com/en/search-github/github-code-search/understanding-github-code-search-syntax
 >

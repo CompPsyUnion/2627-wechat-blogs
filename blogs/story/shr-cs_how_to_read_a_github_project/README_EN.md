@@ -57,9 +57,13 @@ Before bringing code into your own project, check what its license permits you t
 
 Requests provides an easy-to-miss example. It uses Apache-2.0 and has both a `LICENSE` file and a `NOTICE` file containing attribution information in its root directory. Check both when reusing it. If a repository has no license, contact the author to clarify permission. GitHub's default rights to view and fork a repository do not grant general permission to reuse its contents.
 
-## Look in .github for Contribution Guidelines
+## Read the Contribution Guide Before Getting Involved
 
-The Requests contribution guide is at `.github/CONTRIBUTING.md`, and it links to more detailed development documentation. Before submitting a pull request, check the development dependencies, how to run the tests, and what tests you are expected to add. It's also worth checking where to ask usage questions. Requests directs those to Stack Overflow, reserving Issues for bug reports and feature requests.
+After reading the source, you may want to report a problem you've found or submit a change to the maintainers. Start by looking for `CONTRIBUTING.md`, commonly called the contribution guide. It usually explains how to report issues, submit pull requests, and meet the project's development and testing requirements, helping contributors understand how the project handles contributions.
+
+Check the repository root first, where many projects place `CONTRIBUTING.md` alongside `README.md`. If you cannot find it there, look in `.github/` or `docs/`, or follow the Contributing link in the repository sidebar.
+
+In Requests, for example, the guide is at `.github/CONTRIBUTING.md` and links to more detailed development documentation. Before submitting a pull request, use it to check the development dependencies, how to run the tests, and what tests you are expected to add. It's also worth checking where to ask usage questions. Requests directs those to Stack Overflow, reserving Issues for bug reports and feature requests.
 
 Before joining a discussion, read `CODE_OF_CONDUCT.md` for the community's expectations and reporting channels. Report security vulnerabilities through the process specified in `SECURITY.md`. To review version changes, look for `CHANGELOG.md` or a similar file. In Requests, that file is called `HISTORY.md`.
 
@@ -92,6 +96,8 @@ The next time you open a project you've had starred for a while, start by runnin
 > GitHub's guidance on repository licensing and default permissions. https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository
 >
 > Requests contribution guide. https://github.com/psf/requests/blob/main/.github/CONTRIBUTING.md
+>
+> GitHub's guide to the purpose, locations, and links for contribution guidelines. https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors
 >
 > GitHub Code Search syntax. https://docs.github.com/en/search-github/github-code-search/understanding-github-code-search-syntax
 >
